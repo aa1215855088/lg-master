@@ -16,6 +16,7 @@
         <module>lg-user-controller</module>
         <module>lg-order-controller</module>
         <module>lg-biz-web</module>
+        <module>lg-content-controller</module>
     </modules>
 
     <dependencies>
