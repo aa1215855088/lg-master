@@ -19,5 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service(version = "1.0.0",timeout = 6000)
 public class TbAddressServiceImpl extends ServiceImpl<TbAddressMapper, TbAddress> implements TbAddressService {
-	
+
+
 }

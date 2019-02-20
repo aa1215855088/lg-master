@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-02-19
  */
 @Mapper
-public interface TbAddressMapper extends MyMapper<TbAddress> {
+public interface
+TbAddressMapper extends MyMapper<TbAddress> {
 
 }

@@ -28,7 +28,7 @@ public class TbItemServiceImpl extends ServiceImpl<TbItemMapper, TbItem> impleme
     @Override
     public List<TbItem> findAll() {
         if (true) {
-            throw new ProductBizException(123,"你抛出了异常");
+            throw new ProductBizException(123, "你抛出了异常");
         }
         return this.baseMapper.selectList(new QueryWrapper<>());
     }
