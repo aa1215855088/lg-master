@@ -1,0 +1,25 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: lg-biz-controller
+
+dubbo:
+  registry:
+    address: nacos://47.105.207.20:8848
+  # 提供者需要配置扫描接口
+  # scan:
+  # base-packages: com.mxc.web.impl
+  protocol:
+    port: -1
+  # 消费者默认不检测是否有服务注册
+  consumer:
+    check: false
+
+# nacos配置中心
+#nacos:
+#  config:
+#    server-addr: 127.0.0.1:8848
+#    # 命名空间的id
+#    namespace: 7d32a129-a6ca-4ba1-a75e-96aaed89da33

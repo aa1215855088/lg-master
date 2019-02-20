@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lg.user.mapper.TbAddressMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lg.user.model.domain.TbAddress">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="province_id" property="provinceId" />
+		<result column="city_id" property="cityId" />
+		<result column="town_id" property="townId" />
+		<result column="mobile" property="mobile" />
+		<result column="address" property="address" />
+		<result column="contact" property="contact" />
+		<result column="is_default" property="isDefault" />
+		<result column="notes" property="notes" />
+		<result column="create_date" property="createDate" />
+		<result column="alias" property="alias" />
+	</resultMap>
+
+</mapper>
