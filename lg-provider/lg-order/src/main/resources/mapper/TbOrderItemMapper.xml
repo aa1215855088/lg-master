@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lg.order.mapper.TbOrderItemMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lg.order.model.domain.TbOrderItem">
+		<id column="id" property="id" />
+		<result column="item_id" property="itemId" />
+		<result column="goods_id" property="goodsId" />
+		<result column="order_id" property="orderId" />
+		<result column="title" property="title" />
+		<result column="price" property="price" />
+		<result column="num" property="num" />
+		<result column="total_fee" property="totalFee" />
+		<result column="pic_path" property="picPath" />
+		<result column="seller_id" property="sellerId" />
+	</resultMap>
+
+</mapper>
