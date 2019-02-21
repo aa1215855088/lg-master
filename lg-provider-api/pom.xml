@@ -16,6 +16,7 @@
         <module>lg-product-api</module>
         <module>lg-user-api</module>
         <module>lg-biz-api</module>
+        <module>lg-content-api</module>
     </modules>
 
 
