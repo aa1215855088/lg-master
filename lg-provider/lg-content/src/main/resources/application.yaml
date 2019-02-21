@@ -1,9 +1,21 @@
+
+
+dubbo:
+  scan:
+    base-packages: com.lg.content.service.impl
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://127.0.0.1:8848
+
+
 spring:
   ##数据库连接信息
   datasource:
-    url: jdbc:mysql://47.105.207.20:3306/pinyougoudb
+    url: jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb
     username: root
-    password: root
+    password: liu20000406
     driver-class-name: com.mysql.cj.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
@@ -26,6 +38,8 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
+  application:
+    name: lg-content-service
 
 
 mybatis-plus:
@@ -46,3 +60,5 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8005

@@ -1,9 +1,12 @@
+swagger:
+  enabled: true
+
 server:
-  port: 8083
+  port: 8081
 
 spring:
   application:
-    name: lg-order-controller
+    name: lg-product-controller
 
 dubbo:
   registry:
@@ -12,11 +15,11 @@ dubbo:
   # scan:
   # base-packages: com.mxc.web.impl
   protocol:
-    port: -1
+    port: 20884
   # 消费者默认不检测是否有服务注册
   consumer:
     check: false
-
+    timeout: 10000
 # nacos配置中心
 #nacos:
 #  config:
