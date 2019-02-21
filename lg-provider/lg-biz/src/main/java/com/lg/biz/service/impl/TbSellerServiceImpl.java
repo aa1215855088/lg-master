@@ -17,5 +17,7 @@ import com.lg.biz.service.TbSellerService;
  */
 @Service
 public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> implements TbSellerService {
-	
+	public  void add(){
+        System.out.println("hello!");
+    }
 }
