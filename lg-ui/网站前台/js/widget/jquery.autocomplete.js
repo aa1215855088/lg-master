@@ -2001,7 +2001,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 
 //>>label: Autocomplete
 //>>group: Widgets
-//>>description: Lists suggested words as the product is typing.
+//>>description: Lists suggested words as the user is typing.
 //>>docs: http://api.jqueryui.com/autocomplete/
 //>>demos: http://jqueryui.com/autocomplete/
 //>>css.structure: ../../themes/base/core.css
@@ -2213,7 +2213,7 @@ $.widget( "ui.autocomplete", {
 					// Right clicking a menu item or selecting text from the menu items will
 					// result in focus moving out of the input. However, we've already received
 					// and ignored the blur event because of the cancelBlur flag set above. So
-					// we restore focus to ensure that the menu closes properly based on the product's
+					// we restore focus to ensure that the menu closes properly based on the user's
 					// next actions.
 					if ( this.element[ 0 ] !== $.ui.safeActiveElement( this.document[ 0 ] ) ) {
 						this.element.trigger( "focus" );
@@ -2393,7 +2393,7 @@ $.widget( "ui.autocomplete", {
 		clearTimeout( this.searching );
 		this.searching = this._delay( function() {
 
-			// Search if the value has changed, or if the product retypes the same value (see #7434)
+			// Search if the value has changed, or if the user retypes the same value (see #7434)
 			var equalValues = this.term === this._value(),
 				menuVisible = this.menu.element.is( ":visible" ),
 				modifierKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;

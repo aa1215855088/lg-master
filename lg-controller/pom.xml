@@ -16,6 +16,7 @@
         <module>lg-user-controller</module>
         <module>lg-order-controller</module>
         <module>lg-biz-web</module>
+        <module>lg-content-controller</module>
     </modules>
 
     <dependencies>
@@ -48,10 +49,6 @@
             <artifactId>nacos-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>dubbo-api</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
