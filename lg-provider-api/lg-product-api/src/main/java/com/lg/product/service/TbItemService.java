@@ -1,5 +1,6 @@
 package com.lg.product.service;
 
+import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.exceptions.ProductBizException;
 import com.lg.product.model.domain.TbItem;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,10 +19,13 @@ public interface TbItemService extends IService<TbItem> {
 
     /**
      * 查询所有
+     *
      * @return
      */
-    List<TbItem> findAll() throws ProductBizException;
+    Wrapper<List<TbItem>> findAll() throws ProductBizException;
 
 
     String hello();
+
+
 }

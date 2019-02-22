@@ -4,6 +4,8 @@ package com.lg.product.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lg.commons.base.exception.BusinessException;
+import com.lg.commons.util.wrapper.WrapMapper;
+import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.exceptions.ProductBizException;
 import com.lg.product.mapper.TbItemMapper;
 import com.lg.product.model.domain.TbItem;
@@ -26,11 +28,11 @@ import java.util.List;
 public class TbItemServiceImpl extends ServiceImpl<TbItemMapper, TbItem> implements TbItemService {
 
     @Override
-    public List<TbItem> findAll() {
+    public Wrapper<List<TbItem>> findAll() {
         if (true) {
             throw new ProductBizException(123, "你抛出了异常");
         }
-        return this.baseMapper.selectList(new QueryWrapper<>());
+        return WrapMapper.ok(this.baseMapper.selectList(new QueryWrapper<>()));
     }
 
     @Override
