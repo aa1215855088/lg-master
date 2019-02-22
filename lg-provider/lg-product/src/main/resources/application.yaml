@@ -1,4 +1,18 @@
+server:
+  port: 8001
+
+dubbo:
+  scan:
+    base-packages: com.lg.product.service.impl
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://127.0.0.1:8848
+
 spring:
+  application:
+    name: lg-product-service
   ##数据库连接信息
   datasource:
     url: jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb
@@ -27,7 +41,6 @@ spring:
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
 
-
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
   # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
@@ -46,3 +59,5 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+

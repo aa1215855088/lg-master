@@ -3,6 +3,7 @@ package com.lg.product.web.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lg.commons.base.exception.BusinessException;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.model.domain.TbBrand;
@@ -41,7 +42,7 @@ public class TbItemController extends BaseController {
     @ApiOperation(httpMethod = "GET", value = "获取商品品牌列表")
     public Wrapper<List<TbItem>> findAll() {
         logger.info("查询所有的商品");
-        return WrapMapper.ok(this.itemService.findAll());
+        return this.itemService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -53,6 +54,9 @@ public class TbItemController extends BaseController {
 
     @GetMapping("/hello")
     public String hello() {
+        if (true) {
+            throw new BusinessException("666");
+        }
         return this.itemService.hello();
     }
 }

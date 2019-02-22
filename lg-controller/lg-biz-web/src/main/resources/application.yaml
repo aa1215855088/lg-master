@@ -1,9 +1,12 @@
+swagger:
+  enabled: true
+
 server:
-  port: 8082
+  port: 8084
 
 spring:
   application:
-    name: lg-user-controller
+    name: lg-biz-controller
 
 dubbo:
   registry:
