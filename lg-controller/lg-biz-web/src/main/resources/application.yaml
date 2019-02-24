@@ -10,7 +10,7 @@ spring:
 
 dubbo:
   registry:
-    address: nacos://47.105.207.20:8848
+    address: nacos://127.0.0.1:8848
   # 提供者需要配置扫描接口
   # scan:
   # base-packages: com.mxc.web.impl
