@@ -46,13 +46,12 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     private ObjectMapper objectMapper;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws ServletException, IOException {
+//        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         log.info("登陆成功");
-//        判断是json 格式返回 还是 view 格式返回
-//        将 authention 信息打包成json格式返回
-//        response.setContentType("application/json;charset=UTF-8");
-//        response.getWriter().write((objectMapper.writeValueAsString(WrapMapper.ok())));
-        redirectStrategy.sendRedirect(request,response,"http://localhost/mbm/admin/index.html");
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write((objectMapper.writeValueAsString(WrapMapper.ok())));
+//        redirectStrategy.sendRedirect(request,response,"http://localhost/mbm/admin/index.html");
     }
 }

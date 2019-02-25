@@ -43,7 +43,7 @@ import java.util.Set;
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Reference
+    @Reference(version = "1.0.0")
     private TbSellerService sellerService;
 
     @Override
@@ -55,7 +55,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("商家:[{}]不存在", username);
             throw new UsernameNotFoundException("用户名不存在或者密码错误");
         }
-
 
         return new SellerUserInfo(username, seller.getPassword(), seller.getName(),grantedAuthorities);
     }
