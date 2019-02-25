@@ -58,5 +58,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 server:
   port: 8003

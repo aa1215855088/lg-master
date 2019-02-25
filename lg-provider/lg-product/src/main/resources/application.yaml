@@ -10,7 +10,20 @@ dubbo:
   registry:
     address: nacos://127.0.0.1:8848
 
+project:
+  leader:
+    email: 1013629501@qq.com
+
+
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    host: 47.105.207.20
+    password: 123456
   application:
     name: lg-product-service
   ##数据库连接信息
@@ -40,6 +53,9 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
+  output:
+    ansi:
+      enabled: detect
 
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
@@ -60,4 +76,13 @@ mybatis-plus:
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+  #--------七牛配置
+qiniu:
+  access:
+    key: syZMJO8mXCWFCVaDJ_3WEeeWed5o_eU3drZfE49x
+  secret:
+    key: 5PTalH1Y70jfPIjQXXKCkQn-QQl6Qc4cRQckOwRy
+  bucket:
+    name: xzlimage
+    host:
+      name: pmyhsetqs.bkt.clouddn.com

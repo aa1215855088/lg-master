@@ -33,6 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author: 徐子楼
  * @create: 2019-02-21 16:13
  **/
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TbBrandServiceImplTest {
@@ -40,7 +41,7 @@ public class TbBrandServiceImplTest {
     private TbBrandService brandService;
 
     @Test
-    public void insert() {
+    public void insert() throws Exception {
         TbBrand tbBrand = new TbBrand();
         tbBrand.setName("1235888");
         tbBrand.setFirstChar("1");

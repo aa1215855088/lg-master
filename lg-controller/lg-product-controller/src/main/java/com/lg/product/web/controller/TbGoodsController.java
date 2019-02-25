@@ -1,21 +1,37 @@
 package com.lg.product.web.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.lg.commons.core.controller.BaseController;
+import com.lg.commons.util.wrapper.Wrapper;
+import com.lg.product.model.vo.GoodDto;
+import com.lg.product.service.TbGoodsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author xuzilou
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping("/tbGoods")
+@RequestMapping(value = "/tbGoods", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "WEB - TbGoodsController", tags = "商品录入Api", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TbGoodsController extends BaseController {
-	
+
+
+    @Reference(version = "1.0.0")
+    public TbGoodsService tbGoodsService;
+
 }
