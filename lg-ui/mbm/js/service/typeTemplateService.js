@@ -11,7 +11,7 @@ app.service('typeTemplateService',function($http){
     }
     //查询实体
     this.findOne=function(id){
-        return $http.get('http://localhost:8081/tbTypeTemplate/findOne?id='+id);
+        return $http.get('http://localhost:8084/tbTypeTemplate/findOne?id='+id);
     }
     //增加
     this.add=function(entity){

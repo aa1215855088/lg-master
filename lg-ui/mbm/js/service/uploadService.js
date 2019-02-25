@@ -4,7 +4,7 @@ app.service('uploadService',function ($http) {
         var formdata=new FormData();
         formdata.append('file',file.files[0]);//file 文件上传的name
         return $http({
-            url:'http://localhost:8081/upload/uploadImage',
+            url:'http://localhost:8084/upload/uploadImage',
             method:'post',
             date: formdata,
             headers:{'Content-Type':undefined},

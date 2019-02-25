@@ -56,11 +56,12 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,item
         goodsService.add( $scope.entity  ).success(
             function(response){
                 if(response.success){
-                    alert(response.message)
                     $scope.entity={};
                     editor.html("");
                 }else{
-                    alert("添加失败");
+                    alert(response.message);
+                    $scope.entity={};
+                    editor.html("");
                     //清空富文本编辑器
                 }
             }
