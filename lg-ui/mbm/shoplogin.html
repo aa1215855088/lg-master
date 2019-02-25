@@ -10,14 +10,13 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css"/>
     <link rel="stylesheet" type="text/css" href="css/pages-shoplogin.css"/>
-
-
     <script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
-
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
-    <script type="text/javascript" src="layer/layer.js"></script>
+
     <script type="text/javascript" src="js/controller/loginController.js"></script>
     <script type="text/javascript" src="js/service/loginService.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
 
 </head>
 
@@ -68,7 +67,7 @@
                                 </div>
                                 <div class="logined">
                                     <a class="sui-btn btn-block btn-xlarge btn-danger"
-                                       target="_blank" onclick="document.getElementById('loginForm').submit()">登&nbsp;&nbsp;录</a>
+                                       target="_blank" id="login">登&nbsp;&nbsp;录</a>
                                 </div>
                             </form>
                             <div class="otherlogin">
@@ -107,8 +106,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="plugins/jQuery/jquery.min.js"></script>
 </body>
 <script>
 
@@ -120,11 +117,15 @@
         var username = $("#username").val();
         var password = $("#password").val();
         if (username == "" || username == null) {
-            layer.msg("请输入用户名")
+            layer.msg("请输入用户名", {
+                time: 2000
+            })
             return;
         }
         if (password == "" || password == null) {
-            layer.msg("请输入密码")
+            layer.msg("请输入密码", {
+                time: 2000
+            })
             return;
         }
         $.ajax({
@@ -135,8 +136,12 @@
                 password: password
             },
             success: function (data) {
-                if (data.code = "500") {
-                    layer.msg("账号密码有误!")
+                if (data.code == "200") {
+                    window.location = "http://localhost/mbm/admin/index.html"
+                } else {
+                    layer.msg("账号密码有误!",{
+                        time:2000
+                    })
                 }
             }
         });

@@ -17,7 +17,7 @@ import com.lg.biz.service.TbSellerService;
  * @author xuzilou
  * @since 2019-02-19
  */
-@Service
+@Service(version = "1.0.0",timeout = 6000)
 public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> implements TbSellerService {
     public void add() {
         System.out.println("hello!");
