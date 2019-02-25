@@ -8,6 +8,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lg.biz.mapper.TbSellerMapper;
 import com.lg.biz.model.domain.TbSeller;
 import com.lg.biz.service.TbSellerService;
+import com.lg.commons.base.enums.ErrorCodeEnum;
+import com.lg.commons.base.exception.BusinessException;
+import com.lg.commons.util.validators.BeanValidators;
+import com.lg.commons.util.wrapper.WrapMapper;
+import com.lg.commons.util.wrapper.Wrapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.Validator;
 
 /**
  * <p>
@@ -19,13 +27,23 @@ import com.lg.biz.service.TbSellerService;
  */
 @Service(version = "1.0.0",timeout = 6000)
 public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> implements TbSellerService {
-    public void add() {
-        System.out.println("hello!");
-    }
+    @Autowired
+    private Validator validator;
 
     @Override
     public TbSeller findByLoginName(String username) {
         return this.baseMapper.selectOne(new QueryWrapper<TbSeller>()
                 .eq(StrUtil.isNotBlank(username), "seller_id", username));
+    }
+
+    @Override
+    public Wrapper sellerInsert(TbSeller tbSeller) {
+        BeanValidators.validateWithException(validator, tbSeller);
+        /*Integer  num=this.baseMapper.insert(tbSeller);*/
+        Integer insert = this.baseMapper.insert(tbSeller);
+        if (insert != 1) {
+            throw new BusinessException(ErrorCodeEnum.GL99990500, "商家注入失败");
+        }
+        return WrapMapper.ok(insert);
     }
 }

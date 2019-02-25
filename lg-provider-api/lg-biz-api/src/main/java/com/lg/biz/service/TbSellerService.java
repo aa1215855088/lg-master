@@ -3,6 +3,7 @@ package com.lg.biz.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lg.biz.model.domain.TbSeller;
+import com.lg.commons.util.wrapper.Wrapper;
 
 /**
  * <p>
@@ -21,4 +22,12 @@ public interface TbSellerService extends IService<TbSeller> {
      * @return
      */
     TbSeller findByLoginName(String username);
+
+
+    /**
+     * 商家入驻
+     * @param tbSeller
+     * @return
+     */
+    Wrapper sellerInsert(TbSeller tbSeller);
 }
