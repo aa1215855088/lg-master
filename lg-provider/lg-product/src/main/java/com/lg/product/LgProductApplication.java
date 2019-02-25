@@ -1,8 +1,13 @@
 package com.lg.product;
 
+import com.lg.product.service.impl.UploadServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import java.math.BigDecimal;
 
 /**
  * ┏┓　　　┏┓

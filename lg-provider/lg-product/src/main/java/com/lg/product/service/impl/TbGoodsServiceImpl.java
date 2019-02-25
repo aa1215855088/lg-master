@@ -8,9 +8,7 @@ import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.mapper.TbGoodsMapper;
 import com.lg.product.model.domain.TbGoods;
-import com.lg.product.model.domain.TbGoodsDesc;
-import com.lg.product.model.domain.TbItemCat;
-import com.lg.product.model.vo.Goods;
+import com.lg.product.model.vo.GoodDto;
 import com.lg.product.service.TbGoodsDescService;
 import com.lg.product.service.TbGoodsService;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -37,7 +35,7 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
     private Validator validator;
 
     @Override
-    public Wrapper save(Goods goods) {
+    public Wrapper save(GoodDto goods) {
         BeanValidators.validateWithException(validator,goods,Insert.class);
         goods.getGoods().setAuditStatus("0");//设置未审核
         this.baseMapper.insert(goods.getGoods());//插入商品的基本信息

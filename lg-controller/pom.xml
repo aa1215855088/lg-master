@@ -17,6 +17,7 @@
         <module>lg-order-controller</module>
         <module>lg-biz-web</module>
         <module>lg-content-controller</module>
+        <module>lg-seckill-controller</module>
     </modules>
 
     <dependencies>

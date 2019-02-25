@@ -35,7 +35,8 @@ public class TbSeller extends Model<TbSeller> {
     /**
      * 公司名
      */
-	private String name;
+	private String
+            name;
     /**
      * 店铺名称
      */
