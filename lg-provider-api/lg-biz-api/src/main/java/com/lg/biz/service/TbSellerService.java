@@ -29,5 +29,13 @@ public interface TbSellerService extends IService<TbSeller> {
      * @param tbSeller
      * @return
      */
-    Wrapper sellerInsert(TbSeller tbSeller);
+    Wrapper
+    sellerInsert(TbSeller tbSeller);
+
+    /**
+     * 根据商家用户名查询商家
+     * @param name
+     * @return
+     */
+    Wrapper<TbSeller> findById(String name);
 }

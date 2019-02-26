@@ -25,7 +25,7 @@ import javax.validation.Validator;
  * @author xuzilou
  * @since 2019-02-19
  */
-@Service(version = "1.0.0",timeout = 6000)
+@Service(version = "1.0.0", timeout = 6000)
 public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> implements TbSellerService {
     @Autowired
     private Validator validator;
@@ -38,12 +38,21 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     @Override
     public Wrapper sellerInsert(TbSeller tbSeller) {
-        BeanValidators.validateWithException(validator, tbSeller);
+//        BeanValidators.validateWithException(validator, tbSeller);
         /*Integer  num=this.baseMapper.insert(tbSeller);*/
         Integer insert = this.baseMapper.insert(tbSeller);
         if (insert != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "商家注入失败");
         }
         return WrapMapper.ok(insert);
+    }
+
+    @Override
+    public Wrapper<TbSeller> findById(String name) {
+        if (StrUtil.isBlank(name)) {
+            throw new BusinessException(500, "用户名为空");
+        }
+        TbSeller tbSeller = this.baseMapper.selectOne(new QueryWrapper<TbSeller>().eq("seller_id", name));
+        return WrapMapper.ok(tbSeller);
     }
 }

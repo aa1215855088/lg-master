@@ -99,7 +99,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "http://api.bob.com","/tbSellersSellerInsert")
+                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "http://api.bob.com",
+                        "/tbSellers/SellerInsert")
                 .permitAll()
                 .and()
                 .formLogin()

@@ -7,17 +7,17 @@ app.controller('TbSellerController', function ($scope, $controller, TbSellerServ
     $scope.add = function () {
         TbSellerService.add($scope.entity).success(
             function (response) {
-                if (response.success) {
+                if (response.code == "200") {
                     //如果注册成功，跳转到登录页
-                    location.href = "shoplogin.html";
+                    location.href = "http://localhost/mbm/shoplogin.html";
                 } else {
-                    alert(response.message);
+                    layer.msg(response.message)
                 }
             }
         );
     }
 
-    $scope.searchEntity={};//定义搜索对象
+    $scope.searchEntity = {};//定义搜索对象
 
 
 });
