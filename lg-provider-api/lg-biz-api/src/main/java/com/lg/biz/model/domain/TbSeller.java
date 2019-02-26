@@ -65,7 +65,8 @@ public class TbSeller extends Model<TbSeller> {
     /**
      * 状态
      */
-	private String status;
+	private String
+            status;
     /**
      * 详细地址
      */

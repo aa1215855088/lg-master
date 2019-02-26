@@ -19,7 +19,6 @@ import com.lg.content.mapper.TbContentMapper;
 import com.lg.content.model.domain.TbContent;
 import com.lg.content.model.vo.TbContentVO;
 import com.lg.content.service.TbContentService;
-import com.lg.product.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +43,7 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
     @Autowired
     private Validator validator;
 
-    @Reference(version = "1.0.0")
-    private UploadService uploadService;
+
 
     @Override
     public Wrapper<List<TbContent>> findAll() {

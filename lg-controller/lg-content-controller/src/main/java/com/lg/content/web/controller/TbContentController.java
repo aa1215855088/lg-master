@@ -10,7 +10,6 @@ import com.lg.content.model.domain.TbContent;
 import com.lg.content.model.domain.TbContentCategory;
 import com.lg.content.service.TbContentCategoryService;
 import com.lg.content.service.TbContentService;
-import com.lg.product.service.UploadService;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +36,7 @@ public class TbContentController extends BaseController {
     @Reference(version = "1.0.0")
     private TbContentCategoryService tbContentCategoryService;
 
-    @Reference(version = "1.0.0")
-    private UploadService uploadService;
+
 
     @GetMapping("")
     @ApiOperation(httpMethod = "GET", value = "获取所有广告信息")
