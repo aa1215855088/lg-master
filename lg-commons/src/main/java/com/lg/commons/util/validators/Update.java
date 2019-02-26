@@ -24,6 +24,5 @@ package com.lg.commons.util.validators;
  * @author: 徐子楼
  * @create: 2019-01-28 23:34
  **/
-public interface
-Update {
+public interface Update {
 }

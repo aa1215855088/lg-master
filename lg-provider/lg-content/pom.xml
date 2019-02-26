@@ -13,6 +13,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.lg</groupId>
+            <artifactId>lg-product-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lg</groupId>
+                    <artifactId>lg-commons</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
