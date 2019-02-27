@@ -82,34 +82,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    /***设置不拦截规则*/
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/druid/**");
-    }
+//    /***设置不拦截规则*/
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/druid/**");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 禁用缓存
-        http.headers()
+
+        http
+                .headers()
                 .cacheControl()
                 .and()
-                .frameOptions().disable();
-
-
-        http.authorizeRequests()
+                .frameOptions().disable()
+                .and()
+                .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "http://api.bob.com")
+                .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs", "http://api.bob.com",
+                        "/tbSellers/SellerInsert")
                 .permitAll()
-                .anyRequest()
-                .authenticated()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST).permitAll()
-                .antMatchers(HttpMethod.DELETE).permitAll()
-                .antMatchers(HttpMethod.PUT).permitAll();
-        http
+                .and()
                 .formLogin()
+                .loginPage("http://localhost/mbm/shoplogin.html")
+                .defaultSuccessUrl("http://localhost/mbm/admin/index.html")
                 .loginProcessingUrl("/login")
                 .failureHandler(authenticationFailureHandler)
                 .successHandler(authenticationSuccessHandler)
@@ -122,7 +118,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(authenticationAccessDeniedHandler)
                 .and()
-                .rememberMe();
+                .rememberMe()
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated();
 
     }
 

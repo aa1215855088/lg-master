@@ -16,4 +16,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TbSellerMapper extends MyMapper<TbSeller> {
 
+    /**
+     * 商家入驻
+     * @return
+     */
+    Integer insert(TbSeller tbSeller);
+
 }

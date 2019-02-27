@@ -2,6 +2,7 @@ package com.lg.biz.model.domain;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -30,16 +33,17 @@ public class TbSeller extends Model<TbSeller> {
     /**
      * 用户ID
      */
-    @TableId("seller_id")
+    @TableId(value = "seller_id",type = IdType.INPUT)
 	private String sellerId;
     /**
      * 公司名
      */
-	private String
-            name;
+    @NotBlank
+	private String name;
     /**
      * 店铺名称
      */
+    @NotBlank
 	@TableField("nick_name")
 	private String nickName;
     /**
@@ -61,7 +65,8 @@ public class TbSeller extends Model<TbSeller> {
     /**
      * 状态
      */
-	private String status;
+	private String
+            status;
     /**
      * 详细地址
      */

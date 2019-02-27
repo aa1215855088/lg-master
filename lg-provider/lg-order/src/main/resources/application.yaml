@@ -14,7 +14,7 @@ spring:
   datasource:
     url: jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb
     username: root
-    password: root
+    password: liu20000406
     driver-class-name: com.mysql.cj.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
