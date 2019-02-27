@@ -29,7 +29,7 @@ import java.security.Principal;
 public class TbGoodsController extends BaseController {
 
 
-    @Reference(version = "1.0.0")
+  /*  @Reference(version = "1.0.0")
     public TbGoodsService tbGoodsService;
 
     @PostMapping("/add")
@@ -38,6 +38,6 @@ public class TbGoodsController extends BaseController {
         goods.setSellerId(principal.getName());
         logger.info("添加商品基本信息，{}", goods);
         return this.tbGoodsService.save(goods);
-    }
+    }*/
 
 }

@@ -11,7 +11,7 @@ app.service('itemCatService',function($http){
     }
     //查询实体
     this.findOne=function(id){
-        return $http.get('http://localhost:8081/tbItemCat/findOne?id='+id);
+        return $http.get('http://localhost:8081/tbItemCats/findOne?id='+id);
     }
     //增加
     this.add=function(entity){
@@ -31,6 +31,6 @@ app.service('itemCatService',function($http){
     }
 
     this.findByParentId = function(parentId){
-        return $http.get("http://localhost:8081/tbItemCat/findByParentId?parentId="+parentId);
+        return $http.get("http://localhost:8081/tbItemCats/findByParentId?parentId="+parentId);
     }
 });

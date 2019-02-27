@@ -17,7 +17,7 @@ public interface TbGoodsService extends IService<TbGoods> {
 
 
 
-    Wrapper save(GoodDto goods);
 
-	
+     Wrapper save(GoodDto goods);
+
 }

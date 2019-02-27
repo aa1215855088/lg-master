@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping(value = "/tbItemCat",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/tbItemCats",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - TbItemCatController",tags = "商品录入Api",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TbItemCatController extends BaseController {
 

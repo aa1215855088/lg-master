@@ -51,6 +51,10 @@ public class QiniuUtil implements UploadUtil {
 
     private UploadManager uploadManager = new UploadManager();
 
+
+    public QiniuUtil() {
+    }
+
     /**
      * 构造函数
      *
@@ -247,7 +251,7 @@ public class QiniuUtil implements UploadUtil {
         return this.getUrlPath(response);
     }
 
-    private byte[] getBytesWithMultipartFile(MultipartFile multipartFile) {
+    public byte[] getBytesWithMultipartFile(MultipartFile multipartFile) {
         try {
             return multipartFile.getBytes();
         } catch (IOException e) {
