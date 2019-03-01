@@ -74,6 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    public static void main(String[] args) {
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        //System.out.println(bCryptPasswordEncoder.encode("123456"));
+        //System.out.println(bCryptPasswordEncoder.matches("",bCryptPasswordEncoder.encode("123456")));
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

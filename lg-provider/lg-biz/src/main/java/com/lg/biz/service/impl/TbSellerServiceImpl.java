@@ -14,6 +14,7 @@ import com.lg.commons.util.validators.BeanValidators;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Validator;
 
@@ -38,7 +39,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     @Override
     public Wrapper sellerInsert(TbSeller tbSeller) {
-//        BeanValidators.validateWithException(validator, tbSeller);
+        BeanValidators.validateWithException(validator, tbSeller);
         /*Integer  num=this.baseMapper.insert(tbSeller);*/
         Integer insert = this.baseMapper.insert(tbSeller);
         if (insert != 1) {
@@ -55,4 +56,29 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
         TbSeller tbSeller = this.baseMapper.selectOne(new QueryWrapper<TbSeller>().eq("seller_id", name));
         return WrapMapper.ok(tbSeller);
     }
+
+    @Override
+    public Wrapper updateSellerInfo(TbSeller tbSeller) {
+        /*BeanValidators.validateWithException(validator, tbSeller);*/
+         Integer flag= this.baseMapper.updateById(tbSeller);
+        if (flag != 1) {
+            throw new BusinessException(ErrorCodeEnum.GL99990500, "商家修改资料失败");
+        }
+        return WrapMapper.ok();
+    }
+
+    @Override
+    public Wrapper updatePasswordById(TbSeller tbSeller) {
+        Integer flag=this.baseMapper.updatePassword(tbSeller);
+        if (flag != 1) {
+            throw new BusinessException(ErrorCodeEnum.GL99990500, "密码修改失败");
+        }
+        return WrapMapper.ok();
+    }
+
+  /*  @Override
+    public TbSeller selectPassword(String  password) {
+       return this.baseMapper.selectOne(new QueryWrapper<TbSeller>()
+                .eq("password",password));
+    }*/
 }
