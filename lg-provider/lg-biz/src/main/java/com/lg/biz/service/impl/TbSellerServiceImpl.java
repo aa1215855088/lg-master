@@ -41,6 +41,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
     public Wrapper sellerInsert(TbSeller tbSeller) {
         BeanValidators.validateWithException(validator, tbSeller);
         /*Integer  num=this.baseMapper.insert(tbSeller);*/
+        tbSeller.setStatus("0");
         Integer insert = this.baseMapper.insert(tbSeller);
         if (insert != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "商家注入失败");

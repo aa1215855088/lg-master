@@ -46,8 +46,10 @@ import java.io.IOException;
 public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Autowired
     private ObjectMapper objectMapper;
+
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
 //        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
         log.info("登陆失败");
 
@@ -55,7 +57,7 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
 
 //        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(WrapMapper.error(exception.getMessage())));
+        response.getWriter().write(objectMapper.writeValueAsString(WrapMapper.error("账号密码有误")));
 //        redirectStrategy.sendRedirect(request,response,"http://localhost/mbm/shoplogin.html");
     }
 

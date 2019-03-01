@@ -2,8 +2,10 @@ package com.lg.product.web.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.lg.commons.core.controller.BaseController;
 import com.lg.commons.util.wrapper.Wrapper;
+import com.lg.product.model.domain.TbItem;
 import com.lg.product.model.vo.GoodDto;
 import com.lg.product.service.TbGoodsService;
 import io.swagger.annotations.Api;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * <p>
@@ -33,5 +36,13 @@ public class TbGoodsController extends BaseController {
 
     @Reference(version = "1.0.0")
     public TbGoodsService tbGoodsService;
+
+    @PostMapping("/add")
+    @ApiOperation(httpMethod = "POST", value = "商家添加商品")
+    public Wrapper save(@RequestBody @ApiParam("商品基本信息") GoodDto goods) {
+        logger.info("添加商品基本信息，{}", goods);
+        Wrapper wrapper = this.tbGoodsService.save(goods);
+        return wrapper;
+    }
 
 }

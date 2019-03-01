@@ -139,7 +139,7 @@
                 if (data.code == "200") {
                     window.location = "http://localhost/mbm/admin/index.html"
                 } else {
-                    layer.msg("账号密码有误!",{
+                    layer.msg(data.message,{
                         time:2000
                     })
                 }

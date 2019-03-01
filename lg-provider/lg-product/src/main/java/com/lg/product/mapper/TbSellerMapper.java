@@ -1,8 +1,8 @@
-package com.lg.content.mapper;
+package com.lg.product.mapper;
 
 
 import com.lg.commons.core.mybatis.MyMapper;
-import com.lg.content.model.domain.TbContent;
+import com.lg.product.model.domain.TbSeller;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,6 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-02-19
  */
 @Mapper
-public interface TbContentMapper extends MyMapper<TbContent> {
-    
+public interface TbSellerMapper extends MyMapper<TbSeller> {
+
 }
