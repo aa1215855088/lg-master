@@ -27,4 +27,11 @@ public interface MyMapper<T> extends BaseMapper<T> {
 
     Integer  insert(T t);
 
+
+    /**
+     * 修改密码
+     * @return
+     */
+    Integer  updatePassword(T t);
+
 }
