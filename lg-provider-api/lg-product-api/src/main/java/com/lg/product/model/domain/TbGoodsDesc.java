@@ -26,7 +26,8 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @TableName("tb_goods_desc")
-public class TbGoodsDesc extends Model<TbGoodsDesc> {
+public class
+TbGoodsDesc extends Model<TbGoodsDesc> {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,9 +50,10 @@ public class TbGoodsDesc extends Model<TbGoodsDesc> {
     /**
      * 自定义属性（参数结果）
      */
-
 	@TableField("custom_attribute_items")
 	private String customAttributeItems;
+
+
 
 	@TableField("item_images")
 	private String itemImages;

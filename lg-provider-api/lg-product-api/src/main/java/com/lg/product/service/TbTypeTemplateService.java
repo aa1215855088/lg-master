@@ -6,6 +6,7 @@ import com.lg.product.model.domain.TbTypeTemplate;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,6 +17,12 @@ import java.util.List;
  * @since 2019-02-19
  */
 public interface TbTypeTemplateService extends IService<TbTypeTemplate> {
+
+
     Wrapper<TbTypeTemplate> findOne(Long id);
+
+    Wrapper<List<Map>>findSpecList(Long id);
+
+
 	
 }

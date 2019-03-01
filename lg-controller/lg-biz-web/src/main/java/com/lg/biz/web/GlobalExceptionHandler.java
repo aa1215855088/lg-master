@@ -1,5 +1,6 @@
 package com.lg.biz.web;
 
+
 import com.lg.commons.base.enums.ErrorCodeEnum;
 import com.lg.commons.base.exception.BusinessException;
 import com.lg.commons.util.wrapper.WrapMapper;
@@ -82,5 +83,4 @@ public class GlobalExceptionHandler {
         log.error("全局异常={}", e.getMessage(), e);
         return WrapMapper.error();
     }
-
 }

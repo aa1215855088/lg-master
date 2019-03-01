@@ -26,11 +26,11 @@ public class TbBrandServiceImpl extends ServiceImpl<TbBrandMapper, TbBrand> impl
 
 
     @Override
-    public Wrapper save(TbBrand brand) {
-        this.baseMapper.insert(brand);
+    public Wrapper save(TbBrand brand) throws Exception {
         if (true) {
-            throw new BusinessException("错了");
+            throw new Exception("错了");
         }
+        this.baseMapper.insert(brand);
         return WrapMapper.ok();
     }
 }
