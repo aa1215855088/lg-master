@@ -50,7 +50,7 @@ public class TbGoodsController extends BaseController {
 
         return this.tbGoodsService.save(goods);
     }*/
-    @GetMapping(value = "findAll" )
+    @GetMapping(value = "findAll")
     @ApiOperation(httpMethod = "GET",value = "查询所有")
     public Wrapper<List<TbGoods>> findAll(){
         logger.info("商家查询");
