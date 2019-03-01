@@ -32,8 +32,6 @@ import java.util.List;
 @RequestMapping(value = "/tbGoods", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - TbGoodsController", tags = "商品录入Api", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TbGoodsController extends BaseController {
-
-
     @Reference(version = "1.0.0")
     public TbGoodsService tbGoodsService;
 
@@ -44,5 +42,4 @@ public class TbGoodsController extends BaseController {
         Wrapper wrapper = this.tbGoodsService.save(goods);
         return wrapper;
     }
-
 }
