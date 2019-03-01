@@ -11,7 +11,6 @@ import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.model.domain.TbGoods;
 import com.lg.product.model.domain.TbItemCat;
-import com.lg.product.model.vo.Goods;
 import com.lg.product.service.TbGoodsDescService;
 import com.lg.product.service.TbGoodsService;
 import io.swagger.annotations.Api;
@@ -42,7 +41,6 @@ public class TbGoodsController extends BaseController {
 
     @Reference(version = "1.0.0")
     public TbGoodsService tbGoodsService;
-
     /*@PostMapping("/add")
     @ApiOperation(httpMethod = "POST",value = "商家添加商品")
     public Wrapper save(@RequestBody @ApiParam("商品基本信息") Goods goods){

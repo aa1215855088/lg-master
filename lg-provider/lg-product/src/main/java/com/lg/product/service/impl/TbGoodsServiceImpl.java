@@ -21,7 +21,6 @@ import com.lg.product.model.domain.TbGoods;
 import com.lg.product.model.domain.TbGoodsDesc;
 import com.lg.product.model.domain.TbItemCat;
 
-import com.lg.product.model.vo.Goods;
 import com.lg.product.service.TbGoodsDescService;
 import com.lg.product.service.TbGoodsService;
 import com.alibaba.dubbo.config.annotation.Service;

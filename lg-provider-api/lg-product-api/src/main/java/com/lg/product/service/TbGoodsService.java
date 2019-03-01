@@ -24,7 +24,6 @@ import java.util.List;
 public interface TbGoodsService extends IService<TbGoods> {
 
    /* Wrapper save(Goods goods);*/
-
     /**
      * 查询所有
      * @param queryWrapper
