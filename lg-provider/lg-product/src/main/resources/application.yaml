@@ -61,3 +61,13 @@ mybatis-plus:
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
+  #--------七牛配置
+qiniu:
+  access:
+    key: syZMJO8mXCWFCVaDJ_3WEeeWed5o_eU3drZfE49x
+  secret:
+    key: 5PTalH1Y70jfPIjQXXKCkQn-QQl6Qc4cRQckOwRy
+  bucket:
+    name: xzlimage
+    host:
+      name: pmyhsetqs.bkt.clouddn.com

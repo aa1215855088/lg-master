@@ -42,27 +42,32 @@ public class TbGoods extends Model<TbGoods> {
      * 商家ID
      */
 	@TableField("seller_id")
+	@NotBlank(groups = {Update.class})
 	private String sellerId;
     /**
      * SPU名
      */
 	@TableField("goods_name")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String goodsName;
     /**
      * 默认SKU
      */
 	@Min(1)
+	@NotNull(groups = {Update.class})
 	@TableField("default_item_id")
 	private Long defaultItemId;
     /**
      * 状态
      */
 	@TableField("audit_status")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String auditStatus;
     /**
      * 是否上架
      */
 	@TableField("is_marketable")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String isMarketable;
     /**
      * 品牌
@@ -101,6 +106,7 @@ public class TbGoods extends Model<TbGoods> {
      * 小图
      */
 	@TableField("small_pic")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String smallPic;
     /**
      * 商城价
@@ -111,18 +117,20 @@ public class TbGoods extends Model<TbGoods> {
      * 分类模板ID
      */
 	@Min(1)
-	@NotNull(groups = {Update.class,Insert.class})
+	@NotNull(groups = {Update.class})
 	@TableField("type_template_id")
 	private Long typeTemplateId;
     /**
      * 是否启用规格
      */
 	@TableField("is_enable_spec")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String isEnableSpec;
     /**
      * 是否删除
      */
 	@TableField("is_delete")
+	@NotBlank(groups = {Update.class, Insert.class})
 	private String isDelete;
 
 

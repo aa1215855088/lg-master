@@ -1,16 +1,17 @@
-app.service('goodsService',function($http){
+app.service('goodsService2',function($http){
 
     //读取列表数据绑定到表单中
     this.findAll=function(){
-        return $http.get('../goods/findAll.do');
+        return $http.get('http://localhost:8081/tbGoods/findAll');
     }
     //分页
+
     this.findPage=function(page,rows){
-        return $http.get('../goods/findPage.do?page='+page+'&rows='+rows);
+        return $http.get('http://localhost:8081/tbGoods/findPage?page='+page+"&rows="+rows);
     }
     //查询实体
     this.findOne=function(id){
-        return $http.get('../goods/findOne.do?id='+id);
+        return $http.get('http://localhost:8081/tbGoods/findOne/'+id);
     }
     //增加
     this.add=function(entity){
@@ -18,14 +19,18 @@ app.service('goodsService',function($http){
     }
     //修改
     this.update=function(entity){
-        return  $http.post('../goods/update.do',entity );
+        return  $http.post('http://localhost:8081/tbGoods/update',entity );
     }
     //删除
     this.dele=function(ids){
-        return $http.get('../goods/delete.do?ids='+ids);
+        return $http.get('http://localhost:8081/tbGoods/delete/'+ids);
     }
     //搜索
     this.search=function(page,rows,searchEntity){
-        return $http.post('../goods/search.do?page='+page+"&rows="+rows, searchEntity);
+        return $http.post('http://localhost:8081/tbGoods/search?page='+page+"&rows="+rows,searchEntity);
+    }
+    //屏蔽
+    this.shield=function (ids) {
+        return  $http.post('http://localhost:8081/tbGoods/shield/'+ids);
     }
 });
