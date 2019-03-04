@@ -37,7 +37,6 @@ public class LgProductWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(LgProductWebApplication.class, args);
     }
-
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -62,4 +61,9 @@ public class LgProductWebApplication {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 }
+
+
+
+

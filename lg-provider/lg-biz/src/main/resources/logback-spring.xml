@@ -4,7 +4,7 @@
     <contextName>${log.context.name}</contextName>
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_PATH" value="f://log" />
+    <property name="LOG_PATH" value="e://log" />
     <property name="log.context.name" value="MyApp" />
     <property name="log.charset" value="UTF-8" />
     <!-- Log4j: [S][%d{yyyyMMdd HH:mm:ss}][%-5p][%C:%L] - %m%n -->

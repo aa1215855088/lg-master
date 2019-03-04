@@ -1,7 +1,8 @@
 package com.lg.product.mapper;
 
 import com.lg.product.model.domain.TbBrand;
-import com.lg.commons.core.mybatis.MyMapper;import org.apache.ibatis.annotations.Mapper;
+import com.lg.commons.core.mybatis.MyMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

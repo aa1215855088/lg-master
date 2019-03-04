@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("tb_order_item")
-public class TbOrderItem extends Model<TbOrderItem> {
+public class TbOrderItem extends Model<TbOrderItem> implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

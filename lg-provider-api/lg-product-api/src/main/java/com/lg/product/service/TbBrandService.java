@@ -12,7 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author xuzilou
  * @since 2019-02-19
  */
-public interface TbBrandService extends IService<TbBrand> {
+public interface
+TbBrandService extends IService<TbBrand> {
 
     /**
      * 添加商品品牌
@@ -20,5 +21,5 @@ public interface TbBrandService extends IService<TbBrand> {
      * @param brand
      * @return
      */
-    Wrapper save(TbBrand brand);
+    Wrapper save(TbBrand brand) throws Exception;
 }

@@ -34,5 +34,6 @@ public class TbBrandController extends BaseController {
     public Wrapper<List<TbBrand>> hello() {
 
         return WrapMapper.ok(tbBrandService.selectList(new QueryWrapper<>()));
+
     }
 }
