@@ -8,21 +8,21 @@
     <title>商品管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../layer/layer.js"></script>
-	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
-	<script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
-	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
-	<script type="text/javascript" src="../js/base_pagination.js"></script>
+    <link rel="stylesheet" href="../../商家管理后台/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../商家管理后台/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../../商家管理后台/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../../商家管理后台/css/style.css">
+	<script src="../../商家管理后台/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../商家管理后台/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../商家管理后台/layer/layer.js"></script>
+	<script type="text/javascript" src="../../商家管理后台/plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="../../商家管理后台/plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../../商家管理后台/plugins/angularjs/pagination.css">
+	<script type="text/javascript" src="../../商家管理后台/js/base_pagination.js"></script>
 
 
 
-	<script type="text/javascript" src="../js/service/goodsService1.js"></script>
+	<script type="text/javascript" src="../../商家管理后台/js/service/goodsService1.js"></script>
 	<script type="text/javascript" src="../js/controller/baseController1.js"></script>
 	<script type="text/javascript" src="../js/controller/goodsController1.js"></script>
 

@@ -29,8 +29,7 @@ public interface TbSellerService extends IService<TbSeller> {
      * @param tbSeller
      * @return
      */
-    Wrapper
-    sellerInsert(TbSeller tbSeller);
+    Wrapper sellerInsert(TbSeller tbSeller);
 
     /**
      * 根据商家用户名查询商家
@@ -38,4 +37,21 @@ public interface TbSellerService extends IService<TbSeller> {
      * @return
      */
     Wrapper<TbSeller> findById(String name);
+
+
+    /**
+     * 修改商家资料
+     * @param tbSeller
+     * @return
+     */
+     Wrapper updateSellerInfo(TbSeller tbSeller);
+
+    /**
+     * 根据seller_id修改密码
+     * @param tbSeller
+     * @return
+     */
+    Wrapper updatePasswordById(TbSeller tbSeller);
+
+
 }

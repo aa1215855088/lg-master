@@ -22,4 +22,10 @@ public interface TbSellerMapper extends MyMapper<TbSeller> {
      */
     Integer insert(TbSeller tbSeller);
 
+    /**
+     * 修改密码
+     * @return
+     */
+    Integer  updatePassword(TbSeller tbSeller);
+
 }

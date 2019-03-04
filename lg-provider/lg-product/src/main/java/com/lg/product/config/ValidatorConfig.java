@@ -1,9 +1,8 @@
-package com.lg.commons.base.vo;
+package com.lg.product.config;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * ┏┓　　　┏┓
@@ -27,19 +26,13 @@ import java.util.List;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-01-19 20:11
+ * @create: 2019-01-20 22:06
  **/
-@Data
-public class PageVO<T> implements Serializable {
+@Configuration
+public class ValidatorConfig {
+    @Bean
+    public javax.validation.Validator getValidator() {
+        return new LocalValidatorFactoryBean();
+    }
 
-
-    /**
-     * 总记录数
-     */
-    private Long total;
-
-    /**
-     * 内容
-     */
-    private List<T> rows;
 }

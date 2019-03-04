@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -23,9 +24,14 @@ public class GoodDto implements Serializable {
 
     private TbGoodsDesc  goodsDesc;
 
-    private List<TbItem> tbItemList;
+  /*  private List<TbItem> itemList;*/
+    private String itemList;
 
-    private String introduction;
+
+
+
+
+
 
 
 }

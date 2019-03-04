@@ -8,12 +8,31 @@
     <title>商品编辑</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-  
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+
+	<!--&lt;!&ndash;bootstrap验证框架相关导入&ndash;&gt;-->
+	<link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap/bootstrapValidator.min.css">
+
+	<!--&lt;!&ndash; jquery库 必须在其他js库前引入&ndash;&gt;-->
+	<script type="application/javascript" src="../js/bootstrap/jquery-1.10.2.min.js"></script>
+
+	<!--&lt;!&ndash; bootstrap库 必须在其他js库前引入&ndash;&gt;-->
+	<!--<script type="application/javascript" src="../js/bootstrap/bootstrap.min.js"></script>-->
+	<script type="application/javascript" src="../js/bootstrap/bootstrapValidator.min.js"></script>
+
+	<script type="application/javascript" ser="/layer/layer.js"></script>
+
+
+
+
+
+
+
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+     <!--<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>-->
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
     
     <!-- 富文本编辑器 -->
@@ -30,15 +49,14 @@
 	<script type="application/javascript" src="../js/service/uploadService.js"></script>
 	<script type="application/javascript" src="../js/controller/baseController.js"></script>
 	<script type="application/javascript" src="../js/controller/goodsController.js"></script>
-    
-    
-      
-    
-    
+
+
+
+
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="lg" ng-controller="goodsController" ng-init="selectItemCat1List()" >
-
+<body class="hold-transition skin-red sidebar-mini" ng-app="lg" ng-controller="goodsController" ng-init="selectItemCat1List(0)" >
+<form id="defaultForm" role="form" class="form-sign" method="post">
             <!-- 正文区域 -->
             <section class="content">
 
@@ -63,9 +81,10 @@
                             </li>                       
                         </ul>
                         <!--tab头/-->
-						
+
                         <!--tab内容-->
                         <div class="tab-content">
+
 
                             <!--表单内容-->
                             <div class="tab-pane active" id="home">
@@ -77,8 +96,8 @@
 		                           	  		<tr>
 		                           	  			<td>
 		                           	  				<select class="form-control" ng-model="entity.goods.category1Id"
-															ng-options="item.id as item.name for item in itemCat1List" >
-		                           	  				</select>
+															ng-options="item.id as item.name for item in itemCat1List" name="category1Id" id="category1Id" >
+		                           	  				</select >
 		                              			</td>
 		                              			<td>
 		                           	  				<select class="form-control select-sm"ng-model="entity.goods.category2Id"
@@ -89,18 +108,19 @@
 															ng-options="item.id as item.name for item in itemCat3List" ></select>
 		                              			</td>
 		                              			<td>
-		                           	  				模板ID:{{entity.goods.typeTemplateId}}
+													模板ID:{{entity.goods.typeTemplateId}}
 		                              			</td>
 		                           	  		</tr>
 		                           	  	</table>
 		                              	
-		                              </div>	                              
-		                          	  
-									
-		                           <div class="col-md-2 title">商品名称</div>
+		                              </div>
+
+		                           <div class="col-md-2 title"  for="goodsName">商品名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"   ng-model="entity.goods.goodsName"  placeholder="商品名称" value="">
-		                           </div>
+                                           <div class="form-group">
+										   <input type="text" class="form-control"   ng-model="entity.goods.goodsName"  placeholder="商品名称" value=""  name="goodsName">
+										   </div>
+								   </div>
 		                           
 		                           <div class="col-md-2 title">品牌</div>
 		                           <div class="col-md-10 data">
@@ -109,8 +129,10 @@
 		
 								   <div class="col-md-2 title">副标题</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"  ng-model="entity.goods.caption" placeholder="副标题" value="">
-		                           </div>
+									   <div class="form-group">
+		                               <input type="text" class="form-control"  ng-model="entity.goods.caption" placeholder="副标题" value="" name="caption">
+									   </div>
+									   </div>
 		                           
 		                           <div class="col-md-2 title">价格</div>
 		                           <div class="col-md-10 data">
@@ -137,7 +159,6 @@
 		                           </div>
                                 </div>
                             </div>
-                            
                             <!--图片上传-->
                             <div class="tab-pane" id="pic_upload">
                                 <div class="row data-type">                                  
@@ -189,12 +210,16 @@
                             	<div class="row data-type">
 	                            	<div class="col-md-2 title">是否启用规格</div>
 			                        <div class="col-md-10 data">
-			                        	<input type="checkbox" >
+			                        	<input type="checkbox" ng-model="entity.goods.isEnableSpec"	 ng-true-value="1"
+											   ng-false-value="0">
+									<!--	ng-model="entity.goods.isEnableSpec"-->
+										<!--ng-true-value="1"   ng-false-value="0"-->
+										<!--ng-if="entity.goods.isEnableSpec == 1"-->
 			                        </div>
                             	</div>
                             	<p>
                             	
-                            	<div>
+                            	<div  ng-if="entity.goods.isEnableSpec == 1" >
 
 								<div class="row data-type">
 
@@ -203,12 +228,13 @@
 										<div class="col-md-10 data">
 
 					                            <span ng-repeat="options in pojo.options">
-					                            	<input  type="checkbox"  ng-click="updateSpecAttribute($event,pojo.text,options.optionName);createItemList()" >{{options.optionName}}
+					                            	<input  type="checkbox"  ng-checked="checkAttributeValue(pojo.text,option.optionName)"
+															ng-click="updateSpecAttribute($event,pojo.text,options.optionName);createItemList()" >{{options.optionName}}
 					                            </span>
 
 										</div>
 									</div>
-									{{entity.tbItemList}}
+									<!--{{entity.tbItemList}}-->
 
 								</div>
 	
@@ -225,7 +251,7 @@
 											    </tr>
 								            </thead>
 						                    <tbody>
-						                      <tr ng-repeat="pojo in entity.tbItemList">
+						                      <tr ng-repeat="pojo in entity.itemList">
 										            <td ng-repeat="item in entity.goodsDesc.specificationItems">
 										            	{{pojo.spec[item.attributeName]}}
 										            </td>
@@ -249,27 +275,92 @@
 									 	</table>
 								
 	                                </div>
+
 	                                
 	                            </div>
+
                             </div>
-                            
+
+							<script>
+								$(function () {
+									$('#defaultForm').bootstrapValidator({
+										message: '这个值没有被验证',
+										feedbackIcons: {
+											/*input状态样式图片*/
+											valid: 'glyphicon glyphicon-ok',
+											invalid: 'glyphicon glyphicon-remove',
+											validating: 'glyphicon glyphicon-refresh'
+										},
+										fields: {
+											/*验证：规则*/
+											goodsName: {
+												validators: {
+													notEmpty: {
+
+													},
+													stringLength: {
+														min: 1,
+														max: 16,
+													}
+												}
+											},
+
+											caption: {
+												validators: {
+													notEmpty: {
+
+													},
+													stringLength: {
+														min: 1,
+														max: 16,
+													}
+												}
+											},
+
+
+										}
+									})
+											.on('success.form.bv', function(e) {//点击提交之后
+												// Prevent form submission
+												e.preventDefault();
+
+												// Get the form instance
+												var $form = $(e.target);
+
+												// Get the BootstrapValidator instance
+												var bv = $form.data('bootstrapValidator');
+
+												// Use Ajax to submit form data 提交至form标签中的action，result自定义
+												$.post($form.attr('action'), $form.serialize(), function(result) {
+//do something...
+												});
+											});
+
+								})
+
+							</script>
                         </div>
                         <!--tab内容/-->
 						<!--表单内容/-->
-							 
+
+
                     </div>
                  	
                  	
                  	
-                 	
+
                    </div>
+
+
                   <div class="btn-toolbar list-toolbar">
 				      <button class="btn btn-primary" ng-click="add()" ><i class="fa fa-save"></i>保存</button>
 				      <button class="btn btn-default" >返回列表</button>
 				  </div>
-			
+
+
+
             </section>
-            
+</form>
             
 <!-- 上传窗口 -->
 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
