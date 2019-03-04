@@ -3,6 +3,7 @@ package com.lg.biz.web.security;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.lg.biz.model.domain.TbSeller;
 import com.lg.biz.service.TbSellerService;
+import com.lg.commons.base.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -43,7 +44,7 @@ import java.util.Set;
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Reference
+    @Reference(version = "1.0.0")
     private TbSellerService sellerService;
 
     @Override
@@ -55,8 +56,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("商家:[{}]不存在", username);
             throw new UsernameNotFoundException("用户名不存在或者密码错误");
         }
-
-
-        return new SellerUserInfo(username, seller.getPassword(), seller.getName(),grantedAuthorities);
+        if (!seller.getStatus().equals("1")) {
+            log.info("商家:[{}]不可用", username);
+            throw new BusinessException("商家不可用");
+        }
+        return new SellerUserInfo(username, seller.getPassword(), seller.getName(), grantedAuthorities);
     }
 }

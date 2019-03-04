@@ -1,14 +1,20 @@
 app.service('uploadService',function ($http) {
     //上传文件
     this.uploadFile=function () {
-        var formdata=new FormData();
-        formdata.append('file',file.files[0]);//file 文件上传的name
+        // 向后台传递数据:
+        var formData = new FormData();
+        // 向formData中添加数据:
+        formData.append("file",file.files[0]);
+
         return $http({
-            url:'http://localhost:8084/upload/uploadImage',
             method:'post',
-            date: formdata,
-            headers:{'Content-Type':undefined},
-            transformRequest:angular.identity
-        })
+            url:'http://localhost:8081/upload/uploadImage',
+            data:formData,
+            headers:{'Content-Type':undefined} ,// Content-Type : text/html  text/plain
+            transformRequest: angular.identity
+        });
+
     }
 })
+
+

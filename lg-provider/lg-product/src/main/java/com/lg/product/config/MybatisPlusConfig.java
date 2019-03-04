@@ -1,9 +1,9 @@
-package com.lg.biz.web.config;
+package com.lg.product.config;
 
-import org.springframework.boot.SpringBootConfiguration;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * ┏┓　　　┏┓
@@ -27,12 +27,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-02-25 00:31
+ * @create: 2019-01-19 20:36
  **/
-@SpringBootConfiguration
-public class WebConfig implements WebMvcConfigurer {
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+@Configuration
+@EnableTransactionManagement
+public class MybatisPlusConfig {
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
     }
 }

@@ -1,14 +1,8 @@
 package com.lg.biz.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lg.biz.model.domain.TbSeller;
-import com.lg.biz.vo.TbSellerVo;
-import com.lg.commons.base.vo.PageVO;
-import com.lg.commons.util.wrapper.Wrapper;
-
-import java.util.List;
-
 
 /**
  * <p>
@@ -66,4 +60,37 @@ public interface TbSellerService extends IService<TbSeller> {
      * 添加
      */
     public Wrapper<Integer> save(TbSeller tbSeller);
+    TbSeller findByLoginName(String username);
+
+
+    /**
+     * 商家入驻
+     * @param tbSeller
+     * @return
+     */
+    Wrapper sellerInsert(TbSeller tbSeller);
+
+    /**
+     * 根据商家用户名查询商家
+     * @param name
+     * @return
+     */
+    Wrapper<TbSeller> findById(String name);
+
+
+    /**
+     * 修改商家资料
+     * @param tbSeller
+     * @return
+     */
+     Wrapper updateSellerInfo(TbSeller tbSeller);
+
+    /**
+     * 根据seller_id修改密码
+     * @param tbSeller
+     * @return
+     */
+    Wrapper updatePasswordById(TbSeller tbSeller);
+
+
 }

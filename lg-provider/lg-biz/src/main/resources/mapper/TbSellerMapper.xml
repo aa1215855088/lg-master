@@ -30,5 +30,7 @@
 		<result column="bank_name" property="bankName" />
 	</resultMap>
 
-
+	<update id="updatePassword" parameterType="com.lg.biz.model.domain.TbSeller">
+		update tb_seller set password =#{password} where  seller_id=#{sellerId}
+	</update>
 </mapper>
