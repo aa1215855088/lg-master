@@ -60,26 +60,29 @@ public class TbSellerController extends BaseController {
 
     @PostMapping("/updatePasswordById")
     @ApiOperation(value = "修改密码", httpMethod = "POST")
-    public Wrapper updatePasswordById(@RequestBody @ApiParam TbSeller tbSeller,Principal principal) {
+    public Wrapper updatePasswordById(@RequestBody @ApiParam TbSeller tbSeller, Principal principal) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         logger.info("修改密码:{}", tbSeller);
         //将原始密码拿出来做匹配，调用方法判断是否相同
-        boolean sign=passwordEncoder.matches(tbSeller.getName(),this.tbSellerService.findByLoginName(principal.getName()).getPassword());
-        System.out.println(sign);
-       if(sign){
-            System.out.println("11111");
-            //原密码和数据相同进行修改操作
-            //将要修改的密码进行加密
-            String password = passwordEncoder.encode(tbSeller.getPassword());
-            tbSeller.setPassword(password);
-            //设置得到sellId
-            tbSeller.setSellerId(principal.getName());
-            return this.tbSellerService.updatePasswordById(tbSeller);
+        boolean sign = passwordEncoder.matches(tbSeller.getName(),
+                this.tbSellerService.findByLoginName(principal.getName()).getPassword());
+        if (tbSeller.getAddress() != null) {
+            if (sign) {
+                //原密码和数据相同进行修改操作
+                //将要修改的密码进行加密
+                String password = passwordEncoder.encode(tbSeller.getPassword());
+                tbSeller.setPassword(password);
+                //设置得到sellId
+                tbSeller.setSellerId(principal.getName());
+                return this.tbSellerService.updatePasswordById(tbSeller);
+            } else {
+                //如果不同返回错误消息
+                //return "原密码错误";
+                return WrapMapper.error("原密码错误");
+            }
         }
-            //如果不同返回错误消息
-            //return "原密码错误";
-           System.out.println("222");
-            return WrapMapper.error();
+        return WrapMapper.error("两次填入新密码不匹配");
+
     }
 
 }

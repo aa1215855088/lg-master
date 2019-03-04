@@ -19,7 +19,7 @@ app.controller('tbItemCat',function ($scope,$controller,tbItemCatService) {
         )
     }
 
-    $scope.findPage=function (page,rows) {
+    $scope.search=function (page,rows) {
         tbItemCatService.findPage(page,rows).success(
             function (response) {
                 $scope.list=response.result.rows;

@@ -92,63 +92,6 @@ public class TbGoodsController extends BaseController {
 
         return this.tbGoodsService.save(goods);
     }*/
-    @GetMapping(value = "findAll")
-    @ApiOperation(httpMethod = "GET",value = "查询所有")
-    public Wrapper<List<TbGoods>> findAll(){
-        logger.info("商家查询");
-        List<TbGoods> list = this.tbGoodsService.selectList(new QueryWrapper<TbGoods>());
-        return WrapMapper.ok(list) ;
-    }
-
-    @GetMapping(value = "/findPage")
-    @ApiOperation(httpMethod = "GET",value = "分页查询")
-    public Wrapper<PageVO<TbGoods>> findPage(Integer page,Integer rows){
-        logger.info("商家分页查询,{},{}",page,rows);
-        return this.tbGoodsService.pageList(page,rows);
-    }
-
-    @GetMapping(value = "/delete/{id}")
-    @ApiOperation(httpMethod = "GET",value = "商家删除商品")
-    public Wrapper delete(@ApiParam @PathVariable("id") Long[] id){
-        logger.info("商家删除商品{}",id);
-        return  this.tbGoodsService.delete(id);
-    }
-
-    @GetMapping(value = "/findOne/{id}")
-    @ApiOperation(httpMethod = "GET",value = "商家查询实体")
-    public Wrapper<TbGoods> findOne(@RequestBody @ApiParam @PathVariable("id") Long id){
-        logger.info("商家查询实体{}",this.tbGoodsService.findOne(id));
-        return this.tbGoodsService.findOne(id);
-    }
-
-    @PostMapping(value="/update")
-    @ApiOperation(httpMethod = "POST",value = "商家修改商品")
-    public Wrapper update(@RequestBody TbGoods tbGoods){
-        logger.info("商家修改{}",tbGoods.getGoodsName());
-        this.tbGoodsService.update(tbGoods);
-        return WrapMapper.ok();
-    }
-
-    @PostMapping(value="/search")
-    @ApiOperation(httpMethod = "POST",value = "商品列表搜索")
-    public Wrapper<PageVO<TbGoods>> search(@RequestBody(required = false) @ApiParam(name = "searchEntity", value = "条件")
-                                                   GoodsVo goods, Integer page, Integer rows  ){
-
-        logger.info("商品列表搜索,{},{},{}", page, rows,goods);
-
-
-
-        return this.tbGoodsService.search(page,rows,goods);
-    }
-
-    @PostMapping(value="/shield/{id}")
-    @ApiOperation(httpMethod = "POST",value = "商家屏蔽商品")
-    public Wrapper shield(@ApiParam @PathVariable("id") Long[] id){
-        logger.info("商家屏蔽{}",id);
-        this.tbGoodsService.shield(id);
-        return WrapMapper.ok();
-    }
-
 
 
 

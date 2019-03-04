@@ -1,4 +1,4 @@
-package com.lg.product.model.vo;
+package com.lg.product.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lg.product.model.domain.TbGoods;
@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GoodDto implements Serializable {
+public class GoodDTD implements Serializable {
 
     private static final long serialVersionUID = -629258389710064860L;
 
@@ -26,12 +26,4 @@ public class GoodDto implements Serializable {
 
   /*  private List<TbItem> itemList;*/
     private String itemList;
-
-
-
-
-
-
-
-
 }

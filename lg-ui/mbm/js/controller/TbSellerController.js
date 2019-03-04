@@ -1,7 +1,7 @@
 //控制层
 app.controller('TbSellerController', function ($scope, $controller, TbSellerService) {
 
-    $controller('baseController',{$scope:$scope});
+    $controller('baseController', {$scope: $scope});
 
 
     /*$scope.getName = function () {
@@ -33,14 +33,18 @@ app.controller('TbSellerController', function ($scope, $controller, TbSellerServ
     }
 
 
-
     //修改
-    $scope.update = function(){
+    $scope.update = function () {
         TbSellerService.update($scope.entity).success(
             function (response) {
                 if (response.code == "200") {
                     // 修改成功
-                    layer.msg(response.message);
+                    layer.msg(response.message, {
+                        icon: 1,
+                        time: 2000
+                    }, function () {
+                        window.parent.location.href = "http://localhost/mbm/admin/index.html";
+                    });
                 } else {
                     //修改失败
                     layer.msg(response.message);
@@ -51,16 +55,26 @@ app.controller('TbSellerController', function ($scope, $controller, TbSellerServ
 
 
     //根据id修改密码
-    $scope.updatePassword = function(){
+    $scope.updatePassword = function () {
+        if ($("#oldPassword").val() == null || $("#oldPassword").val() == "") {
+            return layer.msg("请输入原密码");
+        }
+        if ($("#newPassword").val() == null || $("#newPassword").val() == "") {
+            return layer.msg("请输入新密码");
+        }
         TbSellerService.updatePassword($scope.entity).success(
-                  function (response){
+            function (response) {
                 if (response.code == "200") {
                     // 修改成功
-                    layer.msg("操作成功!");
-                    $scope.name="";
+                    layer.msg("操作成功", {
+                        icon: 1,
+                        time: 2000
+                    }, function () {
+                        window.parent.location = "http://localhost:8084/logout";
+                    });
                 } else {
                     //修改失败
-                    layer.msg("原密码错误!");
+                    layer.msg(response.message);
                 }
             }
         );
