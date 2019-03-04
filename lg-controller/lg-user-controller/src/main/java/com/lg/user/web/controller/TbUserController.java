@@ -2,7 +2,6 @@ package com.lg.user.web.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lg.commons.core.controller.BaseController;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -23,14 +23,19 @@ import java.util.List;
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping("/tbUser")
+@RequestMapping("/user")
 public class TbUserController extends BaseController {
-    @Reference(version = "1.0.0")
-    private TbUserService tbUserService;
-
+    //    @Reference(version = "1.0.0")
+//    private TbUserService tbUserService;
+//
+//    @GetMapping("")
+//    public Wrapper<List<TbUser>> findAll() {
+//        List<TbUser> tbUsers = this.tbUserService.findAll();
+//        return WrapMapper.ok(tbUsers);
+//    }
     @GetMapping("")
-    public Wrapper<List<TbUser>> findAll() {
-        List<TbUser> tbUsers = this.tbUserService.findAll();
-        return WrapMapper.ok(tbUsers);
+    public Principal user(Principal principal) {
+        return principal;
     }
+
 }

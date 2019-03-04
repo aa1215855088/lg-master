@@ -17,7 +17,16 @@
             <artifactId>lg-product-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.lg</groupId>
+            <artifactId>lg-content-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lg</groupId>
+            <artifactId>lg-biz-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>pili-sdk-java</artifactId>

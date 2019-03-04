@@ -12,7 +12,8 @@ import com.lg.product.model.domain.TbSeller;
  * @author xuzilou
  * @since 2019-02-19
  */
-public interface TbSellerService extends IService<TbSeller> {
+public interface
+TbSellerService extends IService<TbSeller> {
 
     /**
      * 跟据商家登录名查询商家信息

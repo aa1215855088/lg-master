@@ -27,6 +27,11 @@ app.controller('contentController', function ($scope, $controller, contentServic
         contentService.findOne(id).success(
             function (response) {
                 $scope.content = response.result;
+                if ($scope.content.status == "1") {
+                    $("#isOK").prop("checked", true);
+                } else {
+                    $("#isOK").prop("checked", false);
+                }
             }
         );
     }
@@ -94,9 +99,9 @@ app.controller('contentController', function ($scope, $controller, contentServic
 
     $scope.all = function (checkAll) {
         for (var i = 0; i < $scope.list.length; i++) {
-            if (i==true){
-                 $scope.list[i].state = true;
-            }else {
+            if (i == true) {
+                $scope.list[i].state = true;
+            } else {
                 $scope.list[i].state = false;
             }
         }

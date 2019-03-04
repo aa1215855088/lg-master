@@ -17,4 +17,11 @@ public interface TbUserService extends IService<TbUser> {
 
     List<TbUser> findAll();
 
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username
+     * @return
+     */
+    TbUser findByLoginName(String username);
 }

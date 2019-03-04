@@ -25,43 +25,43 @@ import java.util.List;
 @Api(value = "WEB - TbItemCatController",tags = "购物车Api",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class CartController {
 
-    @Reference(version = "1.0.0")
-    private CartService cartService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private HttpServletResponse response;
-
-
-    @GetMapping("/findCartList")
-    @ApiOperation(httpMethod = "GET",value = "购物车")
-    public List<Cart> findCartList(){
-        System.out.println("在cookie在拿数据");
-        String cartlistString=CookieUtil.getCookieValue(request,"cartlist","UTF-8");
-        if (cartlistString==null||cartlistString.equals("")){
-            cartlistString="[]";
-        }
-        List<Cart> cartsCookie=JSON.parseArray(cartlistString,Cart.class);
-        return  cartsCookie;
-    }
-
-    @PostMapping("/addGoodsToCartList")
-    @ApiOperation(httpMethod = "POST",value = "加入购物车")
-    public String addGoodsToCartList(Long itemId,Integer num){
-        //从cookie中提取购物车
-        List<Cart> cartList=findCartList();
-        //调用服务层方法
-        cartList=this.cartService.addGoodsToCartList(cartList,itemId,num);
-
-        //将新购物车存入购物车
-        String carListString=JSON.toJSONString(cartList);
-        CookieUtil.setCookie(request,response,"cartlist",carListString,24*3600,"UTF-8");
-
-        System.out.println("商品添加到cookie中成功");
-        return null;
-    }
+//    @Reference(version = "1.0.0")
+//    private CartService cartService;
+//
+//    @Autowired
+//    private HttpServletRequest request;
+//
+//    @Autowired
+//    private HttpServletResponse response;
+//
+//
+//    @GetMapping("/findCartList")
+//    @ApiOperation(httpMethod = "GET",value = "购物车")
+//    public List<Cart> findCartList(){
+//        System.out.println("在cookie在拿数据");
+//        String cartlistString=CookieUtil.getCookieValue(request,"cartlist","UTF-8");
+//        if (cartlistString==null||cartlistString.equals("")){
+//            cartlistString="[]";
+//        }
+//        List<Cart> cartsCookie=JSON.parseArray(cartlistString,Cart.class);
+//        return  cartsCookie;
+//    }
+//
+//    @PostMapping("/addGoodsToCartList")
+//    @ApiOperation(httpMethod = "POST",value = "加入购物车")
+//    public String addGoodsToCartList(Long itemId,Integer num){
+//        //从cookie中提取购物车
+//        List<Cart> cartList=findCartList();
+//        //调用服务层方法
+//        cartList=this.cartService.addGoodsToCartList(cartList,itemId,num);
+//
+//        //将新购物车存入购物车
+//        String carListString=JSON.toJSONString(cartList);
+//        CookieUtil.setCookie(request,response,"cartlist",carListString,24*3600,"UTF-8");
+//
+//        System.out.println("商品添加到cookie中成功");
+//        return null;
+//    }
 
 
 
