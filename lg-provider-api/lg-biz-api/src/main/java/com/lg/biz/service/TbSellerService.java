@@ -1,8 +1,14 @@
 package com.lg.biz.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lg.biz.model.domain.TbSeller;
+import com.lg.biz.vo.TbSellerVo;
+import com.lg.commons.base.vo.PageVO;
+import com.lg.commons.util.wrapper.Wrapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -47,7 +53,7 @@ public interface TbSellerService extends IService<TbSeller> {
      * @param pageSize
      * @return
      */
-    public Wrapper<PageVO<TbSeller>> findPage(Integer pageNum, Integer pageSize,TbSellerVo SellerVo);
+    public Wrapper<PageVO<TbSeller>> findPage(Integer pageNum, Integer pageSize, TbSellerVo SellerVo);
 
     /**
      *修改状态
@@ -60,7 +66,6 @@ public interface TbSellerService extends IService<TbSeller> {
      * 添加
      */
     public Wrapper<Integer> save(TbSeller tbSeller);
-    TbSeller findByLoginName(String username);
 
 
     /**
