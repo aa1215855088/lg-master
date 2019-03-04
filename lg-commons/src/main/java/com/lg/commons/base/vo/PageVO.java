@@ -2,6 +2,7 @@ package com.lg.commons.base.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ import java.util.List;
  * @create: 2019-01-19 20:11
  **/
 @Data
-public class PageVO<T> {
+public class PageVO<T> implements Serializable {
 
     /**
      * 总记录数

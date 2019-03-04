@@ -30,4 +30,5 @@
 		<result column="bank_name" property="bankName" />
 	</resultMap>
 
+
 </mapper>

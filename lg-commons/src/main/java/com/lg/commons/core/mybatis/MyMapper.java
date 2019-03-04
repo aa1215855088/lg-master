@@ -2,7 +2,6 @@
 package com.lg.commons.core.mybatis;
 
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -19,4 +18,6 @@ public interface MyMapper<T> extends BaseMapper<T> {
      * @return
      */
     List<T> findAll();
+
+
 }
