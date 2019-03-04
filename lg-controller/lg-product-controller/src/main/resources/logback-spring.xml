@@ -22,7 +22,7 @@
         <!--滚动策略，按天输出日志-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--设置文件保存路径，timeBasedFileNamingAndTriggeringPolicy标签时，这里的%i要加上，不然会导致运行报错-->
-            <fileNamePattern>f:/log/info.%d-%i.log</fileNamePattern>
+            <fileNamePattern>d:/log/info.%d-%i.log</fileNamePattern>
             <!-- 配置日志文件不能超过2M，若超过2M，日志文件会以索引0开始，命名日志文件，例如info.2018-12-21-0.log -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
@@ -42,7 +42,7 @@
         <!--滚动策略 按天生成日志-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>f:/log/error.%d.log</fileNamePattern>
+            <fileNamePattern>d:/log/error.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <root level="info">

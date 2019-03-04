@@ -10,13 +10,43 @@
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="text/javascript" src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+	<!--<script src="../js/base.js"></script>-->
+
+	<script type="text/javascript" type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!--分页插件-->
+	<script type="text/javascript" src="../js/base_pagination.js"></script>
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/service/tbItemCatService.js"></script>
+	<script type="text/javascript" src="../js/controller/tbItemCatController.js"></script>
+	<script type="text/javascript" src="../js/layer/layer.js"></script>
+
+	<!--<script>
+		var app=angular.module("myApp",[]);
+		app.controller("myController",function ($scope,$http) {
+			$scope.findAll=function () {
+				$http.get('http://localhost:8081/tbItemCat').success(function (repce) {
+					$scope.list=repce.result;
+					alter(repce.result)
+				})
+			}
+		})
+	</script>-->
+	<script type="text/javascript">
+		function addclear() {
+			$("#input1").val("");
+			$("#input2").val("");
+			$("#input3").val("");
+		}
+	</script>
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="lg" ng-controller="tbItemCat"  ng-init="findByParentId(0)">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -27,13 +57,13 @@
                     <div class="box-body">
                   			 <ol class="breadcrumb">	                        	
                         		<li>
-		                        	<a href="#" >顶级分类列表</a> 
+		                        	<a href="#" ng-click="grade=1;selectList({id:0})">顶级分类列表</a>
 		                        </li>
 		                        <li>
-		                       		<a href="#" >珠宝</a>
+		                       		<a href="#" ng-click="grade=2;selectList(entity_1)">{{entity_1.name}}</a>
 		                        </li>
 		                        <li>
-		                        	<a href="#" >银饰</a>
+		                        	<a href="#" ng-click="grade=3;selectList(entity_2)">{{entity_2.name}}</a>
 		                        </li>
 	                        </ol>
 
@@ -44,9 +74,9 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
+                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" onclick="addclear()" ng-click="xinjian()"><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="delete()"><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-check"></i> 刷新</button>
                                        
                                     </div>
                                 </div>
@@ -58,63 +88,40 @@
 			                      <thead>
 			                          <tr>
 			                              <th class="" style="padding-right:0px">
-			                                  <input type="checkbox" class="icheckbox_square-blue">
+			                                  <input type="checkbox" class="icheckbox_square-blue" ng-model="selectAll" ng-click="all(selectAll)">
 			                              </th> 
 										  <th class="sorting_asc">分类ID</th>
+										  <th class="sorting_asc">分类父ID</th>
 									      <th class="sorting">分类名称</th>									   
 									      <th class="sorting">类型模板ID</th>
 									     						
 					                      <th class="text-center">操作</th>
 			                          </tr>
 			                      </thead>
-			                      <tbody>
-			                          <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>982</td>
-									      <td>吊坠/项链</td>									    
-									      <td>
-									      	11    
-									      </td>									      
+			                      <tbody >
+			                          <tr ng-repeat="entity in list">
+			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)" ng-checked="selectAll"></td>
+										  <td>{{entity.id}}</td>
+				                          <td>{{entity.parentId}}</td>
+									      <td>{{entity.name}}</td>
+									      <td>{{entity.typeId}}</td>
 		                                  <td class="text-center">		                                     
-		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                      <button type="button" class="btn bg-olive btn-xs"  ng-click="setGrade(grade+1);selectList(entity);">查询下级</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findById(entity.id)">修改</button>
 		                                  </td>
 			                          </tr>
-									  <tr >
-			                              <td><input  type="checkbox"> </td>			                              
-				                          <td>983</td>
-									      <td>手镯/手链/脚链</td>									    
-									      <td>
-									      	11    
-									      </td>									      
-		                                  <td class="text-center">		                                     
-		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>984</td>
-									      <td>戒指/耳饰</td>									    
-									      <td>
-									      	11    
-									      </td>									      
-		                                  <td class="text-center">		                                     
-		                                      <button type="button" class="btn bg-olive btn-xs" >查询下级</button> 		                                     
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
-		                                  </td>
-			                          </tr>
+
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                      
-						
+
+			                  <!--数据列表/-->
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
-                        
+						<tm-pagination conf="paginationConf"></tm-pagination>
                         
                      </div>
+
+  						<!--{{selectIds}}-->
                     <!-- /.box-body -->
               
                                 
@@ -132,24 +139,28 @@
 				<tr>
 		      		<td>上级商品分类</td>
 		      		<td>
-		      		   珠宝 >>  银饰
+						{{entity_1.name}} >>  {{entity_2.name}}
 		      		</td>
 		      	</tr>
-		      	<tr>
+				<tr>
+					<td>商品父ID</td>
+					<td><input  class="form-control" placeholder="商品父ID" ng-model="entity.parentId" id="input1">  </td>
+				</tr>
+				<tr>
 		      		<td>商品分类名称</td>
-		      		<td><input  class="form-control" placeholder="商品分类名称">  </td>
+		      		<td><input  class="form-control" placeholder="商品分类名称" ng-model="entity.name" id="input2">  </td>
 		      	</tr>			  
 		      	<tr>
 		      		<td>类型模板</td>
 		      		<td>	      		
-		      			<input select2 config="options['type_template']" placeholder="商品类型模板" class="form-control" type="text"/>
+		      			<input select2 config="options['type_template']" placeholder="商品类型模板" class="form-control" type="text" ng-model="entity.typeId" id="input3"/>
 		      		</td>		      		      		
 		      	</tr>		      	
 			 </table>				
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

@@ -1,7 +1,8 @@
 package com.lg.order.mapper;
 
 import com.lg.order.model.domain.TbOrderItem;
-import com.lg.commons.core.mybatis.MyMapper;import org.apache.ibatis.annotations.Mapper;
+import com.lg.commons.core.mybatis.MyMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
