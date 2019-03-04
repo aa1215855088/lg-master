@@ -127,8 +127,6 @@ public class TbItemCatController extends BaseController {
 
     }
 
-    @Reference(version = "1.0.0")
-    private TbItemCatService tbItemCatService;
 
     @GetMapping("")
     @ApiOperation(httpMethod = "GET", value = "获取商品分类")

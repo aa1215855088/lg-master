@@ -1,8 +1,11 @@
 package com.lg.product.service.impl;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,15 +17,25 @@ import com.lg.commons.base.vo.PageVO;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.mapper.TbGoodsMapper;
+import com.lg.product.model.domain.TbBrand;
 import com.lg.product.model.domain.TbGoods;
-import com.lg.product.service.TbGoodsDescService;
-import com.lg.product.service.TbGoodsService;
+import com.lg.product.model.domain.TbItem;
+import com.lg.product.model.domain.TbItemCat;
+import com.lg.product.model.dto.GoodDTD;
+import com.lg.product.model.dto.Goods;
+import com.lg.product.model.vo.GoodsVO;
+import com.lg.product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Validator;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.util.*;
+
 import java.util.List;
+
+import static com.alibaba.nacos.client.config.impl.CacheData.log;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * <p>
@@ -35,80 +48,6 @@ import java.util.List;
 @Service(version = "1.0.0", timeout = 6000)
 @Transactional
 public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> implements TbGoodsService {
-
-    @Override
-    public Wrapper<List<TbGoods>> findAll() {
-
-
-        return WrapMapper.ok(this.baseMapper.selectList(new QueryWrapper<TbGoods>()));
-    }
-
-    @Override
-    public Wrapper<PageVO<TbGoods>> findPage(Integer page, Integer rows) {
-
-
-        if(page == null || page == 0){
-            page = 1;
-        }
-
-        if(rows == null || rows == 0){
-            rows = 10;
-        }
-
-        IPage<TbGoods> iPage = this.baseMapper.selectPage(new Page<TbGoods>(page,rows),new QueryWrapper<TbGoods>());
-
-        PageVO<TbGoods> pageVO = new PageVO<>();
-        pageVO.setRows(iPage.getRecords());
-        pageVO.setTotal(iPage.getTotal());
-
-        return WrapMapper.ok(pageVO);
-    }
-
-    @Override
-    public Wrapper updateStatus(Long[] ids, String status) {
-
-        for (Long id : ids) {
-
-            TbGoods tbGoods = baseMapper.selectById(id);
-
-            tbGoods.setAuditStatus(status);
-
-            baseMapper.updateById(tbGoods);
-        }
-
-        return WrapMapper.ok();
-    }
-
-    @Override
-    public Wrapper deleteGoods(Long[] ids) {
-
-        for (Long id : ids) {
-            baseMapper.deleteById(id);
-        }
-
-        return WrapMapper.ok();
-    }
-
-    @Override
-    public Wrapper<PageVO<TbGoods>> findPageAndName(String name, Integer page, Integer rows) {
-
-        if(page == null || page == 0){
-            page = 1;
-        }
-
-        if(rows == null || rows == 0){
-            rows = 10;
-        }
-        IPage<TbGoods> iPage = this.baseMapper.selectPage(new Page<TbGoods>(page,rows),new QueryWrapper<TbGoods>()
-                .like(StrUtil.isNotBlank(name),"goods_name",name));
-
-        PageVO<TbGoods> pageVO = new PageVO<>();
-        pageVO.setRows(iPage.getRecords());
-        pageVO.setTotal(iPage.getTotal());
-
-        return WrapMapper.ok(pageVO);
-
-    }
 
 
     @Autowired
@@ -128,6 +67,71 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
 
     @Autowired
     private TbSellerService tbSellerService;
+
+
+    @Override
+    public Wrapper save(GoodDTD goods) {
+        goods.getGoods().setAuditStatus("0");
+        baseMapper.insert(goods.getGoods());
+        goods.getGoodsDesc().setGoodsId(goods.getGoods().getId());
+        tbGoodsDescService.insert(goods.getGoodsDesc());
+        setItemList(goods);
+        return WrapMapper.ok(goods);
+    }
+
+    @Override
+    public Wrapper<List<TbGoods>> findAll() {
+        return null;
+    }
+
+
+    @Override
+    public Wrapper updateStatus(Long[] ids, String status) {
+
+        for (Long id : ids) {
+
+            TbGoods tbGoods = baseMapper.selectById(id);
+
+            tbGoods.setAuditStatus(status);
+
+            baseMapper.updateById(tbGoods);
+        }
+
+        return WrapMapper.ok();
+    }
+
+
+    @Override
+    public Wrapper deleteGoods(Long[] ids) {
+
+        for (Long id : ids) {
+            baseMapper.deleteById(id);
+        }
+
+        return WrapMapper.ok();
+    }
+
+    @Override
+    public Wrapper<PageVO<TbGoods>> findPageAndName(String name, Integer page, Integer rows) {
+
+        if (page == null || page == 0) {
+            page = 1;
+        }
+
+        if (rows == null || rows == 0) {
+            rows = 10;
+        }
+        IPage<TbGoods> iPage = this.baseMapper.selectPage(new Page<TbGoods>(page, rows), new QueryWrapper<TbGoods>()
+                .like(StrUtil.isNotBlank(name), "goods_name", name));
+
+        PageVO<TbGoods> pageVO = new PageVO<>();
+        pageVO.setRows(iPage.getRecords());
+        pageVO.setTotal(iPage.getTotal());
+
+        return WrapMapper.ok(pageVO);
+
+    }
+
 
     /**
      * 查询所有
@@ -261,21 +265,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         return WrapMapper.ok();
     }
 
-    @Override
-    public Wrapper save(GoodDTD goods) {
-        goods.getGoods().setAuditStatus("0");
-        baseMapper.insert(goods.getGoods());
-        goods.getGoodsDesc().setGoodsId(goods.getGoods().getId());
-        tbGoodsDescService.insert(goods.getGoodsDesc());
-        setItemList(goods);
-        return WrapMapper.ok(goods);
-    }
-
-    @Override
-    public List<Goods> findAll() {
-        this.baseMapper.findAll().stream().forEach(System.out::println);
-        return null;
-    }
 
     @Override
     public Wrapper submitAudit(Long[] ids) {
