@@ -32,6 +32,7 @@ import java.util.List;
 @Data
 public class PageVO<T> implements Serializable {
 
+
     /**
      * 总记录数
      */
@@ -41,5 +42,4 @@ public class PageVO<T> implements Serializable {
      * 内容
      */
     private List<T> rows;
-
 }

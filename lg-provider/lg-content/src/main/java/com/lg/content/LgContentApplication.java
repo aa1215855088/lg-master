@@ -1,8 +1,10 @@
 package com.lg.content;
 
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * ┏┓　　　┏┓
@@ -29,9 +31,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create: 2019-02-20 21:31
  **/
 @MapperScan("com.lg.content.mapper")
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LgContentApplication {
     public static void main(String[] args) {
         SpringApplication.run(LgContentApplication.class, args);
     }
+
+
+
+
 }

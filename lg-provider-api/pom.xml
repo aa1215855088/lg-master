@@ -17,7 +17,10 @@
         <module>lg-user-api</module>
         <module>lg-biz-api</module>
         <module>lg-content-api</module>
+        <module>lg-seckill-api</module>
     </modules>
+
+
 
 
 </project>

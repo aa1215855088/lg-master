@@ -10,7 +10,23 @@ dubbo:
   registry:
       address: nacos://127.0.0.1:8848
 
+project:
+  leader:
+    email: 1013629501@qq.com
+
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 888888
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  redis:
+    host: 47.105.207.20
+    password: 123456
   application:
     name: lg-product-service
   ##数据库连接信息
@@ -18,7 +34,7 @@ spring:
     url: jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb
     username: root
     password: liu20000406
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
     # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -40,6 +56,9 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
+  output:
+    ansi:
+      enabled: detect
 
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
@@ -60,4 +79,13 @@ mybatis-plus:
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+  #--------七牛配置
+qiniu:
+  access:
+    key: syZMJO8mXCWFCVaDJ_3WEeeWed5o_eU3drZfE49x
+  secret:
+    key: 5PTalH1Y70jfPIjQXXKCkQn-QQl6Qc4cRQckOwRy
+  bucket:
+    name: xzlimage
+    host:
+      name: pmyhsetqs.bkt.clouddn.com

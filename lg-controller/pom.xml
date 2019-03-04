@@ -17,6 +17,7 @@
         <module>lg-order-controller</module>
         <module>lg-biz-web</module>
         <module>lg-content-controller</module>
+        <module>lg-seckill-controller</module>
     </modules>
 
     <dependencies>
@@ -56,25 +57,38 @@
         </dependency>
 
         <!--nacos配置中心-->
-        <!--spring-boot-starter-actuator与nacos-config-spring-boot-actuator 2选1-->
+        <!--spring-boot-starter-actuator与nacos-security-spring-boot-actuator 2选1-->
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+            <!--<groupId>com.alibaba.boot</groupId>-->
+            <!--<artifactId>nacos-security-spring-boot-starter</artifactId>-->
         <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>nacos-config-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>nacos-config-spring-boot-actuator</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.boot</groupId>-->
+            <!--<artifactId>nacos-security-spring-boot-actuator</artifactId>-->
+        <!--</dependency>-->
         <!--nacos配置中心-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.8.9</version>
+        </dependency>
+
     </dependencies>
 </project>

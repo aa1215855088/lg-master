@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
+
+    <!--<http pattern="/cart/*" security="none"></http>-->
     <!-- 设置上下文名称 -->
     <contextName>${log.context.name}</contextName>
 

@@ -4,7 +4,7 @@
 <mapper namespace="com.lg.content.mapper.TbContentMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.lg.order.model.domain.TbContent">
+	<resultMap id="BaseResultMap" type="com.lg.content.model.domain.TbContent">
 		<id column="id" property="id" />
 		<result column="category_id" property="categoryId" />
 		<result column="title" property="title" />
