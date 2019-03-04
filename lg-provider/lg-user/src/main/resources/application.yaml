@@ -1,12 +1,14 @@
-dubbo:
-  scan:
-    base-packages: com.lg.biz.service.impl
-  protocol:
-    name: dubbo
-    port: -1
-  registry:
-    address: nacos://127.0.0.1:8848
-
+#server:
+#  port: 8001
+#
+#dubbo:
+#  scan:
+#    base-packages: com.lg.product.service.impl
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  registry:
+#    address: nacos://127.0.0.1:8848
 
 spring:
   ##数据库连接信息
@@ -36,8 +38,6 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-  application:
-    name: lg-user-service
 
 
 mybatis-plus:
@@ -58,5 +58,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-server:
-  port: 8003

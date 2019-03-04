@@ -1,9 +1,9 @@
-package com.lg.content;
+package com.lg.content.config;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * ┏┓　　　┏┓
@@ -27,16 +27,16 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-02-20 21:31
+ * @create: 2019-01-19 20:36
  **/
-@MapperScan("com.lg.content.mapper")
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-public class LgContentApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(LgContentApplication.class, args);
+@Configuration
+@EnableTransactionManagement
+public class MybatisPlusConfig {
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
     }
-
-
-
-
 }

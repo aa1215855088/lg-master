@@ -1,9 +1,8 @@
-package com.lg.content;
+package com.lg.content.config;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * ┏┓　　　┏┓
@@ -27,16 +26,13 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-02-20 21:31
+ * @create: 2019-01-20 22:06
  **/
-@MapperScan("com.lg.content.mapper")
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-public class LgContentApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(LgContentApplication.class, args);
+@Configuration
+public class ValidatorConfig {
+    @Bean
+    public javax.validation.Validator getValidator() {
+        return new LocalValidatorFactoryBean();
     }
-
-
-
 
 }

@@ -1,24 +1,20 @@
 package com.lg.content.web.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lg.commons.base.vo.PageVO;
 import com.lg.commons.util.wrapper.WrapMapper;
+
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.content.model.domain.TbContentCategory;
 import com.lg.content.service.TbContentCategoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.hibernate.mapping.Map;
+import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import com.lg.commons.core.controller.BaseController;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
-
 
 
 /**
@@ -30,71 +26,84 @@ import java.util.List;
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping(value = "/TbContentCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/contentCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "WEB - ProductContentCategoryController", tags = "广告分类API", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TbContentCategoryController extends BaseController {
 
-    @Resource
+    @Reference(version = "1.0.0")
     private TbContentCategoryService tbContentCategoryService;
 
-//
-//    //显示
-//    @GetMapping("/query")
-//    @ApiOperation(httpMethod = "GET", value = "获取广告分类列表")
-//    public Wrapper<List<TbContentCategory>> list(){
-//        logger.info("获取广告分类列表");
-//        List<TbContentCategory> tbContentCategories = this.tbContentCategoryService.selectList(new QueryWrapper<>());
-//        return WrapMapper.ok(tbContentCategories);
-//    }
-//
-//    //分页
-//    public PageVO<TbContentCategory> findByPage(Integer pageNum, Integer pageSize, TbContentCategory contentCategory) {
-//        return null;
-//    }
-//
-//    //查询
-////    @GetMapping("/{id}")
-////    @ApiOperation(httpMethod = "GET", value = "根据分类ID查询广告分类")
-////    public Wrapper<TbContentCategory> findById(@ApiParam @PathVariable Integer id) {
-////        logger.info("根据分类ID查询广告分类，ID={}", id);
-////        TbContentCategory tbContentCategory = this.tbContentCategoryService.findById(id);
-////        return  null;
-////    }
-//
-//    //新建
-//    @PostMapping("/")
-//    @ApiOperation(httpMethod = "POST", value = "添加广告分类信息")
-//    public Wrapper saveContentCategory(@RequestBody @ApiParam("广告分类") TbContentCategory contentCategory) {
-//        logger.info("添加广告分类信息", contentCategory);
-//        this.tbContentCategoryService.saveContentCategory(contentCategory);
-//        return WrapMapper.ok(contentCategory);
-//    }
-//
-//    //修改
-//    @PutMapping("/")
-//    @ApiOperation(httpMethod = "PUT", value = "更新广告分类信息")
-//    public Wrapper updateContentCategory(@ApiParam("修改参数") @RequestBody TbContentCategory contentCategory) {
-//        logger.info("更新广告分类信息，contentCategory={}", contentCategory);
-//        this.tbContentCategoryService.updateContentCategory(contentCategory);
-//        return WrapMapper.ok(contentCategory);
-//    }
-//
-//    //删除
-//    @DeleteMapping("/{id}")
-//    @ApiOperation(httpMethod = "DELETE", value = "删除广告分类信息")
-//    public Wrapper deleteContentCategory(Long[] ids) {
-//        logger.info("删除广告分类信息，ID={}", Arrays.toString(ids));
-//        this.tbContentCategoryService.deleteContentCategory(ids);
-//        return  WrapMapper.ok(ids);
-//    }
-//
-//
-//    @GetMapping("/optionList")
-//    @ApiOperation(httpMethod = "GET", value = "")
-//    public Wrapper<List<Map>> findOptionList() {
-//        logger.info("");
-//        this.tbContentCategoryService.findOptionList();
-//        return WrapMapper.ok();
-//    }
+
+    //显示
+    @GetMapping("/findAll")
+    @ApiOperation(httpMethod = "GET", value = "获取广告分类列表")
+    public Wrapper<List<TbContentCategory>> findAll(){
+        logger.info("获取广告分类列表");
+        return WrapMapper.ok(this.tbContentCategoryService.selectList(new QueryWrapper<>()));
+    }
+
+
+    //分页
+    @GetMapping("/findPage")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "页数", paramType = "query"),
+            @ApiImplicitParam(value = "行数", paramType = "query")
+        })
+    @ApiOperation(httpMethod = "GET", value = "获取广告分类列表分页")
+    public Wrapper<PageVO<TbContentCategory>> findPage(Integer page, Integer rows) {
+        logger.info("广告分类列表分页,pageNum={},pageSize={}", page, rows);
+        return tbContentCategoryService.findPage(page, rows);
+    }
+
+
+    //分页 模糊查询 名字
+    @PostMapping("/search")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "页数", paramType = "query"),
+            @ApiImplicitParam(value = "行数", paramType = "query")
+    })
+    @ApiOperation(httpMethod = "POST", value = "获取查询的广告分类信息")
+    public Wrapper<PageVO<TbContentCategory>> search(@RequestBody(required = false) @ApiParam(name = "searchEntity", value = "条件") TbContentCategory contentCategory, Integer page, Integer rows){
+        logger.info("广告分类信息查询,pageNum={},pageSize={},contentCategory={}", page, rows, contentCategory);
+        return tbContentCategoryService.findPage(page, rows, contentCategory);
+    }
+
+
+    //编号 查询
+    @GetMapping("/findById/{id}")
+    @ApiOperation(httpMethod = "GET", value = "根据ID查询广告分类")
+    public Wrapper<TbContentCategory> findById(@ApiParam @PathVariable Integer id) {
+        logger.info("根据分类ID查询广告分类，ID={}", id);
+        return this.tbContentCategoryService.findById(id);
+    }
+
+
+    //新建
+    @PostMapping("/save")
+    @ApiOperation(httpMethod = "POST", value = "添加广告分类信息")
+    public Wrapper save(@RequestBody @ApiParam("广告分类") TbContentCategory contentCategory) {
+        logger.info("添加广告分类信息,{}", contentCategory);
+        return WrapMapper.ok( this.tbContentCategoryService.save(contentCategory));
+    }
+
+
+    //修改
+    @PutMapping("/update")
+    @ApiOperation(httpMethod = "PUT", value = "更新广告分类信息")
+    public Wrapper update(@RequestBody @ApiParam("修改参数") TbContentCategory contentCategory) {
+        logger.info("更新广告分类信息，contentCategory={}", contentCategory);
+        return WrapMapper.ok(this.tbContentCategoryService.update(contentCategory));
+    }
+
+
+    //删除
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(httpMethod = "DELETE", value = "删除广告分类信息")
+    public Wrapper delete(@RequestBody @ApiParam @PathVariable("id") Long[] ids) {
+        logger.info("删除广告分类信息,ID={}", Arrays.toString(ids));
+        return  WrapMapper.ok(this.tbContentCategoryService.delete(ids));
+    }
+
+
 
 }

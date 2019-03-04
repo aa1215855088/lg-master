@@ -1,5 +1,5 @@
-
 package com.lg.commons.util.wrapper;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;

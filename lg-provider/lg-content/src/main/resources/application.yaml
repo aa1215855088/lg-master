@@ -1,5 +1,4 @@
 
-
 dubbo:
   scan:
     base-packages: com.lg.content.service.impl
