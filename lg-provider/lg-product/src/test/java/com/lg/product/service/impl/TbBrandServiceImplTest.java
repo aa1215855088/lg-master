@@ -3,6 +3,7 @@ package com.lg.product.service.impl;
 
 import com.lg.product.model.domain.TbBrand;
 import com.lg.product.service.TbBrandService;
+import com.lg.product.vo.BrandVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,6 @@ public class TbBrandServiceImplTest {
 
     @Test
     public void insert() {
-        TbBrand tbBrand = new TbBrand();
-        tbBrand.setName("1235888");
-        tbBrand.setFirstChar("1");
-        this.brandService.save(tbBrand);
+
     }
 }

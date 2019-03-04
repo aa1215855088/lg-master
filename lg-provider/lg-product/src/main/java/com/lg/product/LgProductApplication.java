@@ -3,6 +3,7 @@ package com.lg.product;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * ┏┓　　　┏┓
@@ -29,7 +30,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create: 2019-02-19 19:49
  **/
 @MapperScan("com.lg.product.mapper")
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LgProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(LgProductApplication.class, args);

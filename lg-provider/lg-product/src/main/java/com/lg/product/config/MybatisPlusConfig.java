@@ -1,9 +1,9 @@
-package com.lg.commons.base.vo;
+package com.lg.product.config;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * ┏┓　　　┏┓
@@ -27,19 +27,16 @@ import java.util.List;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-01-19 20:11
+ * @create: 2019-01-19 20:36
  **/
-@Data
-public class PageVO<T> implements Serializable {
-
+@Configuration
+@EnableTransactionManagement
+public class MybatisPlusConfig {
     /**
-     * 总记录数
+     * 分页插件
      */
-    private Long total;
-
-    /**
-     * 内容
-     */
-    private List<T> rows;
-
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 }
