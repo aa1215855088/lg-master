@@ -30,6 +30,5 @@ public interface TbContentService extends IService<TbContent> {
 
     Wrapper<TbContent> findById(Long id);
 
-    PageVO<TbContent> findBypage(Integer num, Integer size, TbContentVO tbContentVO);
 
 }

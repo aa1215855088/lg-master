@@ -26,10 +26,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @TableName("tb_content")
-public class TbContent extends Model<TbContent> {
-
-    public static final Integer PAGE_NUM = 1;
-	public static final Integer PAGE_SIZE = 2;
+public class TbContent extends Model<TbContent> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,20 +49,21 @@ public class TbContent extends Model<TbContent> {
     /**
      * 链接
      */
-	@NotBlank(groups = {Update.class, Insert.class})
+	@NotBlank(groups = {Update.class})
 	private String url;
     /**
      * 图片绝对路径
      */
-	@NotBlank(groups = {Update.class, Insert.class})
 	private String pic;
     /**
      * 状态
      */
+    @NotBlank
 	private String status;
     /**
      * 排序
      */
+	@Min(1)
 	@NotNull(groups = {Update.class, Insert.class})
 	@TableField("sort_order")
 	private Integer sortOrder;

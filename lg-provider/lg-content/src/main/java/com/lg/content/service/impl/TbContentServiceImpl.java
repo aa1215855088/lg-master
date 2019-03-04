@@ -44,7 +44,6 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
     private Validator validator;
 
 
-
     @Override
     public Wrapper<List<TbContent>> findAll() {
         List<TbContent> contentList = this.baseMapper.selectList(new QueryWrapper<>());
@@ -53,12 +52,17 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
 
     @Override
     public Wrapper save(TbContent tbContent) {
-        BeanValidators.validateWithException((javax.validation.Validator) validator, tbContent, Insert.class);
+        BeanValidators.validateWithException(validator, tbContent);
+        if (tbContent.getStatus().equals("true")) {
+            tbContent.setStatus("1");
+        } else {
+            tbContent.setStatus("0");
+        }
         Integer index = this.baseMapper.insert(tbContent);
         if (index != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "添加广告信息失败");
         }
-        return WrapMapper.ok();
+        return WrapMapper.ok(tbContent);
     }
 
     @Override
@@ -74,12 +78,17 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
 
     @Override
     public Wrapper updateTbCentent(TbContent tbContent) {
-        BeanValidators.validateWithException((javax.validation.Validator) validator, tbContent, Update.class);
+        if (tbContent.getStatus().equals("true")) {
+            tbContent.setStatus("1");
+        } else {
+            tbContent.setStatus("0");
+        }
+        BeanValidators.validateWithException(validator, tbContent, Update.class);
         Integer index = this.baseMapper.updateById(tbContent);
         if (index != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "更新广告信息失败");
         }
-        return WrapMapper.ok();
+        return WrapMapper.ok(tbContent);
     }
 
     @Override
@@ -92,20 +101,4 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
         return WrapMapper.ok(tbContent);
     }
 
-    @Override
-    public PageVO<TbContent> findBypage(Integer pageNum, Integer pageSize, TbContentVO tbContentVO) {
-        if (pageNum == null || pageNum == 0) {
-            pageNum = TbContent.PAGE_NUM;
-        }
-        if (pageSize == null || pageSize == 0) {
-            pageSize = TbContent.PAGE_SIZE;
-        }
-
-        IPage<TbContent> tbContentIPage = this.baseMapper.selectPage(new Page<>(pageNum, pageSize),
-                new QueryWrapper<TbContent>());
-        PageVO<TbContent> pageVO = new PageVO<>();
-        pageVO.setRows(tbContentIPage.getRecords());
-        pageVO.setTotal(tbContentIPage.getTotal());
-        return pageVO;
-    }
 }

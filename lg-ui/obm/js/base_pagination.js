@@ -1,1 +1,1 @@
-var app = angular.module("legou",['pagination']);
+var app = angular.module("lg",['pagination']);

@@ -62,7 +62,7 @@ public class TbContentController extends BaseController {
     @PutMapping("/updateById")
     @ApiOperation(httpMethod = "PUT", value = "更新广告信息")
     public Wrapper<TbContent> update(@ApiParam("修改参数") @RequestBody TbContent tbContent) {
-        logger.info("更新广告信息,brand={}", tbContent);
+        logger.info("更新广告信息", tbContent);
         return this.tbContentService.updateTbCentent(tbContent);
     }
 
@@ -80,7 +80,4 @@ public class TbContentController extends BaseController {
         logger.info("获取所有广告类型的信息");
         return this.tbContentCategoryService.findAll(new QueryWrapper<TbContentCategory>());
     }
-
-
-    
 }

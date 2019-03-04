@@ -1,5 +1,5 @@
 //控制层
-app.controller('contentController', function ($scope, $controller, contentService,uploadService) {
+app.controller('contentController', function ($scope, $controller, contentService, uploadService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -12,21 +12,21 @@ app.controller('contentController', function ($scope, $controller, contentServic
         );
     }
 
-    //分页
-    $scope.findPage = function (page, rows) {
-        contentService.findPage(page, rows).success(
-            function (response) {
-                $scope.list = response.rows;
-                $scope.paginationConf.totalItems = response.total;//更新总记录数
-            }
-        );
-    }
+    /*    //分页
+        $scope.findPage = function (page, rows) {
+            contentService.findPage(page, rows).success(
+                function (response) {
+                    $scope.list = response.rows;
+                    $scope.paginationConf.totalItems = response.total;//更新总记录数
+                }
+            );
+        }*/
 
     //查询实体
     $scope.findOne = function (id) {
         contentService.findOne(id).success(
             function (response) {
-                $scope.entity = response.result;
+                $scope.content = response.result;
             }
         );
     }
@@ -34,10 +34,11 @@ app.controller('contentController', function ($scope, $controller, contentServic
     //保存
     $scope.save = function () {
         var serviceObject;//服务层对象
-        if ($scope.entity.id != null) {//如果有ID
-            serviceObject = contentService.update($scope.entity); //修改
+        if ($scope.content.id != null) {//如果有ID
+            serviceObject = contentService.update($scope.content); //修改
         } else {
-            serviceObject = contentService.add($scope.entity);//增加
+            serviceObject = contentService.add($scope.content);//增加
+
         }
         serviceObject.success(
             function (response) {
@@ -87,19 +88,18 @@ app.controller('contentController', function ($scope, $controller, contentServic
     $scope.uploadFile = function () {
         // 调用uploadService的方法完成文件的上传
         uploadService.uploadFile().success(function (response) {
-            $scope.imageUrl.url = response.result;
+            $scope.content.url = response.result;
         });
     }
 
-
-    //将当前上传的图片实体存入图片列表
-    $scope.entity = {goods: {}, goodsDesc: {itemImages: []}};
-    $scope.add_image_entity = function () {
-        $scope.entity.goodsDesc.itemImages.push($scope.imageUrl);
+    $scope.all = function (checkAll) {
+        for (var i = 0; i < $scope.list.length; i++) {
+            if (i==true){
+                 $scope.list[i].state = true;
+            }else {
+                $scope.list[i].state = false;
+            }
+        }
     }
 
-    //移除图片
-    $scope.remove_image_entity = function (index) {
-        $scope.entity.goodsDesc.itemImages.splice(index, 1);
-    }
 });	
