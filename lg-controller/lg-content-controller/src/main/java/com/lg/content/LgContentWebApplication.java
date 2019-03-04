@@ -63,5 +63,4 @@ public class LgContentWebApplication {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
 }

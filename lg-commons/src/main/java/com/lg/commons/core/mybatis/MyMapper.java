@@ -19,4 +19,19 @@ public interface MyMapper<T> extends BaseMapper<T> {
      * @return
      */
     List<T> findAll();
+
+    /**
+     * 商家入驻
+     * @return
+     */
+
+    Integer  insert(T t);
+
+
+    /**
+     * 修改密码
+     * @return
+     */
+    Integer  updatePassword(T t);
+
 }

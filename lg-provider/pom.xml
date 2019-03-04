@@ -15,12 +15,19 @@
         <module>lg-order</module>
         <module>lg-biz</module>
         <module>lg-content</module>
+        <module>lg-seckill</module>
+        <module>lg-task</module>
     </modules>
     <artifactId>lg-provider</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
         </dependency>
     </dependencies>
 

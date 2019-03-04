@@ -5,9 +5,15 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.lg.commons.util.validators.Insert;
+import com.lg.commons.util.validators.Update;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,6 +36,7 @@ public class TbItem extends Model<TbItem> {
     /**
      * 商品id，同时也是商品编号
      */
+
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
@@ -78,25 +85,37 @@ public class TbItem extends Model<TbItem> {
      */
 	@TableField("update_time")
 	private LocalDateTime updateTime;
+
+
 	@TableField("item_sn")
 	private String itemSn;
+
 	@TableField("cost_pirce")
 	private BigDecimal costPirce;
+
 	@TableField("market_price")
 	private BigDecimal marketPrice;
+
 	@TableField("is_default")
 	private String isDefault;
+
 	@TableField("goods_id")
 	private Long goodsId;
+
 	@TableField("seller_id")
 	private String sellerId;
+
 	@TableField("cart_thumbnail")
 	private String cartThumbnail;
-	private String category;
-	private String brand;
-	private String spec;
-	private String seller;
 
+	private String category;
+
+	private String brand;
+
+	private String spec;
+
+
+	private String seller;
 
 	@Override
 	protected Serializable pkVal() {

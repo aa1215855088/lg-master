@@ -22,4 +22,5 @@
 		<result column="is_delete" property="isDelete" />
 	</resultMap>
 
+
 </mapper>

@@ -26,7 +26,8 @@ public class Wrapper<T> implements Serializable {
     /**
      * 成功码.
      */
-    public static final int SUCCESS_CODE = 200;
+    public static final int
+            SUCCESS_CODE = 200;
 
     /**
      * 成功信息.
