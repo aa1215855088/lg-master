@@ -1,9 +1,8 @@
-package com.lg.biz.web.config;
+package com.lg.product.config;
 
-import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * ┏┓　　　┏┓
@@ -27,12 +26,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @program: lg-master
  * @description:
  * @author: 徐子楼
- * @create: 2019-02-25 00:31
+ * @create: 2019-01-20 22:06
  **/
-@SpringBootConfiguration
-public class WebConfig implements WebMvcConfigurer {
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+@Configuration
+public class ValidatorConfig {
+    @Bean
+    public javax.validation.Validator getValidator() {
+        return new LocalValidatorFactoryBean();
     }
+
 }

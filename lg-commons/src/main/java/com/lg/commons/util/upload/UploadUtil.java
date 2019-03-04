@@ -29,7 +29,7 @@ import java.io.File;
  * @author: 徐子楼
  * @create: 2019-02-15 14:52
  **/
-public interface UploadUtil {
+public interface UploadUtil  {
     String uploadFile(MultipartFile multipartFile) throws BusinessException;
 
     String uploadFile(String filePath, MultipartFile multipartFile) throws BusinessException;

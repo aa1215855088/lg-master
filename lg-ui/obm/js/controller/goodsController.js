@@ -15,8 +15,8 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
     $scope.findPage=function(page,rows){
         goodsService.findPage(page,rows).success(
             function(response){
-                $scope.list=response.rows;
-                $scope.paginationConf.totalItems=response.total;//更新总记录数
+                $scope.list=response.result.rows;
+                $scope.paginationConf.totalItems=response.result.total;//更新总记录数
             }
         );
     }

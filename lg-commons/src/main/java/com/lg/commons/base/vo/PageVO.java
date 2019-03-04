@@ -30,8 +30,8 @@ import java.util.List;
  * @create: 2019-01-19 20:11
  **/
 @Data
-public class
-PageVO<T> implements Serializable {
+public class PageVO<T> implements Serializable {
+
 
     /**
      * 总记录数

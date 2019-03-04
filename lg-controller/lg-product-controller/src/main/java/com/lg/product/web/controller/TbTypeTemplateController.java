@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.lg.commons.core.controller.BaseController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  前端控制器
@@ -36,6 +39,16 @@ public class TbTypeTemplateController extends BaseController {
         logger.info("查询商品品牌ID,id={}",id);
         Wrapper<TbTypeTemplate> tTbTypeTemplate= this.typeTemplateService.findOne(id);
         return tTbTypeTemplate;
+
+    }
+
+
+    @GetMapping("/findSpecList")
+    @ApiOperation( httpMethod = "GET",value = "查询商品规格选项列表")
+    @ApiImplicitParams({@ApiImplicitParam(value = "商品规格ID",paramType = "query")})
+    public  Wrapper<List<Map>> findSpecList(Long id){
+        logger.info("查询商品规格选项ID,id={}",id);
+        return this.typeTemplateService.findSpecList(id);
 
     }
 

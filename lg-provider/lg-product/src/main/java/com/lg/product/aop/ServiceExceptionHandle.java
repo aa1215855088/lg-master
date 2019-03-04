@@ -115,15 +115,15 @@ public class ServiceExceptionHandle {
         }
         String errorMessage = Throwables.getStackTraceAsString(throwable);
         String method = joinPoint.toLongString();
-        if(isHandle){
-            ExceptionMsg exceptionMsg = new ExceptionMsg();
-            exceptionMsg.setCreateTime(LocalDateTime.now());
-            exceptionMsg.setExceptionMethod(method);
-            exceptionMsg.setParam(inputParam);
-            exceptionMsg.setErrorMessage(errorMessage);
-            exceptionMsg.setEmail(projectLeaderEmail);
-            this.amqpTemplate.convertAndSend("exceptionMsg", JSON.toJSON(exceptionMsg).toString());
-        }
+//        if(isHandle){
+//            ExceptionMsg exceptionMsg = new ExceptionMsg();
+//            exceptionMsg.setCreateTime(LocalDateTime.now());
+//            exceptionMsg.setExceptionMethod(method);
+//            exceptionMsg.setParam(inputParam);
+//            exceptionMsg.setErrorMessage(errorMessage);
+//            exceptionMsg.setEmail(projectLeaderEmail);
+//            this.amqpTemplate.convertAndSend("exceptionMsg", JSON.toJSON(exceptionMsg).toString());
+//        }
         log.warn("\n 方法: {}\n 入参: {} \n 错误信息: {}", method, inputParam,
                 errorMessage);
     }

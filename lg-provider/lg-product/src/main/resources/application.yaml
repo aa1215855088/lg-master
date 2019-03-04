@@ -16,6 +16,9 @@ project:
 
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 888888
   rabbitmq:
     host: localhost
     port: 5672

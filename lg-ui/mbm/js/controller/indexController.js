@@ -6,4 +6,5 @@ app.controller('indexController', function ($scope, $controller, indexService) {
             $scope.name = response.name;
         })
     }
+
 });

@@ -35,6 +35,7 @@ public enum ErrorCodeEnum {
     /**
      * Gl 000500 error code enum.
      */
+
     GL99990500(500, "未知异常"),
 
     /**

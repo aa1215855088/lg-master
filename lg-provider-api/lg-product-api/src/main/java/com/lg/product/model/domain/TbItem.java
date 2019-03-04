@@ -36,6 +36,7 @@ public class TbItem extends Model<TbItem> {
     /**
      * 商品id，同时也是商品编号
      */
+
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
