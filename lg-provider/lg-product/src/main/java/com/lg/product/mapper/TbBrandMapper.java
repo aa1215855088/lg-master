@@ -4,6 +4,9 @@ import com.lg.product.model.domain.TbBrand;
 import com.lg.commons.core.mybatis.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
   *  Mapper 接口
@@ -14,5 +17,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TbBrandMapper extends MyMapper<TbBrand> {
+
+
+        List<Map> selectOptionList();
+
 
 }

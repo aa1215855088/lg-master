@@ -2,7 +2,6 @@ package com.lg.product.web.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lg.commons.base.vo.GoodsVo;
 import com.lg.commons.base.vo.PageVO;
 import com.lg.commons.util.wrapper.WrapMapper;
@@ -45,7 +44,7 @@ public class TbGoodsController extends BaseController {
     /*
     分页
      */
-    @GetMapping("/findPage")
+   /* @GetMapping("/findPage")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "page", paramType = "query"),
             @ApiImplicitParam(value = "rows", paramType = "query")
@@ -55,7 +54,7 @@ public class TbGoodsController extends BaseController {
 
         logger.info("商品审核列表分页");
         return this.tbGoodsService.findPage(page,rows);
-    }
+    }*/
 
 
     /*
@@ -138,7 +137,7 @@ public class TbGoodsController extends BaseController {
         return WrapMapper.ok();
     }
 
-    @PostMapping(value="/search")
+ /*   @PostMapping(value="/search")
     @ApiOperation(httpMethod = "POST",value = "商品列表搜索")
     public Wrapper<PageVO<TbGoods>> search(@RequestBody(required = false) @ApiParam(name = "searchEntity", value = "条件")
                                                    GoodsVo goods, Integer page, Integer rows  ){
@@ -148,7 +147,7 @@ public class TbGoodsController extends BaseController {
 
 
         return this.tbGoodsService.search(page,rows,goods);
-    }
+    }*/
 
     @PostMapping(value="/shield/{id}")
     @ApiOperation(httpMethod = "POST",value = "商家屏蔽商品")

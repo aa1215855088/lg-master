@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -99,5 +100,14 @@ public class TbBrandController extends BaseController {
 
         logger.info("分页 按条件 查询品牌列表");
         return this.tbBrandService.findPage(page,rows,brand);
+    }
+
+    @GetMapping("/selectOptionList")
+    @ApiOperation( httpMethod = "GET",value = "所有的商品品牌选项列表")
+    public List<Map> selectOption(){
+        logger.info("所有的商品品牌选项列表");
+        List<Map> list = this.tbBrandService.selectOptionList();
+        System.out.println(list);
+        return list;
     }
 }

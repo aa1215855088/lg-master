@@ -47,8 +47,8 @@ public class TbGoodsServiceImplTest {
         this.tbGoodsService.search(1,2,goodsVO).getResult().getRows().stream().forEach(System.out::println);
     }
 
-    @Test
+   /* @Test
     public void test2(){
         tbGoodsService.findAll().stream().forEach(System.out::println);
-    }
+    }*/
 }

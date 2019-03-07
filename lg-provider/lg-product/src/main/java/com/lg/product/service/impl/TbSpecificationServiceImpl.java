@@ -7,6 +7,9 @@ import com.lg.product.model.domain.TbSpecification;
 import com.lg.product.service.TbSpecificationService;
 import com.alibaba.dubbo.config.annotation.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -15,7 +18,11 @@ import com.alibaba.dubbo.config.annotation.Service;
  * @author xuzilou
  * @since 2019-02-19
  */
-@Service
+@Service(version = "1.0.0", timeout = 6000)
 public class TbSpecificationServiceImpl extends ServiceImpl<TbSpecificationMapper, TbSpecification> implements TbSpecificationService {
-	
+
+    @Override
+    public List<Map> selectOptionList() {
+        return baseMapper.selectOptionList();
+    }
 }

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lg.product.vo.BrandVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -67,5 +68,10 @@ public interface TbBrandService extends IService<TbBrand> {
      */
     public Wrapper updateTbBrand(TbBrand tbBrand);
 
+
+    /**
+     * 拿出品牌下拉列表
+     */
+    List<Map> selectOptionList();
 
 }

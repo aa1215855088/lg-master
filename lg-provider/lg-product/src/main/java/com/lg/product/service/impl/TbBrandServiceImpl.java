@@ -31,6 +31,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -168,6 +169,11 @@ public class TbBrandServiceImpl extends ServiceImpl<TbBrandMapper, TbBrand> impl
             throw new BusinessException(ErrorCodeEnum.GL99990500, "更新商品品牌信息失败");
         }
         return WrapMapper.ok();
+    }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return this.baseMapper.selectOptionList();
     }
 
 }
