@@ -8,7 +8,7 @@ app.service('TbSellerService', function ($http) {
 
     //增加
     this.add = function (entity) {
-        return $http.post('http://localhost:8084/tbSellers/sellerInsert', entity);
+        return $http.post('http://localhost:8084/tbSellers/register', entity);
     }
 
     //查询实体

@@ -123,5 +123,5 @@ public interface TbGoodsService extends IService<TbGoods> {
 
     Wrapper deleteGoods(Long[] ids);
 
-    Wrapper<PageVO<TbGoods>> findPageAndName(String name, Integer page, Integer rows);
+    Wrapper<PageVO<Goods>> findPageAndName(String name, Integer page, Integer rows);
 }

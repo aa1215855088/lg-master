@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TbAddressController extends BaseController {
-    @RequestMapping("/")
-    public String index() {
-        return "访问了首页哦";
-    }
-
-    @RequestMapping("/hello")
-    public Authentication hello() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication;
-    }
+//    @RequestMapping("/")
+//    public String index() {
+//        return "访问了首页哦";
+//    }
+//
+//    @RequestMapping("/hello")
+//    public Authentication hello() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        return authentication;
+//    }
 
 }

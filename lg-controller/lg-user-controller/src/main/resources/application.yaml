@@ -3,9 +3,10 @@ swagger:
 
 server:
   port: 9090
+  servlet:
+    context-path: /user
 
-
-#CAS服务地址
+##CAS服务地址
 cas:
   server:
     host:
@@ -14,12 +15,12 @@ cas:
       #CAS服务登出地址
       login_url: ${cas.server.host.url}/login
       #应用访问地址
-      logout_url: ${cas.server.host.url}/logout?service=${app.server.host.url}
+      logout_url: ${cas.server.host.url}/logout?service=http://localhost/front/index.html
 
 app:
   server:
     host:
-      url: http://localhost:9090
+      url: http://localhost:9090/user
   #应用登录地址
   login:
     url: /login
@@ -50,6 +51,7 @@ dubbo:
   consumer:
     check: false
 
+#cas配置
 # nacos配置中心
 #nacos:
 #  security:

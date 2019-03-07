@@ -3,6 +3,7 @@ package com.lg.biz.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,6 +19,7 @@ import com.lg.commons.util.validators.BeanValidators;
 import com.lg.commons.util.validators.Insert;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -34,7 +36,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @author xuzilou
  * @since 2019-02-19
  */
-@Service(version = "1.0.0",timeout = 6000)
+@Service(version = "1.0.0", timeout = 6000)
 @Transactional
 public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> implements TbSellerService {
     @Autowired
@@ -71,7 +73,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
     @Override
     public Wrapper updateSellerInfo(TbSeller tbSeller) {
         /*BeanValidators.validateWithException(validator, tbSeller);*/
-         Integer flag= this.baseMapper.updateById(tbSeller);
+        Integer flag = this.baseMapper.updateById(tbSeller);
         if (flag != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "商家修改资料失败");
         }
@@ -80,7 +82,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     @Override
     public Wrapper updatePasswordById(TbSeller tbSeller) {
-        Integer flag=this.baseMapper.updatePassword(tbSeller);
+        Integer flag = this.baseMapper.updatePassword(tbSeller);
         if (flag != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "密码修改失败");
         }
@@ -96,7 +98,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
     /**
      * 查询所有
      * queryWrapper
-     * */
+     */
     @Override
     public Wrapper<List<TbSeller>> listSeller(QueryWrapper<TbSeller> queryWrapper) {
         return WrapMapper.ok(this.baseMapper.selectList(queryWrapper));
@@ -104,6 +106,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -115,6 +118,7 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     /**
      * 分页加查询
+     *
      * @param pageNum
      * @param pageSize
      * @param SellerVo
@@ -124,23 +128,23 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
     @Override
     public Wrapper<PageVO<TbSeller>> findPage(Integer pageNum, Integer pageSize, TbSellerVo SellerVo) {
 
-        if(pageNum==null||pageNum==0){
-            pageNum=TbSeller.PAGE_NUM;
+        if (pageNum == null || pageNum == 0) {
+            pageNum = TbSeller.PAGE_NUM;
         }
-        if(pageSize==null||pageSize==0){
-            pageSize=TbSeller.PAGE_SIZE;
+        if (pageSize == null || pageSize == 0) {
+            pageSize = TbSeller.PAGE_SIZE;
         }
-        if (SellerVo == null){
-            return listPage(pageNum,pageSize);
+        if (SellerVo == null) {
+            return listPage(pageNum, pageSize);
         }
-        IPage<TbSeller> sellerIPage= this.baseMapper.selectPage(new Page<>(pageNum,pageSize),
+        IPage<TbSeller> sellerIPage = this.baseMapper.selectPage(new Page<>(pageNum, pageSize),
                 new QueryWrapper<TbSeller>().
-                        like(StrUtil.isNotBlank(SellerVo.getName()),"name",SellerVo.getName())
-                        .eq(StrUtil.isNotBlank(SellerVo.getNickName()),"nike_name",SellerVo.getNickName())
-                        .eq(StrUtil.isNotBlank(SellerVo.getLinkmanName()),"link_manName",SellerVo.getLinkmanName())
-                        .eq(StrUtil.isNotBlank(SellerVo.getTelephone()),"telephone",SellerVo.getTelephone())
-                        .eq(StrUtil.isNotBlank(SellerVo.getStatus()),"status",SellerVo.getStatus()));
-        PageVO<TbSeller> pageVo=new PageVO<>();
+                        like(StrUtil.isNotBlank(SellerVo.getName()), "name", SellerVo.getName())
+                        .eq(StrUtil.isNotBlank(SellerVo.getNickName()), "nike_name", SellerVo.getNickName())
+                        .eq(StrUtil.isNotBlank(SellerVo.getLinkmanName()), "link_manName", SellerVo.getLinkmanName())
+                        .eq(StrUtil.isNotBlank(SellerVo.getTelephone()), "telephone", SellerVo.getTelephone())
+                        .eq(StrUtil.isNotBlank(SellerVo.getStatus()), "status", SellerVo.getStatus()));
+        PageVO<TbSeller> pageVo = new PageVO<>();
         pageVo.setRows(sellerIPage.getRecords());
         pageVo.setTotal(sellerIPage.getTotal());
 
@@ -149,39 +153,43 @@ public class TbSellerServiceImpl extends ServiceImpl<TbSellerMapper, TbSeller> i
 
     /**
      * 分页查询
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
     @Override
     public Wrapper<PageVO<TbSeller>> listPage(Integer pageNum, Integer pageSize) {
-        if(pageNum == null || pageNum == 0){
+        if (pageNum == null || pageNum == 0) {
             pageNum = TbSeller.PAGE_NUM;
         }
 
-        if(pageSize == null || pageSize == 0){
+        if (pageSize == null || pageSize == 0) {
             pageSize = TbSeller.PAGE_SIZE;
         }
 
         IPage<TbSeller> iPage = this.baseMapper.selectPage(
-                new Page<>(pageNum,pageSize),new QueryWrapper<TbSeller>());
+                new Page<>(pageNum, pageSize), new QueryWrapper<TbSeller>());
         PageVO<TbSeller> pageVO = new PageVO<>();
         pageVO.setRows(iPage.getRecords());
         pageVO.setTotal(iPage.getTotal());
         return WrapMapper.ok(pageVO);
     }
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Override
-    public Wrapper updateStatus(String id, String status){
-        TbSeller tbSeller =this.baseMapper.selectById(id);
+    public Wrapper updateStatus(String id, String status) {
+        TbSeller tbSeller = this.baseMapper.selectById(id);
         tbSeller.setStatus(status);
-        return  WrapMapper.ok(this.baseMapper.updateById(tbSeller));
+        this.amqpTemplate.convertAndSend("sellerAuditMsg", JSON.toJSONString(tbSeller));
+        return WrapMapper.ok(this.baseMapper.updateById(tbSeller));
     }
 
     @Override
     public Wrapper<Integer> save(TbSeller tbSeller) {
-        BeanValidators.validateWithException(validator,tbSeller, Insert.class);
+        BeanValidators.validateWithException(validator, tbSeller, Insert.class);
         return WrapMapper.ok(this.baseMapper.insert(tbSeller));
     }
 

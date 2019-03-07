@@ -17,7 +17,10 @@ app.controller('TbSellerController', function ($scope, $controller, TbSellerServ
             function (response) {
                 if (response.code == "200") {
                     //如果注册成功，跳转到登录页
-                    location.href = "http://localhost/mbm/shoplogin.html";
+                    layer.msg("信息提交成功!审核结果将在三个工作日发送信息到您的手机上!", {
+                        icon: 1,
+                        time: 5000
+                    })
                 } else {
                     layer.msg(response.message)
                 }

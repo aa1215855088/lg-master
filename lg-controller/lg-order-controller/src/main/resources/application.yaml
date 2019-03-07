@@ -8,17 +8,40 @@ spring:
   application:
     name: lg-order-controller
 
-#dubbo:
-#  registry:
-#    address: nacos://47.105.207.20:8848
-#  # 提供者需要配置扫描接口
-#  # scan:
-#  # base-packages: com.mxc.web.impl
-#  protocol:
-#    port: -1
-#  # 消费者默认不检测是否有服务注册
-#  consumer:
-#    check: false
+#CAS服务地址
+cas:
+  server:
+    host:
+      #CAS服务登录地址
+      url: http://localhost:8080/cas
+      #CAS服务登出地址
+      login_url: ${cas.server.host.url}/login
+      #应用访问地址
+      logout_url: ${cas.server.host.url}/logout?service=${app.server.host.url}
+
+app:
+  server:
+    host:
+      url: http://localhost:8083
+  #应用登录地址
+  login:
+    url: /login
+  #应用登出地址
+  logout:
+    url: /logout
+
+
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848
+  # 提供者需要配置扫描接口
+  # scan:
+  # base-packages: com.mxc.web.impl
+  protocol:
+    port: -1
+  # 消费者默认不检测是否有服务注册
+  consumer:
+    check: false
 
 # nacos配置中心
 #nacos:

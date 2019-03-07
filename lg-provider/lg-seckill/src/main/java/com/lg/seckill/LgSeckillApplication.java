@@ -2,6 +2,7 @@ package com.lg.seckill;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * ┏┓　　　┏┓
@@ -28,6 +29,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create: 2019-02-22 09:23
  **/
 @SpringBootApplication
+@EnableHystrix
 public class LgSeckillApplication {
 
     public static void main(String[] args) {

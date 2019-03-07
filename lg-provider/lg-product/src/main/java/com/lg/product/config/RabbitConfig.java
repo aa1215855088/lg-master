@@ -41,13 +41,17 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue pageMsg() {
+        return new Queue("pageMsg", true);
+    }
+
+    @Bean
     public TopicExchange exchange() {
         return new TopicExchange("exchange");
     }
 
     /**
      * @Description: 交换机与消息队列进行绑定 队列messages绑定交换机with topic.messages
-     *
      */
     @Bean
     public Binding bindingExchangeMessages(@Qualifier("exceptionMsg") Queue queueMessages, TopicExchange exchange) {

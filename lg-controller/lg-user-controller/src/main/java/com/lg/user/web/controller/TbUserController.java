@@ -6,10 +6,12 @@ import com.lg.commons.core.controller.BaseController;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.user.model.domain.TbUser;
+import com.lg.user.model.dto.UserDTO;
 import com.lg.user.service.TbUserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -23,19 +25,32 @@ import java.util.List;
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping("/user")
+@Api(tags = "用户API")
 public class TbUserController extends BaseController {
-    //    @Reference(version = "1.0.0")
-//    private TbUserService tbUserService;
-//
-//    @GetMapping("")
-//    public Wrapper<List<TbUser>> findAll() {
-//        List<TbUser> tbUsers = this.tbUserService.findAll();
-//        return WrapMapper.ok(tbUsers);
-//    }
-    @GetMapping("")
+
+
+    @Reference(version = "1.0.0")
+    private TbUserService tbUserService;
+
+    @GetMapping("/info")
+    @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     public Principal user(Principal principal) {
         return principal;
     }
+
+    @PostMapping("/register")
+    @ApiOperation(value = "注册用户", httpMethod = "POST")
+    public Wrapper register(@ApiParam @RequestBody UserDTO userDTO) {
+        logger.info("注册用户:{}", userDTO);
+        return this.tbUserService.register(userDTO);
+    }
+
+
+    @GetMapping("/{id}")
+    @ApiOperation(httpMethod = "GET", value = "验证用户名是否存在")
+    public Wrapper checkUsername(@ApiParam @PathVariable String username) {
+        return this.tbUserService.checkUsername(username);
+    }
+
 
 }

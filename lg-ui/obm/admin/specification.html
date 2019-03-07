@@ -11,157 +11,363 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
-	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
-    
+    <script src="../js/layer/layer.js"></script>
+    <script type="text/javascript">
+        //进入页面初始化页面数据
+        var app = angular.module("myApp", []);
+        app.controller("myController", function ($scope, $http) {
+                $scope.findList = function () {
+                    $http.get("http://localhost:8081/tbSpecification/findAllSpecification").success(
+                        function (response) {
+                            $scope.list = response.result;
+                        }
+                    ).error(
+                        function (response) {
+                            layer.msg(response.message);
+                        }
+                    );
+                }
+
+                $scope.entity = {specificationOptionList: []};
+
+                //增加规格选项行
+                $scope.addTableRow = function () {
+                    $scope.entity.specificationOptionList.push({});
+                }
+
+                //新建按钮事件
+                $scope.newSpecification = function(){
+                    $scope.entity.specificationOptionList = [];
+                    $scope.optionListInfo = [];
+                    $scope.specName = "";
+                    $scope.updateSpecificationLogoModel = "";
+                    document.getElementById("updateSpecificationLogoId").value = "";
+                }
+
+                //删除规格选项行
+                $scope.deleTableRow = function (index) {
+                    $scope.entity.specificationOptionList.splice(index, 1);
+                    $scope.optionListInfo.splice(index,1);
+                }
+
+                $scope.findByName = function () {
+                    var a = document.getElementById("specName").value;
+                    if (a == "") {
+                        $scope.findList();
+                    } else {
+                        $http.get("http://localhost:8081/tbSpecification/findSpecificationByName/" + a).success(
+                            function (response) {
+                                $scope.list = response.result;
+                            }
+                        );
+                    }
+                }
+
+                //用户勾选的ID集合
+                $scope.selectIds = [];
+                //用户勾选复选框
+                $scope.updateSelection = function ($event, id) {
+                    if ($event.target.checked) {
+                        $scope.selectIds.push(id);
+                    } else {
+                        var index = $scope.selectIds.indexOf(id);
+                        $scope.selectIds.splice(index, 1);
+                    }
+                }
+                //删除
+                $scope.deleteByIds = function () {
+                    if ($scope.selectIds.length == 0) {
+                        layer.msg("请选择要删除的规格")
+                        return;
+                    }
+                    if (confirm("删除规格同时将会删除该规格对应的规格选项，确定要删除吗?")) {
+                        $http.get("http://localhost:8081/tbSpecification/deleteById/" + $scope.selectIds).success(
+                            function (response) {
+                                window.location.reload();
+                            }
+                        ).error(
+                            function (response) {
+                                layer.msg(response.message);
+                                window.location.reload();
+                            }
+                        );
+                    }
+
+                }
+
+                //保存
+                $scope.saveSpecificationInfo = function () {
+                    //标记，如果获取到的element对象数组中有值为空则标记为false
+                    var flag = true;
+
+                    //获取页面hidden的id
+                    var specHiddenId = document.getElementById("updateSpecificationLogoId").value;
+                    //获取的规格名称
+                    var pojoSpecificationName = document.getElementById("specificationName").value;
+                    //获取的规格选项名称dom对象集合
+                    var pojoSpecificationOptionName = document.getElementsByName("optionName1");
+                    //获取的规格选项排序dom对象集合
+                    var pojoSpecificationOptionOrders = document.getElementsByName("orders1");
+
+                    //标记，如果获取到的element对象数组中有值为空则标记为false
+                    for (var i = 0; i < pojoSpecificationOptionName.length; i++) {
+                        var pojoSpecificationOptionNameElement = pojoSpecificationOptionName[i];
+                        var pojoSpecificationOptionOrdersElement = pojoSpecificationOptionOrders[i];
+                        if (pojoSpecificationOptionNameElement.value == "") {
+                            flag = false;
+                        }
+                        if (pojoSpecificationOptionOrdersElement.value == "") {
+                            flag = false;
+                        }
+                    }
+
+                    //获得隐藏域，如果值为空则代表点击了新增按钮
+                    if(specHiddenId == "") {
+                        if (pojoSpecificationName != "") {
+                            if (pojoSpecificationOptionName.length > 0) {
+                                if (flag == true) {
+                                    //将dom对象集合转成数组
+                                    var optionNameAndOrderArray = [];
+
+                                    for (var i = 0; i < pojoSpecificationOptionName.length; i++) {
+                                        optionNameAndOrderArray.push(pojoSpecificationOptionName[i].value + "-" + pojoSpecificationOptionOrders[i].value)
+                                    }
+
+                                    $http.get("http://localhost:8081/tbSpecification/addSpecification/" + pojoSpecificationName + "/" + optionNameAndOrderArray).success(
+                                        function (response) {
+                                            window.location.reload();
+                                        }
+                                    ).error(
+                                        function (response) {
+                                            layer.msg("添加失败,请检查您的网络后重试");
+                                            window.location.reload();
+                                        }
+                                    );
+                                } else {
+                                    layer.msg("规格选项的名称或排序不能为空")
+                                }
+                            } else {
+                                layer.msg("规格必须有且至少有一个规格选项")
+                            }
+                        } else {
+                            layer.msg("规格名称不能为空")
+                        }
+
+                    }else{
+                        //规格id不为空，代表修改
+                        if (pojoSpecificationName != "") {
+                            if (pojoSpecificationOptionName.length > 0) {
+                                if (flag == true) {
+                                    //将dom对象集合转成数组
+                                    var optionNameAndOrderArray = [];
+
+                                    for (var i = 0; i < pojoSpecificationOptionName.length; i++) {
+                                        optionNameAndOrderArray.push(pojoSpecificationOptionName[i].value + "-" + pojoSpecificationOptionOrders[i].value)
+                                    }
+
+                                    $http.get("http://localhost:8081/tbSpecification/updateSpecification/" + specHiddenId + "/" + pojoSpecificationName + "/" + optionNameAndOrderArray).success(
+                                        function (response) {
+                                            window.location=location;
+                                        }
+                                    ).error(
+                                        function (response) {
+                                            layer.msg("添加失败");
+                                            window.location=location;
+                                        }
+                                    );
+                                } else {
+                                    layer.msg("规格选项的名称或排序不能为空")
+                                }
+                            } else {
+                                layer.msg("规格必须有且至少有一个规格选项")
+                            }
+                        } else {
+                            layer.msg("规格名称不能为空")
+                        }
+
+
+                    }
+                }
+
+                //修改,自动根据传入的数据的长度增加相应数量的新增规格行
+                $scope.showSpecificationData = function (id, specName) {
+                    //清空hidden
+                    $scope.updateSpecificationLogoModel = "";
+                    document.getElementById("updateSpecificationLogoId").value = "";
+
+                    //清空页面的规格选项列表
+                    $scope.entity.specificationOptionList = [];
+
+                    //清空规格选项数组
+                    $scope.foundOptionArray = [];
+
+                    document.getElementById("updateSpecificationLogoId").value = id;
+
+                    $scope.specName = specName;
+                    $http.get("http://localhost:8081/tbSpecification/initDataById/" + id).success(
+                        function (response) {
+                            var optionArray = response.result;
+                            $scope.optionListInfo = response.result;
+                        }
+                    )
+                }
+            }
+        )
+    </script>
 </head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="myApp" ng-controller="myController"
+      ng-init="findByName()">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">规格管理</h3>
+</div>
 
-<body class="hold-transition skin-red sidebar-mini" >
-  <!-- .box-body -->                
-                    <div class="box-header with-border">
-                        <h3 class="box-title">规格管理</h3>
-                    </div>
-                    <div class="box-body">
-                        <!-- 数据表格 -->
-                        <div class="table-box">
+<div class="box-body">
+    <!-- 数据表格 -->
+    <div class="table-box">
 
-                            <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-                                        
-                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-							                    规格名称：<input  >									
-									<button class="btn btn-default" >查询</button>                                    
-                                </div>
-                            </div>
-                            <!--工具栏/-->
-			                  <!--数据列表-->
-			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
-			                      <thead>
-			                          <tr>
-			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
-			                              </th> 
-										  <th class="sorting_asc">规格ID</th>
-									      <th class="sorting">规格名称</th>									     												
-					                      <th class="text-center">操作</th>
-			                          </tr>
-			                      </thead>
-			                      <tbody>
-			                          <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>1</td>
-									      <td>网络制式</td>
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal">修改</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr >
-			                              <td><input  type="checkbox" ></td>			                              
-				                          <td>2</td>
-									      <td>服装尺码</td>
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal">修改</button>                                           
-		                                  </td>
-			                          </tr>
-			                      </tbody>
-			                  </table>
-			                  <!--数据列表/-->    
-                        </div>
-                        <!-- 数据表格 /--> 
-                     </div>
-                    <!-- /.box-body -->                    
-	          		    
-                                
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
+                            data-target="#editModal" ng-click="newSpecification()"><i class="fa fa-file-o"></i> 新建
+                    </button>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="deleteByIds()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                规格名称：<input id="specName">
+                <button class="btn btn-default" ng-click="findByName()">查询</button>
+            </div>
+        </div>
+        <!--工具栏/-->
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting_asc">规格ID</th>
+                <th class="sorting">规格名称</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="v in list">
+                <td><input type="checkbox" ng-click="updateSelection($event,v.id)"></td>
+                <td>{{v.id}}</td>
+                <td>{{v.specName}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
+                            ng-click="showSpecificationData(v.id,v.specName)">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+    </div>
+    <!-- 数据表格 /-->
+</div>
+<!-- /.box-body -->
+
+
 <!-- 编辑窗口 -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" >
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">规格编辑</h3>
-		</div>
-		<div class="modal-body">							
-			
-			<table class="table table-bordered table-striped"  width="800px">
-		      	<tr>
-		      		<td>规格名称</td>
-		      		<td><input  class="form-control" placeholder="规格名称" >  </td>
-		      	</tr>
-			 </table>				
-			 
-			 <!-- 规格选项 -->
-			 <div class="btn-group">
-                  <button type="button" class="btn btn-default" title="新建" ><i class="fa fa-file-o"></i> 新增规格选项</button>
-                  
-             </div>
-			 
-			 <table class="table table-bordered table-striped table-hover dataTable">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">规格编辑</h3>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-striped" width="800px">
+                    <tr>
+                        <td>规格名称</td>
+                        <td>
+                            <input type="hidden" ng-model="updateSpecificationLogoModel" id="updateSpecificationLogoId">
+                            <input class="form-control" placeholder="规格名称" ng-model="specName"
+                                   id="specificationName">
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- 规格选项 -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="新建" ng-click="addTableRow()"><i
+                            class="fa fa-file-o"></i> 新增规格选项
+                    </button>
+
+                </div>
+
+                <table class="table table-bordered table-striped table-hover dataTable">
                     <thead>
-                        <tr>
-                          
-					 
-				      <th class="sorting">规格选项</th>
-				      <th class="sorting">排序</th>																
-                      <th class="sorting">操作</th>	
+                    <tr>
+
+
+                        <th class="sorting">规格选项</th>
+                        <th class="sorting">排序</th>
+                        <th class="sorting">操作</th>
                     </thead>
-                    <tbody>
-                      <tr>
-                           
-				            <td>
-				            	<input  class="form-control" placeholder="规格选项"> 
-				            </td>
-				            <td>
-				            	<input  class="form-control" placeholder="排序"> 
-				            </td>
-							<td>
-								<button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-							</td>
-                      </tr>
-					  <tr>
-                         
-				            <td>
-				            	<input  class="form-control" placeholder="规格选项"> 
-				            </td>
-				            <td>
-				            	<input  class="form-control" placeholder="排序"> 
-				            </td>
-							<td>
-								<button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-							</td>
-                      </tr>
-					  <tr>
-                           
-				            <td>
-				            	<input  class="form-control" placeholder="规格选项"> 
-				            </td>
-				            <td>
-				            	<input  class="form-control" placeholder="排序"> 
-				            </td>
-							<td>
-								<button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-							</td>
-                      </tr>
+                    <tbody id="specificationTbodyId">
+
+                    <tr ng-repeat="option in optionListInfo">
+                        <td>
+                            <input class="form-control" ng-model="option.optionName" placeholder="规格选项" name="optionName1">
+                        </td>
+                        <td>
+                            <input type="number" ng-model="option.orders" class="form-control" placeholder="排序" name="orders1">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default" title="删除" ng-click="deleTableRow($index)"><i
+                                    class="fa fa-trash-o"></i> 删除
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr ng-repeat="pojo in entity.specificationOptionList" id="optionTr">
+                        <td>
+                            <input class="form-control" placeholder="规格选项" name="optionName1">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="排序" name="orders1">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default" title="删除" ng-click="deleTableRow($index)"><i
+                                    class="fa fa-trash-o"></i> 删除
+                            </button>
+                        </td>
+                    </tr>
+
+
                     </tbody>
-			  </table> 
-			
-			
-		</div>
-		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
-			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
-		</div>
-	  </div>
-	</div>
-</div>    
+                </table>
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true"
+                        ng-click="saveSpecificationInfo()">保存
+                </button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 

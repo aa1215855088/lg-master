@@ -78,6 +78,6 @@ public class TbContentController extends BaseController {
     @ApiOperation(httpMethod = "GET", value = "获取所有广告类型的信息")
     public Wrapper<List<TbContentCategory>> findAllCategory(){
         logger.info("获取所有广告类型的信息");
-        return this.tbContentCategoryService.findAll(new QueryWrapper<TbContentCategory>());
+        return this.tbContentCategoryService.findAll();
     }
 }

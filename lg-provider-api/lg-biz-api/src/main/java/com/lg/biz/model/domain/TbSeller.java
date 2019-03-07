@@ -1,5 +1,6 @@
 package com.lg.biz.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -35,8 +36,7 @@ public class TbSeller extends Model<TbSeller> {
      * 用户ID
      */
     @NotBlank(groups={Update.class, Insert.class})
-    @TableId("seller_id")
-
+    @TableId(value = "seller_id",type = IdType.INPUT)
 	private String sellerId;
     /**
      * 公司名

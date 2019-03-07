@@ -25,6 +25,7 @@ import com.lg.product.model.dto.GoodDTD;
 import com.lg.product.model.dto.Goods;
 import com.lg.product.model.vo.GoodsVO;
 import com.lg.product.service.*;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -112,8 +113,7 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
     }
 
     @Override
-    public Wrapper<PageVO<TbGoods>> findPageAndName(String name, Integer page, Integer rows) {
-
+    public Wrapper<PageVO<Goods>> findPageAndName(String name, Integer page, Integer rows) {
         if (page == null || page == 0) {
             page = 1;
         }
@@ -121,13 +121,28 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         if (rows == null || rows == 0) {
             rows = 10;
         }
-        IPage<TbGoods> iPage = this.baseMapper.selectPage(new Page<TbGoods>(page, rows), new QueryWrapper<TbGoods>()
-                .like(StrUtil.isNotBlank(name), "goods_name", name));
-
-        PageVO<TbGoods> pageVO = new PageVO<>();
-        pageVO.setRows(iPage.getRecords());
+        IPage<TbGoods> iPage = this.baseMapper.selectPage(
+                new Page<>(page, rows),
+                new QueryWrapper<TbGoods>()
+                        .like(StrUtil.isNotBlank(name), "goods_name", name)
+                        .eq("audit_status", "1"));
+        List<TbGoods> records = iPage.getRecords();
+        if (records == null) {
+            return WrapMapper.ok();
+        }
+        List<Goods> goodsList = new ArrayList<>();
+        for (TbGoods record : records) {
+            Goods goods = new Goods();
+            goods.setCategory1Name(tbItemCatService.findOne(record.getCategory1Id()).getResult().getName());
+            goods.setCategory2Name(tbItemCatService.findOne(record.getCategory2Id()).getResult().getName());
+            goods.setCategory3Name(tbItemCatService.findOne(record.getCategory3Id()).getResult().getName());
+            BeanUtil.copyProperties(record, goods);
+            goodsList.add(goods);
+        }
+//        PageInfo<Goods> pageInfo = new PageInfo<>(list);
+        PageVO<Goods> pageVO = new PageVO<Goods>();
+        pageVO.setRows(goodsList);
         pageVO.setTotal(iPage.getTotal());
-
         return WrapMapper.ok(pageVO);
 
     }
@@ -230,6 +245,9 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         return WrapMapper.ok(tbGoods);
     }
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
     /**
      * 修改商品
      *
@@ -241,6 +259,11 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         Integer index = this.baseMapper.updateById(tbGoods);
         if (index != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "更新商品品牌信息失败");
+        }
+        if ("2".equals(tbGoods.getAuditStatus())) {
+            //商品页面静态化
+            this.amqpTemplate.convertAndSend("pageMsg", tbGoods.getId());
+
         }
         return WrapMapper.ok();
     }
@@ -276,9 +299,9 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
             }
             switch (tbGoods.getAuditStatus()) {
                 case "1":
-                    return WrapMapper.error("[" + tbGoods.getGoodsName() + "]该商品已经通过了审核");
-                case "2":
                     return WrapMapper.error("[" + tbGoods.getGoodsName() + "]该商品正在审核中");
+                case "2":
+                    return WrapMapper.error("[" + tbGoods.getGoodsName() + "]该商品审核通过");
             }
             tbGoods.setAuditStatus("1");
             this.baseMapper.updateById(tbGoods);

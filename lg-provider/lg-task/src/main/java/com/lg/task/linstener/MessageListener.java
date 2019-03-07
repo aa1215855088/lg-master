@@ -57,7 +57,23 @@ public class MessageListener {
         ExceptionMsg exceptionMsg = JSON.parseObject(exceptionMsgJson, ExceptionMsg.class);
         exceptionMsgService.addMsg(exceptionMsg);
         iMailService.sendSimpleMail(exceptionMsg.getEmail(), "徐子楼", exceptionMsgJson);
-        log.info("接受成功:{}", exceptionMsgJson);
+        log.info("exceptionMsg消费成功:{}", exceptionMsgJson);
+    }
+
+    /**
+     * 商品详情页面静态化
+     *
+     * @param gooodsId
+     */
+    @RabbitListener(queues = "pageMsg")
+    public void pageMsgLinstener(String gooodsId) {
+        log.info("pageMsg消费成功:{}", gooodsId);
+    }
+
+    @RabbitListener(queues = "sellerAuditMsg")
+    public void sellerAuditMsgLinstener(String sellerAuditMsgJson) {
+
+
     }
 
 }

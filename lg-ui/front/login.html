@@ -2,111 +2,114 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-	<title>品优购，欢迎登录</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <title>品优购，欢迎登录</title>
 
-    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="css/pages-login.css" />
+    <link rel="stylesheet" type="text/css" href="css/webbase.css"/>
+    <link rel="stylesheet" type="text/css" href="css/pages-login.css"/>
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <script type="text/javascript" src="js/pages/login.js"></script>
 </head>
 
 <body>
-	<div class="login-box">
-		<!--head-->
-		<div class="py-container logoArea">
-			<a href="" class="logo"></a>
-		</div>
-		<!--loginArea-->
-		<div class="loginArea">
-			<div class="py-container login">
-				<div class="loginform">
-					<ul class="sui-nav nav-tabs tab-wraped">
-						<li>
-							<a href="#index" data-toggle="tab">
-								<h3>扫描登录</h3>
-							</a>
-						</li>
-						<li class="active">
-							<a href="#profile" data-toggle="tab">
-								<h3>账户登录</h3>
-							</a>
-						</li>
-					</ul>
-					<div class="tab-content tab-wraped">
-						<div id="index" class="tab-pane">
-							<p>二维码登录，暂为官网二维码</p>
-							<img src="img/wx_cz.jpg" />
-						</div>
-						<div id="profile" class="tab-pane  active">
-							<form class="sui-form" id="login" action="http://localhost:9090/auth/login" method="post">
-								<div class="input-prepend"><span class="add-on loginname"></span>
-									<input id="prependedInput" name="username" type="text" placeholder="邮箱/用户名/手机号" class="span2 input-xfat">
-								</div>
-								<div class="input-prepend"><span class="add-on loginpwd"></span>
-									<input id="prependedInput" name="password" type="password" placeholder="请输入密码" class="span2 input-xfat">
-								</div>
-								<div class="setting">
-									<label class="checkbox inline">
-          <input name="m1" type="checkbox" value="2" checked=""> 
-          自动登录
-        </label>
-									<span class="forget">忘记密码？</span>
-								</div>
-								<div class="logined">
-									<a class="sui-btn btn-block btn-xlarge btn-danger" onclick="document.getElementById('login').submit()">登&nbsp;&nbsp;录</a>
-								</div>
-							</form>
-							<div class="otherlogin">
-								<div class="types">
-									<ul>
-										<!--<li><img  src="img/icons8-github-48.png" width="37px" height="35px"  onclick="window.location='https://github.com/login/oauth/authorize?client_id=15d3f8ca720469198603&redirect_uri=http://localhost:9090/auth/oauth/github/callback&state=use-login'" target="_blank"/></li>-->
-										<!--<li><img src="img/sina.png" /></li>-->
-										<!--<li><img src="img/ali.png" /></li>-->
-										<!--<li><img src="img/weixin.png" /></li>-->
-                                        <li>
-                                            <div>
-                                                <a href="https://github.com/login/oauth/authorize?client_id=15d3f8ca720469198603&redirect_uri=http://localhost:9090/auth/oauth/github/callback&state=use-login">
-                                                    <svg aria-hidden="true" class="octicon octicon-mark-github"
-                                                         height="32" version="1.1" viewBox="0 0 16 16" width="32">
-                                                        <path fill-rule="evenodd"
-                                                              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
-                                                        </path></svg>
-                                                </a>
-                                            </div>
-                                        </li>
-									</ul>
-								</div>
-								<span class="register"><a href="register.html" target="_blank">立即注册</a></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--foot-->
-		<div class="py-container copyright">
-			<ul>
-				<li>关于我们</li>
-				<li>联系我们</li>
-				<li>联系客服</li>
-				<li>商家入驻</li>
-				<li>营销中心</li>
-				<li>手机品优购</li>
-				<li>销售联盟</li>
-				<li>品优购社区</li>
-			</ul>
-			<div class="address">地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100</div>
-			<div class="beian">京ICP备08001421号京公网安备110108007702
-			</div>
-		</div>
-	</div>
-
-<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
-<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
-<script type="text/javascript" src="js/pages/login.js"></script>
+<div class="login-box">
+    <!--head-->
+    <div class="py-container logoArea">
+        <a href="" class="logo"></a>
+    </div>
+    <!--loginArea-->
+    <div class="loginArea">
+        <div class="py-container login">
+            <div class="loginform">
+                <ul class="sui-nav nav-tabs tab-wraped">
+                    <li>
+                        <a href="#index" data-toggle="tab">
+                            <h3>扫描登录</h3>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#profile" data-toggle="tab">
+                            <h3>账户登录</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-wraped">
+                    <div id="index" class="tab-pane">
+                        <p>二维码登录，暂为官网二维码</p>
+                        <img src="img/wx_cz.jpg"/>
+                    </div>
+                    <div id="profile" class="tab-pane  active">
+                        <form class="sui-form" id="login" action="https://localhost:8080/cas/login" method="post">
+                            <div class="input-prepend"><span class="add-on loginname"></span>
+                                <input id="prependedInput" name="username" type="text" placeholder="邮箱/用户名/手机号"
+                                       class="span2 input-xfat">
+                            </div>
+                            <div class="input-prepend"><span class="add-on loginpwd"></span>
+                                <input id="prependedInput" name="password" type="password" placeholder="请输入密码"
+                                       class="span2 input-xfat">
+                            </div>
+                            <div class="setting">
+                                <label class="checkbox inline">
+                                    <input name="m1" type="checkbox" value="2" checked="">
+                                    自动登录
+                                </label>
+                                <span class="forget">忘记密码？</span>
+                            </div>
+                            <div class="logined">
+                                <a class="sui-btn btn-block btn-xlarge btn-danger"
+                                   onclick="document.getElementById('login').submit()">登&nbsp;&nbsp;录</a>
+                            </div>
+                        </form>
+                        <div class="otherlogin">
+                            <div class="types">
+                                <ul>
+                                    <!--<li><img  src="img/icons8-github-48.png" width="37px" height="35px"  onclick="window.location='https://github.com/login/oauth/authorize?client_id=15d3f8ca720469198603&redirect_uri=http://localhost:9090/auth/oauth/github/callback&state=use-login'" target="_blank"/></li>-->
+                                    <!--<li><img src="img/sina.png" /></li>-->
+                                    <!--<li><img src="img/ali.png" /></li>-->
+                                    <!--<li><img src="img/weixin.png" /></li>-->
+                                    <li>
+                                        <div>
+                                            <a href="https://github.com/login/oauth/authorize?client_id=15d3f8ca720469198603&redirect_uri=http://localhost:9090/auth/oauth/github/callback&state=use-login">
+                                                <svg aria-hidden="true" class="octicon octicon-mark-github"
+                                                     height="32" version="1.1" viewBox="0 0 16 16" width="32">
+                                                    <path fill-rule="evenodd"
+                                                          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="register"><a href="http://localhost/front/register.html"
+                                                      target="_blank">立即注册</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--foot-->
+    <div class="py-container copyright">
+        <ul>
+            <li>关于我们</li>
+            <li>联系我们</li>
+            <li>联系客服</li>
+            <li>商家入驻</li>
+            <li>营销中心</li>
+            <li>手机品优购</li>
+            <li>销售联盟</li>
+            <li>品优购社区</li>
+        </ul>
+        <div class="address">地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100</div>
+        <div class="beian">京ICP备08001421号京公网安备110108007702
+        </div>
+    </div>
+</div>
 </body>
-
 </html>

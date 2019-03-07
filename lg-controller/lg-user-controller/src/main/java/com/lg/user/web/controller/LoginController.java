@@ -46,33 +46,33 @@ import java.security.Principal;
 public class LoginController extends BaseController {
 
 
-
-    @ApiOperation(value = "转发到登录页面")
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @ApiOperation(value = "获取登录人的授权信息")
-    @GetMapping("/get")
-    @ResponseBody
-    public Authentication get() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
-
-    @ApiOperation(value = "退出登录", notes = "通过移除token来达到退出登录的效果", httpMethod = "GET")
-    @ApiImplicitParam(name = "accessToken", value = "用来认证的access_token", required = true, dataType = "String")
-    @GetMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        // token can be revoked here if needed
-        new SecurityContextLogoutHandler().logout(request, null, null);
-    }
-
-    @RequestMapping("/user/me")
-    @ResponseBody
-    public Principal user(Principal principal) {
-        logger.info("获取用户信息:{}", principal);
-        return principal;
-    }
+//
+//    @ApiOperation(value = "转发到登录页面")
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login";
+//    }
+//
+//    @ApiOperation(value = "获取登录人的授权信息")
+//    @GetMapping("/get")
+//    @ResponseBody
+//    public Authentication get() {
+//        return SecurityContextHolder.getContext().getAuthentication();
+//    }
+//
+//
+//    @ApiOperation(value = "退出登录", notes = "通过移除token来达到退出登录的效果", httpMethod = "GET")
+//    @ApiImplicitParam(name = "accessToken", value = "用来认证的access_token", required = true, dataType = "String")
+//    @GetMapping("/logout")
+//    public void logout(HttpServletRequest request, HttpServletResponse response) {
+//        // token can be revoked here if needed
+//        new SecurityContextLogoutHandler().logout(request, null, null);
+//    }
+//
+//    @RequestMapping("/user/me")
+//    @ResponseBody
+//    public Principal user(Principal principal) {
+//        logger.info("获取用户信息:{}", principal);
+//        return principal;
+//    }
 }
