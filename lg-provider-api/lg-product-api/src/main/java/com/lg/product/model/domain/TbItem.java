@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @TableName("tb_item")
-public class TbItem extends Model<TbItem> {
+public class TbItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -117,9 +117,5 @@ public class TbItem extends Model<TbItem> {
 
 	private String seller;
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 
 }

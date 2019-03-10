@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>lg-biz-web</artifactId>
+    <artifactId>lg-biz-controller</artifactId>
 
     <dependencies>
         <dependency>

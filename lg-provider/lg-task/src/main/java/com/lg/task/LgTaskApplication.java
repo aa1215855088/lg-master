@@ -1,6 +1,7 @@
 package com.lg.task;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -39,6 +40,7 @@ import javax.sql.DataSource;
  * @author: 徐子楼
  * @create: 2019-02-22 17:26
  **/
+@MapperScan("com.lg.task.mapper")
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class LgTaskApplication {
     public static void main(String[] args) {

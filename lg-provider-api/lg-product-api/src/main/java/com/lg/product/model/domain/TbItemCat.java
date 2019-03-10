@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @TableName("tb_item_cat")
-public class TbItemCat extends Model<TbItemCat> {
+public class TbItemCat implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -45,11 +45,6 @@ public class TbItemCat extends Model<TbItemCat> {
 	@TableField("type_id")
 	private Long typeId;
 
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 
 
 }

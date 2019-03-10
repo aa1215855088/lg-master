@@ -17,7 +17,8 @@ import java.io.Serializable;
  * @author paascloud.net@gmail.com
  */
 @Data
-public class BaseEntity<T> implements Serializable {
+public class
+BaseEntity<T> implements Serializable {
 
     private static final long serialVersionUID = 2393269568666085258L;
 

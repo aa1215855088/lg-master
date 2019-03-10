@@ -1,12 +1,14 @@
 package com.lg.task.service.impl;
 
 
+import com.lg.product.model.domain.TbGoods;
 import com.lg.task.service.IMailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -47,14 +49,26 @@ public class IMailServiceImplTest {
     @Autowired
     private StringRedisTemplate template;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Test
     public void sendSimpleMail() throws MessagingException {
         String emailContent = templateEngine.process("msgTemplate", new Context());
+
         this.iMailService.sendHtmlMail("1013629501@qq.com", "徐子楼", emailContent);
     }
 
     @Test
-    public void redisTest(){
-        this.template.opsForValue().set("test","123",60000);
+    public void redisTest() {
+        this.template.opsForValue().set("test", "123", 60000);
+    }
+
+    @Test
+    public void findOne() {
+
     }
 }

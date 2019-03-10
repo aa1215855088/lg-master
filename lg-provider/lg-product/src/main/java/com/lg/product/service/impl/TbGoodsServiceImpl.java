@@ -10,21 +10,25 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lg.commons.base.constant.Constants;
+import com.lg.commons.base.enums.ItemStautsEnum;
+import com.lg.commons.base.enums.MSGStatusEnum;
+import com.lg.commons.base.enums.TypeEnum;
 import com.lg.commons.base.enums.ErrorCodeEnum;
 import com.lg.commons.base.exception.BusinessException;
-import com.lg.commons.base.vo.GoodsVo;
 import com.lg.commons.base.vo.PageVO;
+import com.lg.commons.util.id.SnowflakeIdWorker;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
+import com.lg.product.mapper.TMqMessageLogMapper;
 import com.lg.product.mapper.TbGoodsMapper;
-import com.lg.product.model.domain.TbBrand;
-import com.lg.product.model.domain.TbGoods;
-import com.lg.product.model.domain.TbItem;
-import com.lg.product.model.domain.TbItemCat;
+import com.lg.product.model.domain.*;
 import com.lg.product.model.dto.GoodDTD;
 import com.lg.product.model.dto.Goods;
 import com.lg.product.model.vo.GoodsVO;
+import com.lg.product.producer.RabbitPageSender;
 import com.lg.product.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +39,6 @@ import java.util.*;
 
 import java.util.List;
 
-import static com.alibaba.nacos.client.config.impl.CacheData.log;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -48,6 +51,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Service(version = "1.0.0", timeout = 6000)
 @Transactional
+@Slf4j
 public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> implements TbGoodsService {
 
 
@@ -69,6 +73,16 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
     @Autowired
     private TbSellerService tbSellerService;
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    @Autowired
+    private RabbitPageSender rabbitPageSender;
+
+    private SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(0, 0);
+
+    @Autowired
+    private TMqMessageLogMapper tMqMessageLogMapper;
 
     @Override
     public Wrapper save(GoodDTD goods) {
@@ -97,6 +111,24 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
 
             baseMapper.updateById(tbGoods);
         }
+        if (ItemStautsEnum.EXAMINATION_PASSE.getCode().equals(status)) {
+            long msgId = snowflakeIdWorker.nextId();
+            TMqMessageLog mqMessageLog = new TMqMessageLog(msgId, TypeEnum.CREATE_PAGE.getCode(),
+                    JSON.toJSONString(ids), 0,
+                    MSGStatusEnum.SENDING.getCode(), LocalDateTime.now().plusMinutes(Constants.TRY_TIMEOUT));
+            Integer row = tMqMessageLogMapper.insert(mqMessageLog);
+            if (row == 0) {
+                throw new BusinessException(500, "消息入库失败");
+            }
+
+            try {
+                rabbitPageSender.sendOrder(mqMessageLog);
+            } catch (Exception e) {
+                log.error("sendPage mq msg error: ", e);
+                tMqMessageLogMapper.updataNextRetryTimeForNow(mqMessageLog.getMessageId());
+            }
+        }
+
 
         return WrapMapper.ok();
     }
@@ -245,8 +277,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         return WrapMapper.ok(tbGoods);
     }
 
-    @Autowired
-    private AmqpTemplate amqpTemplate;
 
     /**
      * 修改商品
@@ -259,11 +289,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         Integer index = this.baseMapper.updateById(tbGoods);
         if (index != 1) {
             throw new BusinessException(ErrorCodeEnum.GL99990500, "更新商品品牌信息失败");
-        }
-        if ("2".equals(tbGoods.getAuditStatus())) {
-            //商品页面静态化
-            this.amqpTemplate.convertAndSend("pageMsg", tbGoods.getId());
-
         }
         return WrapMapper.ok();
     }
@@ -369,7 +394,7 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
             item.setUpdateTime(LocalDateTime.now());
             // 设置商品ID
             item.setGoodsId(goods.getGoods().getId());
-            item.setSellerId("lif");
+            item.setSellerId(goods.getGoods().getSellerId());
 
             TbItemCat tbItemCat = tbItemCatService.selectOne(new QueryWrapper<TbItemCat>().eq("id",
                     goods.getGoods().getCategory3Id()));

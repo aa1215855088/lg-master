@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 @Data
 @Accessors(chain = true)
 @TableName("tb_goods")
-public class TbGoods extends Model<TbGoods> {
+public class TbGoods implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -134,9 +134,5 @@ public class TbGoods extends Model<TbGoods> {
 	private String isDelete;
 
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
 
 }

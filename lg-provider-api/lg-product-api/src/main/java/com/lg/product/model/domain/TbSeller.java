@@ -21,7 +21,8 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @TableName("tb_seller")
-public class TbSeller extends Model<TbSeller> {
+public class TbSeller
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -139,10 +140,5 @@ public class TbSeller extends Model<TbSeller> {
 	@TableField("bank_name")
 	private String bankName;
 
-
-	@Override
-	protected Serializable pkVal() {
-		return this.sellerId;
-	}
 
 }

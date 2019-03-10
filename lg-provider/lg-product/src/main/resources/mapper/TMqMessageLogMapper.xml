@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lg.product.mapper.TMqMessageLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lg.product.model.domain.TMqMessageLog">
+        <id column="message_id" property="messageId"/>
+        <result column="type" property="type"/>
+        <result column="message" property="message"/>
+        <result column="try_count" property="tryCount"/>
+        <result column="status" property="status"/>
+        <result column="next_retry" property="nextRetry"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <update id="changeMessageStatus">
+        update t_mq_message_log bml
+        set bml.status      = #{status},
+            bml.update_time = now()
+        where bml.message_id = #{messageId}
+    </update>
+    <update id="updataNextRetryTimeForNow">
+        update t_mq_message_log m
+        set m.next_retry  = now(),
+            m.update_time = now()
+        where m.message_id = #{messageId}
+    </update>
+    <update id="updateByPrimaryKeySelective">
+        update t_mq_message_log
+        <set >
+            <if test="type != null" >
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="message != null" >
+                message = #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="tryCount != null" >
+                try_count = #{tryCount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="nextRetry != null" >
+                next_retry = #{nextRetry,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = now(),
+            </if>
+        </set>
+        where message_id = #{messageId,jdbcType=BIGINT}
+    </update>
+    <update id="updateTryCount">
+        update t_mq_message_log
+        set try_count = try_count+1,
+            next_retry = #{nextRetry,jdbcType=TIMESTAMP},
+            update_time = now()
+        where message_id = #{messageId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

@@ -17,6 +17,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * ┏┓　　　┏┓
  * ┏┛┻━━━┛┻┓
@@ -56,7 +58,7 @@ public class SmsServiceImpl implements SmsService {
                 String.valueOf(verificationCode), Sms.TPL_AND, Sms.TPL_M, 6,
                 Sms.KEY);
         String key = phone + String.valueOf(verificationCode);
-        redisTemplate.opsForValue().set("VERIFICATIONCODE:" + key, "666", 360000);
+        redisTemplate.opsForValue().set("VERIFICATIONCODE:" + key, "666", 60*6, TimeUnit.SECONDS);
         log.info("手机号:{},获取注册验证码:{}", phone, String.valueOf(verificationCode));
         String result = HttpUtil.get(url);
         JSONObject data = JSONObject.parseObject(result);

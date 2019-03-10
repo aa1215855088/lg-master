@@ -12,10 +12,10 @@
     <artifactId>lg-controller</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>lg-product-controller</module>
+        <module>lg-obm-controller</module>
         <module>lg-user-controller</module>
         <module>lg-order-controller</module>
-        <module>lg-biz-web</module>
+        <module>lg-biz-controller</module>
         <module>lg-content-controller</module>
         <module>lg-seckill-controller</module>
     </modules>

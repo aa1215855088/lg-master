@@ -60,8 +60,8 @@ public class MyBatisPlusGenerator {
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://47.105.207.20:3306/pinyougoudb?characterEncoding=utf8");
+        dsc.setPassword("liu20000406");
+        dsc.setUrl("jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -69,7 +69,7 @@ public class MyBatisPlusGenerator {
         //strategy.setTablePrefix(new String[]{"pf_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 
-//        strategy.setInclude(new String[] { "tb_user" }); // 需要生成的表
+       strategy.setInclude(new String[] { "t_mq_message_failed","t_mq_message_log"}); // 需要生成的表
         // 排除生成的表
 //        strategy.setExclude(new String[]{"tb_pay_log", "tb_order_item", "tb_order",
 //                "tb_user", "tb_content_category", "tb_content",
@@ -95,12 +95,12 @@ public class MyBatisPlusGenerator {
         // 注意不同的模块生成时要修改对应模块包名
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-//        pc.setEntity("com.lg1.product.model.domain");
-//        pc.setMapper("com.lg1.product.mapper");
-//        pc.setXml("mapper");
-//        pc.setService("com.lg1.product.com.lg.product.service.service");
-//        pc.setServiceImpl("com.lg1.product.com.lg.product.service.service.impl");
-        pc.setController("com.lg.product.web.com.lg.product.web.com.lg.product.web.controller");
+        pc.setEntity("com.lg.product.model.domain");
+        pc.setMapper("com.lg.product.mapper");
+        pc.setXml("mapper");
+        pc.setService("com.lg.product.com.lg.product.service.service");
+        pc.setServiceImpl("com.lg.product.com.lg.product.service.service.impl");
+//        pc.setController("com.lg.product.web.com.lg.product.web.com.lg.product.web.controller");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值

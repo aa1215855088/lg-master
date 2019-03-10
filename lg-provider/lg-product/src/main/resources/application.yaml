@@ -8,7 +8,7 @@ dubbo:
     name: dubbo
     port: -1
   registry:
-      address: nacos://127.0.0.1:8848
+    address: nacos://127.0.0.1:8848
 
 project:
   leader:
@@ -24,6 +24,21 @@ spring:
     port: 5672
     username: guest
     password: guest
+    #    支持发布确认
+    publisher-confirms: true
+    #    支持发布返回
+    publisher-returns: true
+    listener:
+      simple:
+        #      采用手动应答
+        acknowledge-mode: manual
+        #        当前监听容器数
+        concurrency: 1
+        #        最大数
+        max-concurrency: 1
+        #        是否支持重试
+        retry:
+          enabled: false
   redis:
     host: 47.105.207.20
     password: 123456
@@ -86,6 +101,6 @@ qiniu:
   secret:
     key: 5PTalH1Y70jfPIjQXXKCkQn-QQl6Qc4cRQckOwRy
   bucket:
-    name: xzlimage
+    name: image
     host:
-      name: pmyhsetqs.bkt.clouddn.com
+      name: po4w4fx60.bkt.clouddn.com
