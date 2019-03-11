@@ -42,16 +42,19 @@ app.controller('contentController', function ($scope, $controller, contentServic
         if ($scope.content.id != null) {//如果有ID
             serviceObject = contentService.update($scope.content); //修改
         } else {
+            $scope.content.pic = $scope.content.url;
+            $scope.content.url = "www.baidu.com";
+            
             serviceObject = contentService.add($scope.content);//增加
-
         }
         serviceObject.success(
             function (response) {
                 if (response.code == 200) {
-                    //重新查询
-                    $scope.reloadList();//重新加载
+                    layer.msg("操作成功");
+                    // $scope.reloadList();//重新加载
+                    window.location.reload();
                 } else {
-                    alert(response.message);
+                    layer.msg(response.message);
                 }
             }
         );
@@ -60,13 +63,24 @@ app.controller('contentController', function ($scope, $controller, contentServic
 
     //批量删除
     $scope.dele = function () {
-        //获取选中的复选框
-        contentService.dele($scope.selectIds).success(
-            function (response) {
-                if (response.code == 200) {
-                    $scope.reloadList();//刷新列表
-                    $scope.selectIds = [];
-                }
+        if ($scope.selectIds.length == 0) {
+            layer.msg("请选中一行进行操作");
+            return;
+        }
+        layer.confirm("你确定要删除以下数据吗？",
+            {btn: ['确定', '取消']},
+            function () {
+                //获取选中的复选框
+                contentService.dele($scope.selectIds).success(
+                    function (response) {
+                        if (response.code == "200") {
+                            layer.msg(response.message);
+                            window.location.reload();//刷新列表
+                            $scope.selectIds = [];
+                        } else {
+                            layer.msg(response.message);
+                        }
+                    })
             }
         );
     }

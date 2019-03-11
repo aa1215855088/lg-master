@@ -12,6 +12,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolationException;
+
 /**
  * ┏┓　　　┏┓
  * ┏┛┻━━━┛┻┓
@@ -66,9 +68,9 @@ public class ServiceExceptionHandle {
         Object[] args = pjp.getArgs();
         try {
             return pjp.proceed();
-        } catch (BusinessException e) { // 业务自定义异常
+        } catch (BusinessException | ConstraintViolationException e) { // 业务自定义异常
             processException(pjp, args, e);
-            return WrapMapper.wrap(e.getCode() == 0 ? Wrapper.ERROR_CODE : e.getCode(), e.getMessage());
+            return WrapMapper.wrap(500, e.getMessage());
         } catch (Exception e) {
             processException(pjp, args, e);
             return WrapMapper.error("服务调用失败");

@@ -3,6 +3,7 @@ package com.lg.content.web.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lg.commons.base.exception.BusinessException;
 import com.lg.commons.core.controller.BaseController;
 import com.lg.commons.util.wrapper.WrapMapper;
 import com.lg.commons.util.wrapper.Wrapper;
@@ -11,6 +12,7 @@ import com.lg.content.model.domain.TbContentCategory;
 import com.lg.content.service.TbContentCategoryService;
 import com.lg.content.service.TbContentService;
 import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +28,8 @@ import java.util.List;
  * @since 2019-02-19
  */
 @RestController
-@RequestMapping(value = "/tbContent",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "WEB - TbCententConroller",tags = "广告API",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/tbContent", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Api(value = "WEB - TbCententConroller", tags = "广告API", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TbContentController extends BaseController {
 
     @Reference(version = "1.0.0")
@@ -35,7 +37,6 @@ public class TbContentController extends BaseController {
 
     @Reference(version = "1.0.0")
     private TbContentCategoryService tbContentCategoryService;
-
 
 
     @GetMapping("")
@@ -68,15 +69,15 @@ public class TbContentController extends BaseController {
 
     @GetMapping("/findById/{id}")
     @ApiOperation(httpMethod = "GET", value = "根据广告的ID查询广告信息")
-    @ApiImplicitParams({@ApiImplicitParam(value = "广告的ID",paramType = "query")})
-    public Wrapper<TbContent> findById (@ApiParam @PathVariable("id")Long id) {
-        logger.info("根据广告ID查询广告信息,ID={}",id);
+    @ApiImplicitParams({@ApiImplicitParam(value = "广告的ID", paramType = "query")})
+    public Wrapper<TbContent> findById(@ApiParam @PathVariable("id") Long id) {
+        logger.info("根据广告ID查询广告信息,ID={}", id);
         return this.tbContentService.findById(id);
     }
 
     @GetMapping("/findAllCategory")
     @ApiOperation(httpMethod = "GET", value = "获取所有广告类型的信息")
-    public Wrapper<List<TbContentCategory>> findAllCategory(){
+    public Wrapper<List<TbContentCategory>> findAllCategory() {
         logger.info("获取所有广告类型的信息");
         return this.tbContentCategoryService.findAll();
     }

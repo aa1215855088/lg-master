@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author xuzilou
@@ -28,50 +28,51 @@ import java.io.Serializable;
 @TableName("tb_content")
 public class TbContent extends Model<TbContent> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Min(1)
-	@NotNull(groups = {Update.class})
-	@TableId(value="id", type= IdType.AUTO)
-	private Long id;
+    @NotNull(groups = {Update.class})
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
     /**
      * 内容类目ID
      */
     @Min(1)
-	@NotNull(groups = {Update.class, Insert.class})
-	@TableField("category_id")
-	private Long categoryId;
+    @NotNull(groups = {Update.class, Insert.class})
+    @TableField("category_id")
+    private Long categoryId;
     /**
      * 内容标题
      */
-	@NotBlank(groups = {Update.class, Insert.class})
-	private String title;
+    @NotBlank(groups = {Update.class, Insert.class})
+    private String title;
     /**
      * 链接
      */
-	@NotBlank(groups = {Update.class})
-	private String url;
+    @NotBlank(groups = {Update.class})
+    private String url;
     /**
      * 图片绝对路径
      */
-	private String pic;
+    @NotBlank(groups = {Update.class, Insert.class})
+    private String pic;
     /**
      * 状态
      */
-    @NotBlank
-	private String status;
+    
+    private String status;
     /**
      * 排序
      */
-	@Min(1)
-	@NotNull(groups = {Update.class, Insert.class})
-	@TableField("sort_order")
-	private Integer sortOrder;
+    @Min(1)
+    @NotNull(groups = {Update.class, Insert.class})
+    @TableField("sort_order")
+    private Integer sortOrder;
 
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
 }

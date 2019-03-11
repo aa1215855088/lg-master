@@ -52,7 +52,7 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
 
     @Override
     public Wrapper save(TbContent tbContent) {
-        BeanValidators.validateWithException(validator, tbContent);
+        BeanValidators.validateWithException(validator, tbContent,Insert.class);
         if (tbContent.getStatus().equals("true")) {
             tbContent.setStatus("1");
         } else {
