@@ -44,7 +44,7 @@ app.controller('contentController', function ($scope, $controller, contentServic
         } else {
             $scope.content.pic = $scope.content.url;
             $scope.content.url = "www.baidu.com";
-            
+
             serviceObject = contentService.add($scope.content);//增加
         }
         serviceObject.success(

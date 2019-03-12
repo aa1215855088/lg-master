@@ -31,4 +31,7 @@ public interface TbContentService extends IService<TbContent> {
     Wrapper<TbContent> findById(Long id);
 
 
+    Wrapper<List<TbContent>>findByCategoryId(Long categoryId);
+
+
 }

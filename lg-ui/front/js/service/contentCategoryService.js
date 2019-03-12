@@ -29,5 +29,14 @@ app.service('contentCategoryService',function($http){
 	this.search=function(page,rows,searchEntity){
 		return $http.post('http://localhost:8085/contentCategory/search?page='+page+"&rows="+rows,searchEntity);
 	}
+	// 查询所有广告分类
+	this.findContentCategoryList = function(){
+		return $http.get('http://localhost:8085/tbContent/findAllCategory')
+	}
+	//广告图片
+	this.findByCategoryId=function (categoryId) {
+		return $http.get('http://localhost:8085/tbContent/findByCategoryId?categoryId='+categoryId);
 
+	}
+	
 });

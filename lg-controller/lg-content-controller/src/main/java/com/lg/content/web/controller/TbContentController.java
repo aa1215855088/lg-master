@@ -81,4 +81,13 @@ public class TbContentController extends BaseController {
         logger.info("获取所有广告类型的信息");
         return this.tbContentCategoryService.findAll();
     }
+
+
+    @GetMapping("/findByCategoryId")
+    @ApiOperation(httpMethod = "GET",value = "根据广告内容类目ID获取广告图片")
+    @ApiImplicitParams({@ApiImplicitParam(value = "广告内容类目ID",paramType = "query")})
+    public Wrapper<List<TbContent>>findByCategoryId(Long categoryId){
+        logger.info("根据广告内容类目ID获取广告图片，categoryId={}",categoryId);
+        return this.tbContentService.findByCategoryId(categoryId);
+    }
 }

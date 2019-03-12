@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
@@ -22,7 +23,7 @@
     <script src="../js/controller/contentController.js"></script>
     <script src="../js/service/contentService.js"></script>
     <script src="../js/service/uploadService.js"></script>
-
+    <script src="../js/layer/layer.js"></script>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="lg" ng-controller="contentController"
@@ -44,7 +45,7 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
                             data-target="#editModal"
-                            ng-click="imageUrl=｛｝;content.categoryId=｛｝;content.title=｛｝;content.sortOrder=｛｝"><i
+                            ng-click="imageUrl={};content.categoryId={};content.title={};content.sortOrder={}"><i
                             class="fa fa-file-o"></i> 新建
                     </button>
                     <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i

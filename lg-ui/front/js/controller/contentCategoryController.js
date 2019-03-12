@@ -105,5 +105,17 @@ app.controller('contentCategoryController' ,function($scope, $controller, conten
 		);
 	}
 
-    
+	//显示广告图片
+	$scope.contentList=[];//所有广告列表
+	$scope.findByCategoryId=function (categoryId) {
+		contentCategoryService.findByCategoryId(categoryId).success(
+			function (response) {
+				$scope.contentList[categoryId]=response.result;
+			}
+		);
+
+	}
+
+
+
 });	
