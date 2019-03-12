@@ -27,5 +27,6 @@ public interface TbItemService extends IService<TbItem> {
 
     String hello();
 
+    List<TbItem> findByGoodIds(List<Long> goodsIds);
 
 }

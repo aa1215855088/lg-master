@@ -36,7 +36,7 @@ public class TMqMessageLogServiceImpl extends ServiceImpl<TMqMessageLogMapper, T
         List<TMqMessageLog> messageLogs = this.baseMapper.selectList(new QueryWrapper<TMqMessageLog>()
                 .eq("type", code)
                 .in("status", ints)
-                .lt("next_retry", LocalDateTime.now()));
+                .ge("next_retry", LocalDateTime.now()));
         return messageLogs;
     }
 

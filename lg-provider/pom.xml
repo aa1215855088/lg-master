@@ -17,6 +17,7 @@
         <module>lg-content</module>
         <module>lg-seckill</module>
         <module>lg-task</module>
+        <module>lg-search</module>
     </modules>
     <artifactId>lg-provider</artifactId>
     <dependencies>

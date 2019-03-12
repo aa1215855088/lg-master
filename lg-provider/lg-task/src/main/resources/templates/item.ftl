@@ -71,7 +71,7 @@
 						<div id="preview" class="spec-preview">
 							<span class="jqzoom">
 							 <#if (imageList?size>0)>
-							     <img jqimg="http://${imageList[0].url}" src="http://${imageList[0].url}" width="400px" height="400px" />
+							     <img jqimg="${imageList[0].url}" src="${imageList[0].url}" width="400px" height="400px" />
 							 </#if>
 							</span>
 						</div>
@@ -82,7 +82,7 @@
 							<div class="items">
 								<ul>
 								   <#list imageList as item>
-									  <li><img src="http://${item.url}" bimg="${item.url}" onmousemove="preview(this)" /></li>
+									  <li><img src="${item.url}" bimg="${item.url}" onmousemove="preview(this)" /></li>
 								   </#list>
 								</ul>
 							</div>

@@ -26,10 +26,12 @@ import com.lg.product.model.domain.*;
 import com.lg.product.model.dto.GoodDTD;
 import com.lg.product.model.dto.Goods;
 import com.lg.product.model.vo.GoodsVO;
+import com.lg.product.producer.RabbitIndexSender;
 import com.lg.product.producer.RabbitPageSender;
 import com.lg.product.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,10 +77,12 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
 
     @Autowired
     private AmqpTemplate amqpTemplate;
-
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     @Autowired
     private RabbitPageSender rabbitPageSender;
-
+    @Autowired
+    private RabbitIndexSender rabbitIndexSender;
     private SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(0, 0);
 
     @Autowired
@@ -99,7 +103,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
         return null;
     }
 
-
     @Override
     public Wrapper updateStatus(Long[] ids, String status) {
 
@@ -112,20 +115,34 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
             baseMapper.updateById(tbGoods);
         }
         if (ItemStautsEnum.EXAMINATION_PASSE.getCode().equals(status)) {
-            long msgId = snowflakeIdWorker.nextId();
-            TMqMessageLog mqMessageLog = new TMqMessageLog(msgId, TypeEnum.CREATE_PAGE.getCode(),
+
+            TMqMessageLog pageMsg = new TMqMessageLog(snowflakeIdWorker.nextId(), TypeEnum.CREATE_PAGE.getCode(),
                     JSON.toJSONString(ids), 0,
                     MSGStatusEnum.SENDING.getCode(), LocalDateTime.now().plusMinutes(Constants.TRY_TIMEOUT));
-            Integer row = tMqMessageLogMapper.insert(mqMessageLog);
-            if (row == 0) {
+            Integer pageRow = tMqMessageLogMapper.insert(pageMsg);
+            if (pageRow == 0) {
                 throw new BusinessException(500, "消息入库失败");
+            }
+            TMqMessageLog indexMsg = new TMqMessageLog(snowflakeIdWorker.nextId(), TypeEnum.CREATE_INDEX.getCode(),
+                    JSON.toJSONString(ids), 0,
+                    MSGStatusEnum.SENDING.getCode(), LocalDateTime.now().plusMinutes(Constants.TRY_TIMEOUT));
+            Integer indexRow = tMqMessageLogMapper.insert(indexMsg);
+            if (indexRow == 0) {
+                throw new BusinessException(500, "消息入库失败");
+            }
+            try {
+                rabbitPageSender.sendPage(pageMsg);
+
+            } catch (Exception e) {
+                log.error("sendPage mq msg error: ", e);
+                tMqMessageLogMapper.updataNextRetryTimeForNow(pageMsg.getMessageId());
             }
 
             try {
-                rabbitPageSender.sendOrder(mqMessageLog);
+                rabbitIndexSender.sendIndex(indexMsg);
             } catch (Exception e) {
-                log.error("sendPage mq msg error: ", e);
-                tMqMessageLogMapper.updataNextRetryTimeForNow(mqMessageLog.getMessageId());
+                log.error("sendIndex mq msg error: ", e);
+                tMqMessageLogMapper.updataNextRetryTimeForNow(indexMsg.getMessageId());
             }
         }
 
@@ -354,7 +371,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
                     item.setTitle(title);
 
                     setValue(goods, item);
-
                     tbItemService.insert(item);
                 }
 

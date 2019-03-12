@@ -14,6 +14,7 @@ import com.lg.task.service.MessageService;
 import com.lg.task.service.PageService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
@@ -77,7 +78,7 @@ public class MessageListener {
      */
     @RabbitListener(queues = "exceptionMsg")
     @RabbitHandler
-    public void exceptionMsgLinstener(String exceptionMsgJson) {
+    public void exceptionMsgListener(String exceptionMsgJson) {
         log.info("-----------------RabbitOrderReceiver---------------------");
         log.info("消费端 exceptionMsg:{}", exceptionMsgJson);
         ExceptionMsg exceptionMsg = JSON.parseObject(exceptionMsgJson, ExceptionMsg.class);
@@ -98,7 +99,7 @@ public class MessageListener {
      */
     @RabbitListener(queues = "pageMsg")
     @RabbitHandler
-    public void pageMsgLinstener(@Payload TMqMessageLog messageLog,
+    public void pageMsgListener(@Payload TMqMessageLog messageLog,
                                  Channel channel,
                                  @Headers Map<String, Object> headers) throws Exception {
         log.info("-----------------RabbitOrderReceiver---------------------");
@@ -148,7 +149,7 @@ public class MessageListener {
 
     @RabbitListener(queues = "sellerAuditMsg")
     @RabbitHandler
-    public void sellerAuditMsgLinstener(String sellerAuditMsgJson) {
+    public void sellerAuditMsgListener(String sellerAuditMsgJson) {
         log.info("-----------------RabbitOrderReceiver---------------------");
         log.info("消费端 sellerAuditMsg:{}", sellerAuditMsgJson);
         TbSeller tbSeller = JSON.parseObject(sellerAuditMsgJson, TbSeller.class);

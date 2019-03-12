@@ -44,6 +44,7 @@
     <script type="application/javascript" src="../js/service/uploadService.js"></script>
     <script type="application/javascript" src="../js/controller/baseController.js"></script>
     <script type="application/javascript" src="../js/controller/goodsController.js"></script>
+    <script type="application/javascript" src="../layer/layer.js"></script>
 
 
 </head>
@@ -185,7 +186,7 @@
                                         {{pojo.color}}
                                     </td>
                                     <td>
-                                        <img alt="" src="http://{{pojo.url}}" width="100px" height="100px">
+                                        <img alt="" src="{{pojo.url}}" width="100px" height="100px">
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-default" title="删除"
@@ -394,7 +395,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <img src="http://{{imageUrl.url}}" width="200px" height="200px">
+                                        <img src="{{imageUrl.url}}" width="200px" height="200px">
                                     </td>
                                 </tr>
                             </table>

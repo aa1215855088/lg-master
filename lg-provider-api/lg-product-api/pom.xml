@@ -13,6 +13,11 @@
 
         <dependencies>
             <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>3.1.5.RELEASE</version>
+            </dependency>
+            <dependency>
                 <groupId>com.lg</groupId>
                 <artifactId>lg-commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>

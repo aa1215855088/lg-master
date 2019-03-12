@@ -1,6 +1,9 @@
 package com.lg.task;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.sql.DataSource;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * ┏┓　　　┏┓
@@ -74,4 +79,5 @@ public class LgTaskApplication {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 }

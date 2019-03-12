@@ -6,6 +6,8 @@ import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.model.domain.TbItemCat;
 import com.lg.product.model.domain.TbTypeTemplate;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lg.product.model.dto.BrandDTO;
+import com.lg.product.model.dto.SpecDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +45,9 @@ public interface TbTypeTemplateService extends IService<TbTypeTemplate> {
 
     //根据模板名称查找
     Wrapper<PageVO<TbTypeTemplate>> findByName(String name, Integer pageNum, Integer pageSize);
-	
+
+
+    List<BrandDTO> findBrandByName(String category);
+
+    List<SpecDTO> findSpecByName(String category);
 }

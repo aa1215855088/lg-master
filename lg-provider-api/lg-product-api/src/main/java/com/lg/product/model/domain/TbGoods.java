@@ -9,6 +9,9 @@ import com.lg.commons.util.validators.Insert;
 import com.lg.commons.util.validators.Update;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +30,7 @@ import java.math.BigDecimal;
 @Data
 @Accessors(chain = true)
 @TableName("tb_goods")
+@Document(indexName = "test")
 public class TbGoods implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,6 +38,7 @@ public class TbGoods implements Serializable {
     /**
      * 主键
      */
+    @Id
 	@Min(1)
 	@NotNull(groups = {Update.class})
 	@TableId(value="id", type= IdType.AUTO)
@@ -41,12 +46,14 @@ public class TbGoods implements Serializable {
     /**
      * 商家ID
      */
+    @Field
 	@TableField("seller_id")
 	@NotBlank(groups = {Update.class})
 	private String sellerId;
     /**
      * SPU名
      */
+    @Field
 	@TableField("goods_name")
 	@NotBlank(groups = {Update.class, Insert.class})
 	private String goodsName;

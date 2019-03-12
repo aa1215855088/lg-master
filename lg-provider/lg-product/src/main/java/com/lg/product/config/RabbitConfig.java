@@ -46,6 +46,10 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue indexMsg() {
+        return new Queue("indexMsg", true);
+    }
+    @Bean
     public TopicExchange exchange() {
         return new TopicExchange("exchange");
     }

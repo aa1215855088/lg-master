@@ -3,6 +3,7 @@ package com.lg.product.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,8 +16,11 @@ import com.lg.commons.util.wrapper.Wrapper;
 import com.lg.product.mapper.TbSpecificationMapper;
 import com.lg.product.mapper.TbTypeTemplateMapper;
 import com.lg.product.model.domain.TbItemCat;
+import com.lg.product.model.domain.TbSpecification;
 import com.lg.product.model.domain.TbSpecificationOption;
 import com.lg.product.model.domain.TbTypeTemplate;
+import com.lg.product.model.dto.BrandDTO;
+import com.lg.product.model.dto.SpecDTO;
 import com.lg.product.service.TbSpecificationOptionService;
 import com.lg.product.service.TbTypeTemplateService;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -24,15 +28,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Validator;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author xuzilou
@@ -55,12 +57,11 @@ public class TbTypeTemplateServiceImpl extends ServiceImpl<TbTypeTemplateMapper,
     public Wrapper<TbTypeTemplate> findOne(Long id) {
         checkNotNull(id);
         TbTypeTemplate tbTypeTemplate = this.baseMapper.selectOne(new QueryWrapper<TbTypeTemplate>().eq("id", id));
-        if (tbTypeTemplate==null){
-            throw  new BusinessException(ErrorCodeEnum.GL99990500,"没有查询到商品品牌信息");
+        if (tbTypeTemplate == null) {
+            throw new BusinessException(ErrorCodeEnum.GL99990500, "没有查询到商品品牌信息");
         }
         return WrapMapper.ok(tbTypeTemplate);
     }
-
 
 
     @Override
@@ -68,23 +69,24 @@ public class TbTypeTemplateServiceImpl extends ServiceImpl<TbTypeTemplateMapper,
 
         checkNotNull(id);
         TbTypeTemplate tbTypeTemplate = this.baseMapper.selectOne(new QueryWrapper<TbTypeTemplate>().eq("id", id));
-        if (tbTypeTemplate==null){
-            throw  new BusinessException(ErrorCodeEnum.GL99990500,"没有查询到规格信息");
+        if (tbTypeTemplate == null) {
+            throw new BusinessException(ErrorCodeEnum.GL99990500, "没有查询到规格信息");
         }
-        String specIds=tbTypeTemplate.getSpecIds();
+        String specIds = tbTypeTemplate.getSpecIds();
 
-        List<Map>list=JSON.parseArray(specIds,Map.class);
+        List<Map> list = JSON.parseArray(specIds, Map.class);
 
         for (Map map : list) {
             //查询规格选项列表
-            List<TbSpecificationOption> tbSpecificationOptionList = this.tbSpecificationOptionService.selectList(new QueryWrapper<TbSpecificationOption>().eq("spec_id",new Long((Integer)map.get("id"))));
+            List<TbSpecificationOption> tbSpecificationOptionList =
+                    this.tbSpecificationOptionService.selectList(new QueryWrapper<TbSpecificationOption>().eq(
+                            "spec_id", new Long((Integer) map.get("id"))));
 
-            map.put("options",tbSpecificationOptionList);
+            map.put("options", tbSpecificationOptionList);
         }
 
         return WrapMapper.ok(list);
     }
-
 
 
     @Override
@@ -161,5 +163,32 @@ public class TbTypeTemplateServiceImpl extends ServiceImpl<TbTypeTemplateMapper,
         pageVO.setRows(iPage.getRecords());
         pageVO.setTotal(iPage.getTotal());
         return WrapMapper.ok(pageVO);
+    }
+
+    @Override
+    public List<BrandDTO> findBrandByName(String category) {
+        TbTypeTemplate tbTypeTemplates = this.baseMapper.selectOne(new QueryWrapper<TbTypeTemplate>().eq("name",
+                category));
+        List<BrandDTO> brandDTOS = JSONArray.parseArray(tbTypeTemplates.getBrandIds(), BrandDTO.class);
+        return brandDTOS;
+    }
+
+    @Override
+    public List<SpecDTO> findSpecByName(String category) {
+        List<SpecDTO> specDTOList = new ArrayList<>();
+        TbTypeTemplate tbTypeTemplates = this.baseMapper.selectOne(new QueryWrapper<TbTypeTemplate>().eq("name",
+                category));
+        List<TbSpecification> tbSpecifications = JSONArray.parseArray(tbTypeTemplates.getSpecIds(),
+                TbSpecification.class);
+        SpecDTO specDTO = new SpecDTO();
+        for (TbSpecification tbSpecification : tbSpecifications) {
+            specDTO.setText(tbSpecification.getSpecName());
+            List<TbSpecificationOption> options =
+                    this.tbSpecificationOptionService.selectList(new QueryWrapper<TbSpecificationOption>().eq("spec_id",
+                            tbSpecification.getId()));
+            specDTO.setOptions(options);
+            specDTOList.add(specDTO);
+        }
+        return specDTOList;
     }
 }

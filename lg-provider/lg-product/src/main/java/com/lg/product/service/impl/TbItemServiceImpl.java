@@ -38,4 +38,9 @@ public class TbItemServiceImpl extends ServiceImpl<TbItemMapper, TbItem> impleme
     public String hello() {
         return "hello";
     }
+
+    @Override
+    public List<TbItem> findByGoodIds(List<Long> goodsIds) {
+        return this.baseMapper.selectList(new QueryWrapper<TbItem>().in("goods_id", goodsIds));
+    }
 }

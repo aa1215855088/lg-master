@@ -18,6 +18,7 @@
         <module>lg-biz-controller</module>
         <module>lg-content-controller</module>
         <module>lg-seckill-controller</module>
+        <module>lg-search-controller</module>
     </modules>
 
     <dependencies>

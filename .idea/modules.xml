@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-biz/lg-biz.iml" filepath="$PROJECT_DIR$/lg-provider/lg-biz/lg-biz.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-biz-api/lg-biz-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-biz-api/lg-biz-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-commons/lg-commons.iml" filepath="$PROJECT_DIR$/lg-commons/lg-commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-content/lg-content.iml" filepath="$PROJECT_DIR$/lg-provider/lg-content/lg-content.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-content-api/lg-content-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-content-api/lg-content-api.iml" />
@@ -14,7 +13,6 @@
       <module fileurl="file://$PROJECT_DIR$/lg-generator/lg-generator.iml" filepath="$PROJECT_DIR$/lg-generator/lg-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-master.iml" filepath="$PROJECT_DIR$/lg-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-obm-controller/lg-obm-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-obm-controller/lg-obm-controller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-obm-controller/lg-obm-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-obm-controller/lg-obm-controller.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-order/lg-order.iml" filepath="$PROJECT_DIR$/lg-provider/lg-order/lg-order.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-order-api/lg-order-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-order-api/lg-order-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-order-controller/lg-order-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-order-controller/lg-order-controller.iml" />
@@ -22,6 +20,9 @@
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-product-api/lg-product-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-product-api/lg-product-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-provider.iml" filepath="$PROJECT_DIR$/lg-provider/lg-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-provider-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-provider-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-search/lg-search.iml" filepath="$PROJECT_DIR$/lg-provider/lg-search/lg-search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-search-api/lg-search-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-search-api/lg-search-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-search-controller/lg-search-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-search-controller/lg-search-controller.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-seckill/lg-seckill.iml" filepath="$PROJECT_DIR$/lg-provider/lg-seckill/lg-seckill.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-seckill-api/lg-seckill-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-seckill-api/lg-seckill-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-seckill-controller/lg-seckill-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-seckill-controller/lg-seckill-controller.iml" />

@@ -18,6 +18,7 @@
         <module>lg-biz-api</module>
         <module>lg-content-api</module>
         <module>lg-seckill-api</module>
+        <module>lg-search-api</module>
     </modules>
 
 

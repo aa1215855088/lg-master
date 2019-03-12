@@ -36,8 +36,4 @@ public class LgContentApplication {
     public static void main(String[] args) {
         SpringApplication.run(LgContentApplication.class, args);
     }
-
-
-
-
 }

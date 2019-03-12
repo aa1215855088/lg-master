@@ -34,6 +34,6 @@ public class UploadServiceImpl implements UploadService {
         UploadUtil uploadUtil = UploadFactory.createUpload(this.accesskey, this.secretKey, this.bucketHostName,
                 this.bucketName);
         String uploadFile = uploadUtil.uploadFile(file.getBytes());
-        return WrapMapper.ok(uploadFile);
+        return WrapMapper.ok("http://"+uploadFile);
     }
 }

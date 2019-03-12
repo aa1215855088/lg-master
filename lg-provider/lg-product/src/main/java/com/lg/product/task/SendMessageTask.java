@@ -5,6 +5,7 @@ import com.lg.commons.base.enums.MSGStatusEnum;
 import com.lg.commons.base.enums.TypeEnum;
 import com.lg.product.model.domain.TMqMessageFailed;
 import com.lg.product.model.domain.TMqMessageLog;
+import com.lg.product.producer.RabbitIndexSender;
 import com.lg.product.producer.RabbitPageSender;
 import com.lg.product.service.TMqMessageFailedService;
 import com.lg.product.service.TMqMessageLogService;
@@ -56,6 +57,9 @@ public class SendMessageTask {
     @Autowired
     private RabbitPageSender rabbitPageSender;
 
+    @Autowired
+    private RabbitIndexSender rabbitIndexSender;
+
     @Scheduled(initialDelay = 3000, fixedDelay = 10000)
     public void reSend() {
         log.info("---------------定时任务开始---------------");
@@ -75,7 +79,11 @@ public class SendMessageTask {
                 msg.setNextRetry(LocalDateTime.now().plusMinutes(Constants.TRY_TIMEOUT));
                 int row = messageLogService.updateTryCount(msg);
                 try {
-                    rabbitPageSender.sendOrder(msg);
+                    if (TypeEnum.CREATE_PAGE.getCode() == msg.getType()) {
+                        rabbitPageSender.sendPage(msg);
+                    } else if (TypeEnum.CREATE_INDEX.getCode() == msg.getType()) {
+                        rabbitIndexSender.sendIndex(msg);
+                    }
                 } catch (Exception e) {
                     log.error("sendOrder mq msg error: ", e);
                     messageLogService.updataNextRetryTimeForNow(msg.getMessageId());

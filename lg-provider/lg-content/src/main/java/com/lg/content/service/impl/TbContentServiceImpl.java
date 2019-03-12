@@ -46,7 +46,7 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
     private Validator validator;
 
     @Autowired
-    private RedisTemplate   redisTemplate;
+    private RedisTemplate redisTemplate;
 
 
     @Override
@@ -57,8 +57,8 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
 
     @Override
     public Wrapper save(TbContent tbContent) {
-        BeanValidators.validateWithException(validator, tbContent,Insert.class);
-        
+        BeanValidators.validateWithException(validator, tbContent, Insert.class);
+
         if (tbContent.getStatus().equals("true")) {
             tbContent.setStatus("1");
         } else {
@@ -97,11 +97,11 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
             tbContent.setStatus("0");
         }
         BeanValidators.validateWithException(validator, tbContent, Update.class);
-        Long categoryId=baseMapper.selectById(tbContent.getId()).getCategoryId();
+        Long categoryId = baseMapper.selectById(tbContent.getId()).getCategoryId();
         redisTemplate.boundHashOps("content").delete(categoryId);
 
         Integer index = this.baseMapper.updateById(tbContent);
-        if (categoryId.longValue()!=tbContent.getCategoryId().longValue()){
+        if (categoryId.longValue() != tbContent.getCategoryId().longValue()) {
             redisTemplate.boundHashOps("content").delete(tbContent.getCategoryId());
         }
 
@@ -123,13 +123,13 @@ public class TbContentServiceImpl extends ServiceImpl<TbContentMapper, TbContent
 
     @Override
     public Wrapper<List<TbContent>> findByCategoryId(Long categoryId) {
-        List<TbContent> list= (List<TbContent>) redisTemplate.boundHashOps("content").get(categoryId);
-        if (list==null){
+        List<TbContent> list = (List<TbContent>) redisTemplate.boundHashOps("content").get(categoryId);
+        if (list == null) {
             System.out.println("从数据库中查新并放到缓存");
             list = this.baseMapper.selectList(new QueryWrapper<TbContent>().eq("category_id", categoryId)
-                    .eq("status","1"));
-            redisTemplate.boundHashOps("content").put(categoryId,list);
-        }else {
+                    .eq("status", "1"));
+            redisTemplate.boundHashOps("content").put(categoryId, list);
+        } else {
             System.out.println("从缓存中查询数据");
         }
         return WrapMapper.ok(list);

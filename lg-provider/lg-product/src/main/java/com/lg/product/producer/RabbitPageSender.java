@@ -45,7 +45,7 @@ public class RabbitPageSender {
     private TMqMessageLogService mqMessageLogService;
 
     //发送消息方法调用: 构建自定义对象消息
-    public void sendOrder(TMqMessageLog message) throws Exception {
+    public void sendPage(TMqMessageLog message) throws Exception {
         rabbitTemplate.setConfirmCallback(confirmCallback);
         rabbitTemplate.setReturnCallback(returnCallback);
 
