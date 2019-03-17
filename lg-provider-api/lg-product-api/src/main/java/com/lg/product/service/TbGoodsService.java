@@ -63,7 +63,7 @@ public interface TbGoodsService extends IService<TbGoods> {
      * @param goodsVo
      * @return
      */
-    Wrapper<PageVO<Goods>> search(Integer pageNum, Integer pageSize, GoodsVO goodsVo);
+    Wrapper<PageVO<Goods>> search(Integer pageNum, Integer pageSize, GoodsVO goodsVo,String username);
 
 
     /**

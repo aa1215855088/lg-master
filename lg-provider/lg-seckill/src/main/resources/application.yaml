@@ -14,7 +14,7 @@ spring:
   datasource:
     url: jdbc:mysql://cdb-dzs2o6lc.cd.tencentcdb.com:10018/pinyougoudb
     username: root
-    password: root
+    password: liu20000406
     driver-class-name: com.mysql.jdbc.Driver
     ###################以下为druid增加的配置###########################
     type: com.alibaba.druid.pool.DruidDataSource
@@ -39,15 +39,32 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
   application:
     name: lg-order-service
-  redis:
-    url: 127.0.0.1
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    #    支持发布确认
+    publisher-confirms: true
+    #    支持发布返回
+    publisher-returns: true
+    listener:
+      simple:
+        #      采用手动应答
+        acknowledge-mode: manual
+        #        当前监听容器数
+        concurrency: 1
+        #        最大数
+        max-concurrency: 1
+        #        是否支持重试
+        retry:
+          enabled: false
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
   # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.lg.product.model.domain
+  typeAliasesPackage: com.lg.seckill.model.domain
   global-config:
     db-config:
       #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";

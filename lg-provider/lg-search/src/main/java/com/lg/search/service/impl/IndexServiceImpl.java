@@ -41,7 +41,7 @@ import java.util.List;
 public class IndexServiceImpl implements IndexService {
     @Autowired
     private ItemSearchRepository itemSearchRepository;
-//    @Reference(version = "1.0.0")
+    @Reference(version = "1.0.0")
     private TbItemService tbItemService;
 
     @Override

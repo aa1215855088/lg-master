@@ -1,8 +1,9 @@
 package com.lg.seckill;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.context.annotation.Bean;
 
 /**
  * ┏┓　　　┏┓
@@ -29,10 +30,14 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
  * @create: 2019-02-22 09:23
  **/
 @SpringBootApplication
-@EnableHystrix
 public class LgSeckillApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LgSeckillApplication.class, args);
+    }
+
+    @Bean
+    public Queue seckillMsg() {
+        return new Queue("seckillMsg");
     }
 }

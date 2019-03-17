@@ -1,6 +1,7 @@
 package com.lg.order.web.config;
 
 import com.lg.order.web.cas.CasProperties;
+import com.lg.order.web.filter.BeforeLoginFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.validation.Cas20ServiceTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -79,18 +81,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CasProperties casProperties;
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //解决静态资源被拦截的问题
+        web.ignoring().antMatchers("/order");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()//配置安全策略
-                .antMatchers("/login").permitAll()//定义/请求不需要验证
-                .anyRequest().authenticated()//其余的所有请求都需要验证
+        http.csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("/order/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .logout()
-                .permitAll()//定义logout不需要验证
+                .permitAll()
                 .and()
-                .formLogin();//使用form表单登录
-
+                .formLogin();
+//        http.addFilterBefore(new BeforeLoginFilter());
         http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
                 .and()
                 .addFilter(casAuthenticationFilter())

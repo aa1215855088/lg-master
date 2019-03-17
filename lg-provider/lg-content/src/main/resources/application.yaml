@@ -60,4 +60,4 @@ mybatis-plus:
     cache-enabled: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8005
+  port: 8055

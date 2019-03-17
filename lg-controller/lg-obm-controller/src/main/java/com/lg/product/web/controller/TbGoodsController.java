@@ -134,7 +134,7 @@ public class TbGoodsController extends BaseController {
         logger.info("商品列表搜索,{},{},{}", page, rows, goods);
 
 
-        return this.tbGoodsService.search(page, rows, goods);
+        return this.tbGoodsService.search(page, rows, goods,null);
     }
 
     @PostMapping(value = "/shield/{id}")

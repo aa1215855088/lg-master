@@ -61,19 +61,27 @@ app.controller("itemController", function ($scope, $http) {
         }
         $scope.sku = {id: 0, title: '-----', price: 0};
     }
-
+    $scope.username = "";
+    $scope.isLogin = function () {
+        $http.get("http://localhost:9090/me").success(function (res) {
+            $scope.user = res;
+            if (res.code == "200") {
+                $scope.username = res.result;
+            }
+        })
+    }
     //添加商品到购物车
     $scope.addToCart = function () {
         //alert('SKUID:'+$scope.sku.id );
-
-        $http.get('http://localhost:9107/cart/addGoodsToCartList.do?itemId='
-            + $scope.sku.id + '&num=' + $scope.num, {'withCredentials': true}).success(
+        $http.post('http://localhost:8083/cart/addGoodsToCartList?itemId=' + $scope.sku.id
+            + "&num=" + $scope.num + "&username=" + $scope.username).success(
             function (response) {
-                if (response.success) {
-                    location.href = 'http://localhost:9107/cart.html';
+                if (response.code = "200") {
+                    window.location.href = "http://localhost:8083/cart"
                 } else {
-                    alert(response.message);
+                    layer.msg(response.message)
                 }
+
             }
         );
     }

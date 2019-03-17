@@ -62,7 +62,12 @@ app.controller('userController', function ($scope, userService) {
         userService.add($scope.user).success(
             function (response) {
                 if (response.code == "200") {
-                    layer.msg("添加用户成功")
+                    layer.msg("注册成功!", {
+                        icon: 1,
+                        time: 2000
+                    }, function () {
+                        window.history.back(-1);
+                    })
                 } else {
                     layer.msg(response.message);
                 }

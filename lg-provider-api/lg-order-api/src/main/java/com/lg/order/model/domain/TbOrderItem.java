@@ -3,6 +3,9 @@ package com.lg.order.model.domain;
 import java.io.Serializable;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -26,6 +29,7 @@ public class TbOrderItem extends Model<TbOrderItem> implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id",type = IdType.INPUT)
 	private Long id;
     /**
      * 商品id
@@ -64,6 +68,7 @@ public class TbOrderItem extends Model<TbOrderItem> implements Serializable{
      */
 	@TableField("pic_path")
 	private String picPath;
+
 	@TableField("seller_id")
 	private String sellerId;
 

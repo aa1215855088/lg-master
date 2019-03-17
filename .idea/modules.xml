@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/lg-admin/lg-admin.iml" filepath="$PROJECT_DIR$/lg-admin/lg-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider/lg-biz/lg-biz.iml" filepath="$PROJECT_DIR$/lg-provider/lg-biz/lg-biz.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-provider-api/lg-biz-api/lg-biz-api.iml" filepath="$PROJECT_DIR$/lg-provider-api/lg-biz-api/lg-biz-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" filepath="$PROJECT_DIR$/lg-controller/lg-biz-controller/lg-biz-controller.iml" />

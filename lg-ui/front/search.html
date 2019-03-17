@@ -30,19 +30,18 @@
     <!--顶部-->
     <div class="nav-top">
         <div class="top">
-            <div class="py-container">
+            <div class="py-container" ng-init="isLogin()">
                 <div class="shortcut">
-                    <ul class="fl">
+                    <ul class="fl" ng-if="user.code!=200" >
                         <li class="f-item">品优购欢迎您！</li>
-                        <li class="f-item">请
-                            <a href="login.html" target="_blank">登录</a>　<span><a href="register.html" target="_blank">免费注册</a></span></li>
+                        <li class="f-item">请<a href="http://localhost:8080/cas/login?service=http://localhost/front/"
+                                               target="_blank">登录</a>
+                            　<span><a href="register.html" target="_blank">免费注册</a></span></li>
                     </ul>
-                    <ul class="fr">
+                    <ul class="fr" ng-if="user.code==200">
                         <li class="f-item">我的订单</li>
                         <li class="f-item space"></li>
-                        <li class="f-item">
-                            <a href="home.html" target="_blank">我的品优购</a>
-                        </li>
+                        <li class="f-item"><a href="home.html" target="_blank">我的品优购</a></li>
                         <li class="f-item space"></li>
                         <li class="f-item">品优购会员</li>
                         <li class="f-item space"></li>
@@ -53,18 +52,10 @@
                         <li class="f-item" id="service">
                             <span>客户服务</span>
                             <ul class="service">
-                                <li>
-                                    <a href="cooperation.html" target="_blank">合作招商</a>
-                                </li>
-                                <li>
-                                    <a href="shoplogin.html" target="_blank">商家后台</a>
-                                </li>
-                                <li>
-                                    <a href="cooperation.html" target="_blank">合作招商</a>
-                                </li>
-                                <li>
-                                    <a href="#">商家后台</a>
-                                </li>
+                                <li><a href="cooperation.html" target="_blank">合作招商</a></li>
+                                <li><a href="shoplogin.html" target="_blank">商家后台</a></li>
+                                <li><a href="cooperation.html" target="_blank">合作招商</a></li>
+                                <li><a href="#">商家后台</a></li>
                             </ul>
                         </li>
                         <li class="f-item space"></li>
@@ -108,7 +99,7 @@
                         <div class="fr shopcar">
                             <div class="show-shopcar" id="shopcar">
                                 <span class="car"></span>
-                                <a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+                                <a class="sui-btn btn-default btn-xlarge" href="http://localhost:8083/cart" target="_blank">
                                     <span>我的购物车</span>
                                     <i class="shopnum">0</i>
                                 </a>
@@ -310,7 +301,7 @@
                                 <i class="command">已有2000人评价</i>
                             </div>
                             <div class="operate">
-                                <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                                <a  ng-click="addToCart(item.goodsId)" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
                                 <a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
                                 <a href="javascript:void(0);" class="sui-btn btn-bordered">关注</a>
                             </div>

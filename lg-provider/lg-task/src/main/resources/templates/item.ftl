@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/pages-item.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-zoom.css" />
     <link rel="stylesheet" type="text/css" href="css/widget-cartPanelView.css" />
-    
+
     <script type="text/javascript" src="plugins/angularjs/angular.min.js"> </script>
     <script type="text/javascript" src="js/base.js"> </script>
     <script type="text/javascript" src="js/controller/itemController.js"> </script>
@@ -25,9 +26,9 @@
              price:${item.price?c},
              spec:${item.spec}
            } ,
-          </#list>   
+          </#list>
         ];
-        
+
     </script>
 </head>
 
@@ -56,7 +57,7 @@
 					</li>
 					<li>
 						<a href="#">${itemCat3}</a>
-					</li>	
+					</li>
 					<li class="active">
                         {{sku.title}}
                     </li>
@@ -141,26 +142,26 @@
 					<div class="clearfix choose">
 						<div id="specification" class="summary-wrap clearfix">
 							<#list specificationList as spec>
-							
+
 							  <dl>
 								<dt>
 									<div class="fl title">
 									<i>${spec.attributeName}</i>
 								</div>
 								</dt>
-								
+
 								<#list spec.attributeValue as item>
-								  <dd><a href="javascript:;" 
-								        class="{{isSelected('${spec.attributeName}','${item}')?'selected':''}}" 
+								  <dd><a href="javascript:;"
+								        class="{{isSelected('${spec.attributeName}','${item}')?'selected':''}}"
 								        ng-click="selectSpecification('${spec.attributeName}','${item}')">${item}
 								        <span title="点击取消选择">&nbsp;</span>
 								        </a></dd>
 								</#list>
 							  </dl>
 							</#list>
-							
+
 						</div>
-					
+
 						<div class="summary-wrap">
 							<div class="fl title">
 								<div class="control-group">

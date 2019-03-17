@@ -11,6 +11,9 @@ import com.lg.user.service.TbUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -32,10 +35,12 @@ public class TbUserController extends BaseController {
     @Reference(version = "1.0.0")
     private TbUserService tbUserService;
 
-    @GetMapping("/info")
+    @GetMapping("/me")
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
-    public Principal user(Principal principal) {
-        return principal;
+    public Wrapper user() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("获取用户信息:{}",authentication.getName());
+        return WrapMapper.ok(authentication.getName());
     }
 
     @PostMapping("/register")

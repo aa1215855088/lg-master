@@ -49,9 +49,9 @@ public class TbGoodsController extends BaseController {
 
     @GetMapping(value = "findAll")
     @ApiOperation(httpMethod = "GET", value = "查询所有")
-    public Wrapper<List<TbGoods>> findAll() {
+    public Wrapper<List<TbGoods>> findAll(Principal principal) {
         logger.info("商家查询");
-        List<TbGoods> list = this.tbGoodsService.selectList(new QueryWrapper<TbGoods>());
+        List<TbGoods> list = this.tbGoodsService.selectList(new QueryWrapper<TbGoods>().eq("seller_id",principal.getName()));
         return WrapMapper.ok(list);
     }
 
@@ -87,11 +87,11 @@ public class TbGoodsController extends BaseController {
     @PostMapping(value = "/search")
     @ApiOperation(httpMethod = "POST", value = "商品列表搜索")
     public Wrapper<PageVO<Goods>> search(@RequestBody(required = false) @ApiParam(name = "searchEntity", value = "条件")
-                                                 GoodsVO goods, Integer page, Integer rows) {
+                                                 GoodsVO goods, Integer page, Integer rows,Principal principal) {
 
         logger.info("商品列表搜索,{},{},{}", page, rows, goods);
 
-        return this.tbGoodsService.search(page, rows, goods);
+        return this.tbGoodsService.search(page, rows, goods,principal.getName());
     }
 
     @PostMapping(value = "/shield/{id}")

@@ -3,6 +3,8 @@ package com.lg.order.model.domain;
 import java.io.Serializable;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -31,7 +33,7 @@ public class TbOrder extends Model<TbOrder> {
     /**
      * 订单id
      */
-    @TableId("order_id")
+    @TableId(value = "order_id",type = IdType.INPUT)
 	private Long orderId;
     /**
      * 实付金额。精确到2位小数;单位:元。如:200.07，表示:200元7分

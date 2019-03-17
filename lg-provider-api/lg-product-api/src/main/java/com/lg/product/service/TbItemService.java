@@ -29,4 +29,12 @@ public interface TbItemService extends IService<TbItem> {
 
     List<TbItem> findByGoodIds(List<Long> goodsIds);
 
+
+    /**
+     * 判断商品库存是否足够并且扣减
+     * @param itemId
+     * @param num
+     * @return
+     */
+    Wrapper checkItemNumEnoughAndDecr(Long itemId, Integer num);
 }

@@ -137,7 +137,6 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
                 log.error("sendPage mq msg error: ", e);
                 tMqMessageLogMapper.updataNextRetryTimeForNow(pageMsg.getMessageId());
             }
-
             try {
                 rabbitIndexSender.sendIndex(indexMsg);
             } catch (Exception e) {
@@ -225,7 +224,7 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
      * @return
      */
     @Override
-    public Wrapper<PageVO<Goods>> search(Integer pageNum, Integer pageSize, GoodsVO goodsVo) {
+    public Wrapper<PageVO<Goods>> search(Integer pageNum, Integer pageSize, GoodsVO goodsVo, String username) {
         if (pageNum == null || pageNum == 0) {
             pageNum = 1;
         }
@@ -238,7 +237,8 @@ public class TbGoodsServiceImpl extends ServiceImpl<TbGoodsMapper, TbGoods> impl
                 new Page<>(pageNum, pageSize),
                 new QueryWrapper<TbGoods>()
                         .eq(StrUtil.isNotBlank(goodsVo.getAuditStatus()), "audit_status", goodsVo.getAuditStatus())
-                        .like(StrUtil.isNotBlank(goodsVo.getGoodsName()), "goods_name", goodsVo.getGoodsName()));
+                        .like(StrUtil.isNotBlank(goodsVo.getGoodsName()), "goods_name", goodsVo.getGoodsName())
+                        .eq(StrUtil.isNotBlank(username), "seller_id", username));
         List<TbGoods> records = iPage.getRecords();
         if (records == null) {
             return WrapMapper.ok();

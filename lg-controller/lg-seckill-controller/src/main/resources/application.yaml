@@ -6,7 +6,28 @@ server:
 
 spring:
   application:
-    name: lg-product-controller
+    name: lg-seckill-controller
+##CAS服务地址
+cas:
+  server:
+    host:
+      #CAS服务登录地址
+      url: http://localhost:8080/cas
+      #CAS服务登出地址
+      login_url: ${cas.server.host.url}/login
+      #应用访问地址
+      logout_url: ${cas.server.host.url}/logout?service=http://localhost/front/index.html
+
+app:
+  server:
+    host:
+      url: http://localhost:8086
+  #应用登录地址
+  login:
+    url: /login
+  #应用登出地址
+  logout:
+    url: /logout
 
 dubbo:
   registry:

@@ -11,6 +11,7 @@
         <module>lg-provider-api</module>
         <module>lg-controller</module>
         <module>lg-generator</module>
+        <module>lg-admin</module>
     </modules>
 
     <parent>
@@ -46,6 +47,10 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <alibaba-spring-context-support.version>1.0.2</alibaba-spring-context-support.version>
         <jackson.version>2.9.7</jackson.version>
+        <alibaba-spring-context-support.version>1.0.2</alibaba-spring-context-support.version>
+        <brave.version>5.4.2</brave.version>
+        <zipkin-reporter.version>2.7.9</zipkin-reporter.version>
+        <sentinel-transport-simple-http.version>1.4.2</sentinel-transport-simple-http.version>
     </properties>
 
 
@@ -65,6 +70,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
@@ -180,6 +187,33 @@
             </dependency>
 
 
+            <!-- 引入 zipkin brave 的 BOM 文件 -->
+            <dependency>
+                <groupId>io.zipkin.brave</groupId>
+                <artifactId>brave-bom</artifactId>
+                <version>${brave.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 引入 zipkin repoter 的 BOM 文件 -->
+            <dependency>
+                <groupId>io.zipkin.reporter2</groupId>
+                <artifactId>zipkin-reporter-bom</artifactId>
+                <version>${zipkin-reporter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-transport-simple-http</artifactId>
+                <version>1.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-dubbo-adapter</artifactId>
+                <version>1.4.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
